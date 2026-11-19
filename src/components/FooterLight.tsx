@@ -26,7 +26,7 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="mailto:alwinvarghese229@gmail.com"
+                                href="mailto:alwin.varghese.saji@gmail.com"
                                 aria-label="Send email to Alwin"
                                 className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-black/[0.04] active:scale-95 transition-all duration-200"
                             >
