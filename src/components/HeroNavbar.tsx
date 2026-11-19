@@ -39,7 +39,7 @@ function NavbarContent({ activeSection, scrollToSection }: NavbarContentProps) {
     return (
         <div className="flex items-center justify-between w-full min-h-[56px] sm:min-h-[60px]">
             {/* ── Left: Permanent Brand Logo & Live Spotify Listening Widget ── */}
-            <div className="flex items-center gap-3.5 min-h-[56px] sm:min-h-[60px] shrink-0">
+            <div className="flex items-center gap-7 min-h-[56px] sm:min-h-[60px] shrink-0">
                 <a
                     href="#home"
                     onClick={(e) => scrollToSection(e, "home")}
