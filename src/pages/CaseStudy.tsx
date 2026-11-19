@@ -17,7 +17,6 @@ const getCaseStudyData = (id: string | undefined) => {
             title: "Tumbledry",
             subtitle: "Reimagining the laundry pickup experience.",
             description: "improving booking clarity, service selection, and the overall user experience.",
-            tags: ["User Flows", "Wireframes", "UX Research", "Prototyping", "UI Design"],
             mediaUrl: ShowreelVideo,
             content: "This is the placeholder content for the TumbleDry case study. It will detail the process of redesigning the laundry service platform.",
             image: TumbleDry,
@@ -27,7 +26,6 @@ const getCaseStudyData = (id: string | undefined) => {
             title: "Wander",
             subtitle: "Outdoor adventure planning platform",
             description: "Built a platform to help people plan outdoor adventures with personalized suggestions and simple trip management.",
-            tags: ["User Flows", "Wireframes", "UX Research", "Prototyping", "UI Design"],
             mediaUrl: DribbbleShot,
             content: "This is the placeholder content for the Wander case study. It describes the platform built to help people plan outdoor adventures.",
             image: Wander,
@@ -96,36 +94,16 @@ export default function CaseStudy() {
                 </header>
 
                 {/* ── Case Study Hero Header ── */}
-                <div className="flex flex-col gap-4 max-w-[800px] mx-auto w-full pt-8 sm:pt-12">
-                    <div className="flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-black/[0.04] border border-black/[0.06] text-[11px] sm:text-xs font-semibold text-[#666] tracking-wider uppercase">
-                            Case Study
-                        </span>
-                    </div>
+                <div className="flex flex-col gap-2 max-w-[800px] mx-auto w-full pt-8 sm:pt-12">
+                    <h1 className="type-page-heading text-[#1A1A1A]">
+                        {data.title}
+                    </h1>
 
-                    <div className="flex flex-col gap-2">
-                        <h1 className="type-page-heading text-[#1A1A1A]">
-                            {data.title}
-                        </h1>
-
-                        {data.subtitle && (
-                            <p className="type-subheading text-[18px] sm:text-[21px] text-[#555] font-normal leading-snug max-w-[700px] mt-1">
-                                {data.subtitle}
-                            </p>
-                        )}
-
-                        {/* Metadata Tag Pills */}
-                        <div className="flex flex-wrap gap-2 pt-3">
-                            {data.tags.map((tag) => (
-                                <span
-                                    key={tag}
-                                    className="px-3 py-1 bg-black/[0.035] hover:bg-black/[0.06] text-[#222] text-[12px] sm:text-[13px] font-medium rounded-full border border-black/[0.06] transition-colors"
-                                >
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
+                    {data.subtitle && (
+                        <p className="type-subheading text-[18px] sm:text-[21px] text-[#555] font-normal leading-snug max-w-[700px] mt-1">
+                            {data.subtitle}
+                        </p>
+                    )}
 
                     {/* ── Hero Media Showcase (LCP candidate, high fetchpriority per modern-web-guidance) ── */}
                     <div className="w-full mt-4 sm:mt-6 aspect-[16/10] rounded-[22px] md:rounded-[26px] overflow-hidden bg-[#FAFAFA] border-0 shadow-none relative">
