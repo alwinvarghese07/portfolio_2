@@ -26,13 +26,13 @@ export default function Home() {
             {/* Main Content Container — 864px max-width matches the 800px card + 32px side padding */}
             <main className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
                 
-                {/* ── First Screen Hero: Calibrated so exactly half (250px) of the 800x500 first card peeks above the fold ── */}
-                <div id="home" className="h-[calc(100dvh-160px)] sm:h-[calc(100vh-210px)] md:h-[calc(100vh-295px)] min-h-[340px] flex flex-col justify-between">
-                    <header className="shrink-0">
+                {/* ── First Screen Hero: Calibrated so the first card peeks naturally above the fold without vertically crushing the navbar or hero ── */}
+                <div id="home" className="min-h-[calc(100dvh-160px)] sm:min-h-[calc(100vh-210px)] md:min-h-[calc(100vh-280px)] flex flex-col justify-between">
+                    <header className="shrink-0 w-full z-20">
                         <HeroNavbar />
                     </header>
 
-                    <section className="flex-1 flex flex-col justify-center">
+                    <section className="flex-1 flex flex-col justify-center py-4">
                         <HeroSection />
                     </section>
                 </div>

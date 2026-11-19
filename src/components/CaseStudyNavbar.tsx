@@ -140,23 +140,26 @@ export default function CaseStudyNavbar({ title }: CaseStudyNavbarProps) {
     const [isFloating, setIsFloating] = useState(false);
     const originalNavbarRef = useRef<HTMLDivElement>(null);
 
-    // Intersection Observer to detect when the original navbar leaves the viewport
+    // Synchronize floating navbar trigger with scroll position
     useEffect(() => {
-        const el = originalNavbarRef.current;
-        if (!el) return;
+        const updateNavbarState = () => {
+            const scrollY = window.scrollY || 0;
+            setIsFloating(scrollY > 40);
+        };
 
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setIsFloating(!entry.isIntersecting);
-            },
-            {
-                root: null,
-                threshold: 0,
-            }
-        );
+        window.addEventListener("scroll", updateNavbarState, { passive: true });
+        updateNavbarState();
 
-        observer.observe(el);
-        return () => observer.disconnect();
+        const lenis = (window as unknown as { lenis?: { on: (event: string, cb: () => void) => () => void } }).lenis;
+        let unsubscribeLenis: (() => void) | undefined;
+        if (lenis && typeof lenis.on === "function") {
+            unsubscribeLenis = lenis.on("scroll", updateNavbarState);
+        }
+
+        return () => {
+            window.removeEventListener("scroll", updateNavbarState);
+            if (unsubscribeLenis) unsubscribeLenis();
+        };
     }, []);
 
     const isReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -164,11 +167,14 @@ export default function CaseStudyNavbar({ title }: CaseStudyNavbarProps) {
     return (
         <>
             {/* ── 1. Original Navbar (In normal document flow, blends naturally at top of case study) ── */}
-            <div ref={originalNavbarRef} className="w-full">
+            <div
+                ref={originalNavbarRef}
+                className={`w-full transition-opacity duration-200 ${isFloating ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            >
                 <motion.nav
-                    initial={{ opacity: 0, y: -12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     className="w-full pt-6 md:pt-8"
                 >
                     <CaseStudyNavbarContent title={title} />

@@ -13,6 +13,11 @@ function ScrollManager() {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    // 1. Force manual scroll restoration so browsers do not inject native scroll offset
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
     const lenis = new Lenis({
       duration: 1.8,
       easing: (t: number) => 1 - Math.pow(1 - t, 4),
@@ -21,6 +26,12 @@ function ScrollManager() {
     });
     lenisRef.current = lenis;
     (window as unknown as { lenis: Lenis | null }).lenis = lenis;
+
+    // Guarantee fresh load starts at exact top
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+      lenis.scrollTo(0, { immediate: true });
+    }
 
     function raf(time: number) {
       lenis.raf(time);
@@ -43,35 +54,34 @@ function ScrollManager() {
           t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
         if (id === "home") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
           if (lenisRef.current) {
             lenisRef.current.scrollTo(0, {
               duration: 1.0,
               easing: easeInOutCubic,
             });
-          } else {
-            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         } else {
-          const el = document.getElementById(id);
+          const el = document.getElementById(id) || (id === "works" ? document.getElementById("projects-section") : null);
           if (el) {
             if (lenisRef.current) {
               lenisRef.current.scrollTo(el, {
-                offset: -32,
+                offset: -80,
                 duration: 1.0,
                 easing: easeInOutCubic,
               });
             } else {
-              el.scrollIntoView({ behavior: "smooth" });
+              const y = el.getBoundingClientRect().top + window.scrollY - 80;
+              window.scrollTo({ top: y, behavior: "smooth" });
             }
           }
         }
       }, 150);
       return () => clearTimeout(timer);
     } else {
+      window.scrollTo(0, 0);
       if (lenisRef.current) {
         lenisRef.current.scrollTo(0, { immediate: true });
-      } else {
-        window.scrollTo(0, 0);
       }
     }
   }, [location.pathname, location.hash]);

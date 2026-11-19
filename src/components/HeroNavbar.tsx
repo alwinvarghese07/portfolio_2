@@ -154,32 +154,15 @@ export default function HeroNavbar() {
     const [isFloating, setIsFloating] = useState(false);
     const originalNavbarRef = useRef<HTMLDivElement>(null);
 
-    // Intersection Observer to detect when the original navbar leaves the viewport
+    // Scroll spy for updating active navigation state and floating navbar trigger
     useEffect(() => {
-        const el = originalNavbarRef.current;
-        if (!el) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                // When original navbar is no longer intersecting, trigger the floating glass navbar
-                setIsFloating(!entry.isIntersecting);
-            },
-            {
-                root: null,
-                threshold: 0,
-            }
-        );
-
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
-
-    // Scroll spy for updating active navigation state
-    useEffect(() => {
-        const updateActiveSection = () => {
+        const updateNavbarAndScrollState = () => {
             const scrollY = window.scrollY || 0;
             const windowHeight = window.innerHeight;
             const docHeight = document.documentElement.scrollHeight;
+
+            // Float the liquid-glass navbar smoothly when scrolling past initial top margin (~40px)
+            setIsFloating(scrollY > 40);
 
             // Reached near bottom of page (About / Footer)
             if (windowHeight + scrollY >= docHeight - 70) {
@@ -213,18 +196,18 @@ export default function HeroNavbar() {
             setActiveSection("home");
         };
 
-        window.addEventListener("scroll", updateActiveSection, { passive: true });
-        updateActiveSection();
+        window.addEventListener("scroll", updateNavbarAndScrollState, { passive: true });
+        updateNavbarAndScrollState();
 
         // Also subscribe to Lenis scroll event if available
         const lenis = (window as unknown as { lenis?: { on: (event: string, cb: () => void) => () => void } }).lenis;
         let unsubscribeLenis: (() => void) | undefined;
         if (lenis && typeof lenis.on === "function") {
-            unsubscribeLenis = lenis.on("scroll", updateActiveSection);
+            unsubscribeLenis = lenis.on("scroll", updateNavbarAndScrollState);
         }
 
         return () => {
-            window.removeEventListener("scroll", updateActiveSection);
+            window.removeEventListener("scroll", updateNavbarAndScrollState);
             if (unsubscribeLenis) unsubscribeLenis();
         };
     }, []);
@@ -296,11 +279,14 @@ export default function HeroNavbar() {
     return (
         <>
             {/* ── 1. Original Navbar (In normal document flow, blends naturally at top of page) ── */}
-            <div ref={originalNavbarRef} className="w-full">
+            <div
+                ref={originalNavbarRef}
+                className={`w-full transition-opacity duration-200 ${isFloating ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            >
                 <motion.nav
-                    initial={{ opacity: 0, y: -12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     className="w-full pt-6 md:pt-8"
                 >
                     <NavbarContent activeSection={activeSection} scrollToSection={scrollToSection} />
