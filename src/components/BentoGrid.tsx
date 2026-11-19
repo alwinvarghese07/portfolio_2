@@ -52,13 +52,14 @@ export default function BentoGrid() {
     const freezerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div className="w-full max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[1.15fr_0.85fr] gap-4 h-auto lg:h-[560px]">
+        <div className="w-full max-w-[800px] mx-auto flex flex-col gap-3 sm:gap-4">
+            {/* ── Top Block: Left (Profile) + Right (Shelf on top, Tools & Whiteboard on bottom) ── */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch">
 
-                {/* 1. PROFILE */}
+                {/* 1. PROFILE (Left Column - spans full height of the top block) */}
                 <div
                     data-cursor="Yep, that's me"
-                    className="rounded-xl overflow-hidden hover:scale-[1.02] transition-transform duration-500 h-[350px] md:h-[300px] lg:h-full md:col-start-1 md:row-start-1 md:col-span-1 md:row-span-1 lg:col-start-1 lg:row-start-1 lg:col-span-1 lg:row-span-2"
+                    className="w-full sm:w-[35%] h-[360px] sm:h-auto min-h-[300px] rounded-2xl overflow-hidden hover:scale-[1.01] transition-transform duration-500 shrink-0"
                 >
                     <img
                         src={profile}
@@ -68,86 +69,91 @@ export default function BentoGrid() {
                     />
                 </div>
 
-                {/* 3. SHELF (Replaces Board Games) */}
-                <div
-                    data-cursor="My interests"
-                    className="hidden md:block w-full rounded-xl overflow-hidden h-[250px] md:h-[300px] lg:h-full p-0 m-0 md:col-start-2 md:row-start-1 md:col-span-1 md:row-span-1 lg:col-start-3 lg:col-span-2 lg:row-start-1 lg:row-span-1"
-                >
-                    <Suspense fallback={<div className="w-full h-full bg-white/5" />}>
-                        <Shelf />
-                    </Suspense>
-                </div>
+                {/* ── Right Column: Shelf on top, Tools + Whiteboard on bottom ── */}
+                <div className="w-full sm:w-[65%] flex flex-col gap-3 sm:gap-4 flex-1">
 
-                {/* 4. SPOTIFY EMBED */}
-                <div
-                    data-cursor="On Loop"
-                    className="hidden md:block overflow-hidden rounded-3xl hover:scale-[1.02] transition-transform duration-500 h-[152px] lg:h-full md:col-start-1 md:col-span-2 md:row-start-3 md:row-span-1 lg:col-start-2 lg:col-span-2 lg:row-start-2 lg:row-span-1"
-                >
-                    <LazyIframe
-                        src="https://open.spotify.com/embed/playlist/2CcAzDF4uZapVsEA2Xlo1w?utm_source=generator&theme=1"
-                        className="relative w-full h-full overflow-hidden"
-                        style={{ minHeight: '152px' }}
-                        iframeStyle={{
-                            border: "0",
-                            position: "absolute",
-                            top: "0",
-                            left: "0",
-                            width: "63.3%",
-                            height: "152px",
-                            transform: "scale(1.58)",
-                            transformOrigin: "top left",
-                        }}
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        rootMargin="300px"
-                    />
-                </div>
+                    {/* 2. SHELF (Top Right - full width of right column) */}
+                    <div
+                        data-cursor="My interests"
+                        className="w-full h-[180px] sm:h-[210px] rounded-2xl overflow-hidden p-0 m-0 border-0 shadow-none bg-[#FAFAFA]"
+                    >
+                        <Suspense fallback={<div className="w-full h-full bg-[#FAFAFA]" />}>
+                            <Shelf />
+                        </Suspense>
+                    </div>
 
-                {/* 6. FREEZER - Interactive Sticky Notes */}
-                <div
-                    ref={freezerRef}
-                    data-cursor="Drag around the notes"
-                    className="hidden md:block relative overflow-hidden group h-[250px] lg:h-full md:col-start-2 md:row-start-2 md:col-span-1 md:row-span-1 lg:col-start-4 lg:row-start-2 lg:col-span-1 lg:row-span-1 rounded-xl"
-                >
-                    {/* Whiteboard Background Image */}
-                    <img
-                        src={whiteboard}
-                        alt="Whiteboard"
-                        loading="lazy"
-                        decoding="async"
-                        className="absolute inset-0 w-full h-full object-fill pointer-events-none"
-                    />
+                    {/* ── Bottom row of right column: HyperGlass + Whiteboard ── */}
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full h-[180px] sm:h-[210px]">
 
-                    {/* Content Layer (Sticky Notes) */}
-                    <div className="relative z-10 w-full h-full">
-                        <StickyNote
-                            text="Hey There!"
-                            color="bg-[#DCFCE7]"
-                            rotation={-2}
-                            position={{ x: 20, y: 120 }}
-                            constraintsRef={freezerRef}
-                        />
-                        <StickyNote
-                            text="Product Designer"
-                            color="bg-[#FCE7F3]"
-                            rotation={4}
-                            position={{ x: 140, y: 130 }}
-                            constraintsRef={freezerRef}
-                        />
+                        {/* 3. HYPER-REALISTIC GLASS CORE (Tools I use) */}
+                        <div
+                            data-cursor="Tools i use"
+                            className="w-full h-full overflow-hidden rounded-2xl bg-[#FAFAFA]"
+                        >
+                            <Suspense fallback={<div className="w-full h-full bg-[#FAFAFA]" />}>
+                                <HyperGlass />
+                            </Suspense>
+                        </div>
+
+                        {/* 4. FREEZER - Interactive Sticky Notes */}
+                        <div
+                            ref={freezerRef}
+                            data-cursor="Drag around the notes"
+                            className="relative overflow-hidden group w-full h-full rounded-2xl border-0 shadow-none bg-[#FAFAFA]"
+                        >
+                            {/* Whiteboard Background Image */}
+                            <img
+                                src={whiteboard}
+                                alt="Whiteboard"
+                                loading="lazy"
+                                decoding="async"
+                                className="absolute inset-0 w-full h-full object-fill pointer-events-none"
+                            />
+
+                            {/* Content Layer (Sticky Notes) */}
+                            <div className="relative z-10 w-full h-full">
+                                <StickyNote
+                                    text="Hey There!"
+                                    color="bg-[#DCFCE7]"
+                                    rotation={-2}
+                                    position={{ x: 16, y: 75 }}
+                                    constraintsRef={freezerRef}
+                                />
+                                <StickyNote
+                                    text="Product Designer"
+                                    color="bg-[#FCE7F3]"
+                                    rotation={4}
+                                    position={{ x: 105, y: 85 }}
+                                    constraintsRef={freezerRef}
+                                />
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                {/* 7. HYPER-REALISTIC GLASS CORE (Replaces Static Notes) */}
-                <div
-                    data-cursor="Tools i use"
-                    className="hidden md:block h-[250px] lg:h-full overflow-hidden md:col-start-1 md:row-start-2 md:col-span-1 md:row-span-1 lg:col-start-2 lg:row-start-1 lg:col-span-1 lg:row-span-1 rounded-xl"
-                >
-                    <Suspense fallback={<div className="w-full h-full bg-white/5" />}>
-                        <HyperGlass />
-                    </Suspense>
-                </div>
-
             </div>
+
+            {/* ── Bottom Block: Spotify Embed (Full Width) ── */}
+            <LazyIframe
+                data-cursor="On Loop"
+                src="https://open.spotify.com/embed/playlist/2CcAzDF4uZapVsEA2Xlo1w?utm_source=generator&theme=1"
+                className="w-full relative overflow-hidden rounded-2xl hover:scale-[1.01] transition-transform duration-500 h-[240px]"
+                style={{ minHeight: '240px', height: '240px' }}
+                iframeStyle={{
+                    border: "0",
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "63.3%",
+                    height: "152px",
+                    transform: "scale(1.58)",
+                    transformOrigin: "top left",
+                }}
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                rootMargin="300px"
+            />
         </div>
     );
 }

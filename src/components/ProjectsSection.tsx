@@ -1,22 +1,22 @@
 import ProjectCard from "./ProjectCard";
-import ExperienceHistory from "./ExperienceHistory";
+import FigmaHighlight from "./FigmaHighlight";
 import ShowreelVideo from "../assets/videos/Showreel-Grid-Mobile-[remix] (1).mp4";
 import DribbbleShot from "../assets/videos/Dribbble-shot.mp4";
 
 const PROJECTS = [
     {
         id: "tumbledry",
-        title: "TumbleDry",
-        description: "Redesigned TumbleDry - A laundry service platform, improving booking clarity, service selection, and the overall user experience.",
-        tags: ["User Flows", "Wireframes", "UX Research", "Prototyping", "UI Design"],
+        title: "Tumbledry",
+        category: "Product Design · Mobile App",
+        description: "Redesigning the laundry pickup experience with transparent service selection, upfront pricing and order tracking.",
         mediaUrl: ShowreelVideo,
         isVideo: true,
     },
     {
         id: "wander",
         title: "Wander",
-        description: "Built a platform to help people plan outdoor adventures with personalized suggestions and simple trip management.",
-        tags: ["User Flows", "Wireframes", "UX Research", "Prototyping", "UI Design"],
+        category: "Product Design · Mobile App",
+        description: "An outdoor adventure app helping enthusiasts discover trails, plan custom itineraries and coordinate trips.",
         mediaUrl: DribbbleShot,
         isVideo: true,
     },
@@ -24,19 +24,20 @@ const PROJECTS = [
 
 export default function ProjectsSection() {
     return (
-        <div className="w-full max-w-[1400px] mx-auto px-1">
-            <ExperienceHistory />
-            <div className="mt-[100px] mb-[26px] md:mb-[60px]">
-                <span className="text-4xl md:text-[64px] font-bold text-[#ffffff] font-['Bitcount_Prop_Single'] tracking-[1px]">
-                    Selected Works
-                </span>
+        <div className="w-full max-w-[800px] mx-auto">
+            {/* ── Section Heading ── */}
+            <div className="mb-5 md:mb-6">
+                <h2 className="type-primary-section-heading">
+                    <FigmaHighlight>Selected Works</FigmaHighlight>
+                </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 text-md md:text-lg text-white/70 font-['Inter'] leading-relaxed font-light">
+
+            {/* ── 1 Work per Row (800 x 500 Cards) ── */}
+            <div className="flex flex-col gap-16 md:gap-24 w-full">
                 {PROJECTS.map((project, index) => (
                     <ProjectCard key={index} {...project} />
                 ))}
             </div>
-
         </div>
     );
 }

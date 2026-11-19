@@ -45,10 +45,10 @@ const HyperGlass: React.FC = () => {
             className="relative w-full h-full flex items-center justify-center p-10 cursor-pointer group select-none"
         >
             {/* 1. SOLID GLASS BLOCK CORE */}
-            <div className="absolute inset-0 rounded-xl bg-white/2 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.4)] border border-white/10 will-change-transform">
+            <div className="absolute inset-0 rounded-xl bg-black/[0.02] shadow-[0_15px_35px_-10px_rgba(0,0,0,0.08)] border border-black/[0.08] will-change-transform">
                 {/* 2. INTERNAL REFRACTION LAYER (Distorts background) */}
                 <div className="absolute inset-0 rounded-xl backdrop-blur-xl backdrop-saturate-[1.5] pointer-events-none">
-                    <div className="absolute inset-0 via-transparent to-black/20"></div>
+                    <div className="absolute inset-0 via-transparent to-black/10"></div>
                 </div>
 
                 {/* 3. CHROMATIC ABERRATION EDGES */}
@@ -60,15 +60,15 @@ const HyperGlass: React.FC = () => {
                 {/* 4. PHYSICAL DEPTH (THICK WALLS) */}
                 <div className="absolute inset-0 rounded-xl pointer-events-none overflow-hidden">
                     {/* Top wall thickness */}
-                    <div className="absolute top-0 inset-x-0 h-8 bg-linear-to-b from-white/20 to-transparent"></div>
+                    <div className="absolute top-0 inset-x-0 h-8 bg-linear-to-b from-white/40 to-transparent"></div>
                     {/* Bottom wall thickness */}
-                    <div className="absolute bottom-0 inset-x-0 h-10 bg-linear-to-t from-black/40 to-transparent"></div>
+                    <div className="absolute bottom-0 inset-x-0 h-10 bg-linear-to-t from-black/15 to-transparent"></div>
                     {/* Side highlights */}
-                    <div className="absolute inset-y-0 left-0 w-6 bg-linear-to-r from-white/10 to-transparent"></div>
+                    <div className="absolute inset-y-0 left-0 w-6 bg-linear-to-r from-white/20 to-transparent"></div>
                 </div>
 
                 {/* 5. POLISHED RIM HIGHLIGHTS (The "Apple" Look) */}
-                <div className="absolute inset-0 rounded-xl border border-white/30 opacity-80 shadow-[inset_0_0_10px_rgba(255,255,255,0.05)]"></div>
+                <div className="absolute inset-0 rounded-xl border border-white/60 opacity-80 shadow-[inset_0_0_10px_rgba(0,0,0,0.04)]"></div>
 
                 {/* 6. DYNAMIC SPECULAR HIGHLIGHT (Follows Mouse) */}
                 <motion.div

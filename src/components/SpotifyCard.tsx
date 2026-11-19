@@ -82,7 +82,7 @@ export default function SpotifyCard() {
                 transformPerspective: 1200,
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="relative flex flex-col justify-between rounded-2xl p-6 md:p-8 w-full md:w-[500px] gap-6 overflow-hidden bg-[#EDFCF3] border border-[#d2f3e0] cursor-none group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#EDFCF3]/60"
+            className="relative flex flex-col justify-between rounded-2xl p-6 md:p-7 w-full flex-1 gap-6 overflow-hidden bg-[#EDFCF3] border border-[#d2f3e0] cursor-none group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#EDFCF3]/60"
         >
             {/* Soft Ambient Breathing Glow / Gradient Shift */}
             <div
@@ -99,10 +99,10 @@ export default function SpotifyCard() {
                         className="h-[45px] drop-shadow-sm transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="flex flex-col items-start min-w-0 gap-1.5">
-                        <span className="text-[#393939] text-xl leading-[24px] font-medium font-['Inter']">
+                        <span className="text-[#393939] type-card-heading text-[18px]">
                             No Skips 🎧
                         </span>
-                        <span className="text-[#6d6d6d] leading-[20px] font-medium font-['Inter'] tracking-wide">
+                        <span className="text-[#6d6d6d] type-caption">
                             Curated by me
                         </span>
                     </div>
@@ -127,7 +127,7 @@ export default function SpotifyCard() {
 
             {/* Bottom: Spotify link */}
             <span
-                className="self-stretch text-[#007BFF] text-[15px] font-semibold leading-[30px] font-['Inter'] relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                className="self-stretch text-[#007BFF] text-[15px] font-semibold leading-[30px] font-roobert relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ transform: "translateZ(20px)" }}
             >
                 Spotify ↗

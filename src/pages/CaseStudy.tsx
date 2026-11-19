@@ -2,17 +2,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import ShowreelVideo from "../assets/videos/Showreel-Grid-Mobile-[remix] (1).mp4";
 import DribbbleShot from "../assets/videos/Dribbble-shot.mp4";
-import Navbar from "../components/navbar";
-import FooterDark from "../components/FooterDark";
+import FooterLight from "../components/FooterLight";
 import CustomCursor from "../components/CustomCursor";
+import CaseStudyNavbar from "../components/CaseStudyNavbar";
 import TumbledryContent from "../components/case-studies/TumbledryContent";
 import WanderContent from "../components/case-studies/WanderContent";
 import Wander from "../assets/images/header.webp";
 import TumbleDry from "../assets/images/alwin.webp";
-import MainLayout from "../layouts/MainLayout";
 
-
-// Dummy content for now based on the project id
+// Case study data registry
 const getCaseStudyData = (id: string | undefined) => {
     if (id === "tumbledry") {
         return {
@@ -49,13 +47,13 @@ export default function CaseStudy() {
 
     if (!data) {
         return (
-            <div className="w-full min-h-screen flex flex-col pt-32 px-4 items-center gap-10 bg-[#0E0E0E] text-white">
+            <div className="relative bg-white text-[#1A1A1A] min-h-screen font-roobert flex flex-col items-center justify-center px-4">
                 <CustomCursor />
-                <Navbar />
-                <h1 className="text-4xl font-bold font-['Bitcount_Prop_Single'] mt-20">Case Study Not Found</h1>
+                <h1 className="type-page-heading text-center mb-4">Case Study Not Found</h1>
+                <p className="type-body text-[#666] mb-8 text-center">The project you're looking for doesn't exist or has moved.</p>
                 <button
                     onClick={() => navigate("/")}
-                    className="px-6 py-3 border border-zinc-700 bg-zinc-800 rounded-full hover:bg-zinc-700 transition-colors"
+                    className="px-6 py-2.5 rounded-full bg-[#1A1A1A] text-white hover:bg-black transition-colors font-medium type-button"
                 >
                     Back to Home
                 </button>
@@ -64,42 +62,73 @@ export default function CaseStudy() {
     }
 
     return (
-        <div className="w-full min-h-screen flex flex-col bg-[#0E0E0E] text-white relative">
-            <MainLayout>
-                <div className="flex flex-col px-4 md:px-8 max-w-7xl mx-auto gap-6 md:gap-10 grow">
-                    {/* Header */}
-                    <div className="flex flex-col gap-6 max-w-4xl">
-                        <button
-                            onClick={() => navigate(-1)}
-                            className="self-start px-4 py-2 border border-zinc-700 bg-zinc-800 rounded-full hover:bg-zinc-700 transition-colors flex items-center gap-2 text-sm font-medium"
-                        >
-                            &larr; Back
-                        </button>
-                        <div className="flex flex-col">
-                            <h1 className="text-[48px] md:text-[64px] font-['Bitcount_Prop_Single'] leading-tight tracking-tight">
-                                {data.title}
-                            </h1>
-                            {data.subtitle && (
-                                <p className="text-lg md:text-xl  text-zinc-400 mt-2 font-medium tracking-wide">
-                                    {data.subtitle}
-                                </p>
-                            )}
-                            {/* Tags */}
-                            <div className="flex flex-wrap gap-3 mt-6">
-                                {data.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="px-4 py-2 bg-zinc-800 text-zinc-200 text-sm font-medium rounded-full tracking-wide"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
+        <div className="relative bg-white text-[#1A1A1A] min-h-screen font-roobert selection:bg-black/10 selection:text-black">
+            {/* Global custom cursor */}
+            <CustomCursor />
+
+            {/* Subtle architectural grid background (matching homepage) */}
+            <div
+                className="fixed inset-0 pointer-events-none z-0 opacity-40"
+                style={{
+                    backgroundImage: `
+                        linear-gradient(to right, rgba(0,0,0,0.035) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0,0,0,0.035) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '160px 160px',
+                }}
+            />
+
+            {/* Atmospheric soft aura backdrop */}
+            <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[340px] sm:w-[540px] h-[260px] pointer-events-none -z-0">
+                <div
+                    className="w-full h-full rounded-full opacity-35 blur-3xl"
+                    style={{
+                        background: 'radial-gradient(circle, rgba(165,180,252,0.3) 0%, rgba(224,231,255,0.18) 45%, rgba(255,255,255,0) 70%)'
+                    }}
+                />
+            </div>
+
+            {/* Main Content Container — 864px max-width matches the 800px card + 32px side padding */}
+            <main className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
+                {/* ── Case Study Navbar (Matches homepage liquid-glass navbar system) ── */}
+                <header className="shrink-0 w-full">
+                    <CaseStudyNavbar title={data.title} />
+                </header>
+
+                {/* ── Case Study Hero Header ── */}
+                <div className="flex flex-col gap-4 max-w-[800px] mx-auto w-full pt-8 sm:pt-12">
+                    <div className="flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full bg-black/[0.04] border border-black/[0.06] text-[11px] sm:text-xs font-semibold text-[#666] tracking-wider uppercase">
+                            Case Study
+                        </span>
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <h1 className="type-page-heading text-[#1A1A1A]">
+                            {data.title}
+                        </h1>
+
+                        {data.subtitle && (
+                            <p className="type-subheading text-[18px] sm:text-[21px] text-[#555] font-normal leading-snug max-w-[700px] mt-1">
+                                {data.subtitle}
+                            </p>
+                        )}
+
+                        {/* Metadata Tag Pills */}
+                        <div className="flex flex-wrap gap-2 pt-3">
+                            {data.tags.map((tag) => (
+                                <span
+                                    key={tag}
+                                    className="px-3 py-1 bg-black/[0.035] hover:bg-black/[0.06] text-[#222] text-[12px] sm:text-[13px] font-medium rounded-full border border-black/[0.06] transition-colors"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Media Hero */}
-                    <div className="w-full mt-6 md:mt-4 rounded-[20px] overflow-hidden aspect-video relative bg-zinc-900 border border-zinc-800/50 shadow-2xl">
+                    {/* ── Hero Media Showcase (LCP candidate, high fetchpriority per modern-web-guidance) ── */}
+                    <div className="w-full mt-4 sm:mt-6 aspect-[16/10] rounded-[22px] md:rounded-[26px] overflow-hidden bg-[#FAFAFA] border-0 shadow-none relative">
                         {id === "tumbledry" && data.mediaUrl ? (
                             <video
                                 src={data.mediaUrl}
@@ -107,37 +136,40 @@ export default function CaseStudy() {
                                 loop
                                 muted
                                 playsInline
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover rounded-[22px] md:rounded-[26px]"
                             />
                         ) : (
                             <img
                                 src={data.image}
-                                className="w-full h-full object-cover"
+                                alt={data.title}
+                                fetchPriority="high"
+                                className="w-full h-full object-cover rounded-[22px] md:rounded-[26px]"
                             />
                         )}
                     </div>
+                </div>
 
-                    {/* Content Section */}
+                {/* ── Case Study Detailed Content ── */}
+                <div className="w-full max-w-[800px] mx-auto mt-12 sm:mt-16 md:mt-20">
                     {id === "wander" ? (
-                        <div className="mt-2 md:mt-10 mb-12 md:mb-24 w-full">
-                            <WanderContent />
-                        </div>
+                        <WanderContent />
                     ) : id === "tumbledry" ? (
-                        <div className="mt-2 md:mt-10 mb-12 md:mb-24 w-full">
-                            <TumbledryContent />
-                        </div>
+                        <TumbledryContent />
                     ) : (
-                        <div className="mt-4 md:mt-16 flex flex-col gap-8 w-full max-w-3xl">
-                            <h2 className="text-3xl font-['Bitcount_Prop_Single']">Overview</h2>
-                            <p className="text-lg text-zinc-300 leading-relaxed">
+                        <div className="mt-8 flex flex-col gap-6 w-full p-8 bg-[#FAFAFA] rounded-3xl border-0 shadow-none">
+                            <h2 className="type-card-heading text-2xl text-[#1A1A1A]">Overview</h2>
+                            <p className="type-body text-[#555] leading-relaxed">
                                 {data.content}
                             </p>
                         </div>
                     )}
                 </div>
 
-                <FooterDark />
-            </MainLayout>
+                {/* ── Footer ── */}
+                <div className="mt-20 md:mt-28">
+                    <FooterLight />
+                </div>
+            </main>
         </div>
     );
 }

@@ -1,0 +1,79 @@
+import { motion } from "motion/react";
+import FuturisticResumeButton from "./FuturisticResumeButton";
+
+export default function HeroSection() {
+    return (
+        <div className="relative w-full flex flex-col items-center justify-center text-center py-6 md:py-8">
+
+            {/* ── Soft Atmospheric Aura Backdrop (Dilroop style) ── */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[440px] md:w-[540px] h-[200px] sm:h-[260px] md:h-[300px] pointer-events-none -z-0">
+                <div
+                    className="w-full h-full rounded-full opacity-45 blur-3xl"
+                    style={{
+                        background: 'radial-gradient(circle, rgba(165,180,252,0.32) 0%, rgba(224,231,255,0.2) 45%, rgba(255,255,255,0) 70%)'
+                    }}
+                />
+            </div>
+
+            <div className="relative z-10 flex flex-col items-center max-w-[800px] mx-auto px-4">
+
+                {/* ── Display / Hero Headline ── */}
+                <motion.h1
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                        duration: 1,
+                        ease: [0.16, 1, 0.3, 1],
+                        delay: 0.2,
+                    }}
+                    className="type-display text-[#1A1A1A] mb-4 md:mb-5"
+                >
+                    Designing digital products
+                    <br />
+                    that just make sense.
+                </motion.h1>
+
+                {/* ── Body Bio Paragraph ── */}
+                <motion.p
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                        duration: 0.9,
+                        ease: [0.16, 1, 0.3, 1],
+                        delay: 0.3,
+                    }}
+                    className="type-body text-[#555] max-w-[580px]"
+                >
+                    Hi, i'm Alwin. i design products, from the first idea to the last pixel and i cut more than i add.{" "}
+                    Currently shaping products at{" "}
+                    <span className="text-[#1A1A1A] font-medium underline underline-offset-4 decoration-[#D5D0CA]">
+                        ITProfound Inc.
+                    </span>{" "}
+                    Previously at{" "}
+                    <span className="text-[#1A1A1A] font-medium underline underline-offset-4 decoration-[#D5D0CA]">
+                        Malayala Manorama
+                    </span>,{" "}
+                    <span className="text-[#1A1A1A] font-medium underline underline-offset-4 decoration-[#D5D0CA]">
+                        Tillring
+                    </span>
+                    .
+                </motion.p>
+
+                {/* ── Futuristic Resume CTA Button ── */}
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                        duration: 0.9,
+                        ease: [0.16, 1, 0.3, 1],
+                        delay: 0.4,
+                    }}
+                    className="mt-7 md:mt-8"
+                >
+                    <FuturisticResumeButton href="https://drive.google.com/file/d/1gX57GUhkOfYPaT97oCK1ZxO59zW2WtSi/view?usp=sharing" />
+                </motion.div>
+
+            </div>
+        </div>
+    );
+}

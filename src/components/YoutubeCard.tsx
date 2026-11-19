@@ -81,7 +81,7 @@ export default function YTCard() {
             }}
             whileHover={{ scale: 1.03 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="relative flex flex-col justify-between rounded-2xl p-8 w-[500px] gap-6 bg-[#FFF0F0] border border-[#fee2e2] overflow-hidden cursor-none group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#FFF0F0]/60"
+            className="relative flex flex-col justify-between rounded-2xl p-6 md:p-7 w-full flex-1 gap-6 bg-[#FFF0F0] border border-[#fee2e2] overflow-hidden cursor-none group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#FFF0F0]/60"
         >
             {/* Soft Ambient Breathing Glow */}
             <div
@@ -99,10 +99,10 @@ export default function YTCard() {
                         className="h-[45px] drop-shadow-sm transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="flex flex-col gap-1.5">
-                        <span className="text-[#393939] text-xl font-medium font-['Inter']">
+                        <span className="text-[#393939] type-card-heading text-[18px]">
                             Tunes by me
                         </span>
-                        <span className="text-[#6d6d6d] font-medium font-['Inter'] tracking-wide">
+                        <span className="text-[#6d6d6d] type-caption">
                             Originals & remixes
                         </span>
                     </div>
@@ -128,7 +128,7 @@ export default function YTCard() {
 
             {/* Bottom Link */}
             <span
-                className="text-[#007BFF] text-[15px] font-semibold leading-[30px] font-['Inter'] relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                className="text-[#007BFF] text-[15px] font-semibold leading-[30px] font-roobert relative z-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                 style={{ transform: "translateZ(20px)" }}
             >
                 YouTube ↗

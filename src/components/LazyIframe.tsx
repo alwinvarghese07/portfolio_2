@@ -3,9 +3,18 @@ import { useState, useEffect, useRef } from 'react';
 interface LazyIframeProps extends React.IframeHTMLAttributes<HTMLIFrameElement> {
     rootMargin?: string;
     iframeStyle?: React.CSSProperties;
+    'data-cursor'?: string;
 }
 
-export default function LazyIframe({ src, rootMargin = "200px", iframeStyle, ...props }: LazyIframeProps) {
+export default function LazyIframe({
+    src,
+    rootMargin = "200px",
+    iframeStyle,
+    className,
+    style,
+    'data-cursor': dataCursor,
+    ...props
+}: LazyIframeProps) {
     const [isIntersecting, setIntersecting] = useState(false);
     const iframeRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +37,7 @@ export default function LazyIframe({ src, rootMargin = "200px", iframeStyle, ...
     }, [rootMargin]);
 
     return (
-        <div ref={iframeRef} className={props.className} style={props.style}>
+        <div ref={iframeRef} className={className} style={style} data-cursor={dataCursor}>
             {isIntersecting ? (
                 <iframe src={src} {...props} style={iframeStyle || { width: '100%', height: '100%' }} />
             ) : null}

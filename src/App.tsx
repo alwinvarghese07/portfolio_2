@@ -1,11 +1,12 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import Lenis from "@studio-freight/lenis";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import CaseStudy from "./pages/CaseStudy";
+import SpotifyCallback from "./pages/SpotifyCallback";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react";
+import { FigmaSelectionOverlay } from "./components/FigmaHighlight";
 
 function ScrollManager() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function ScrollManager() {
       smoothWheel: true,
     });
     lenisRef.current = lenis;
+    (window as unknown as { lenis: Lenis | null }).lenis = lenis;
 
     function raf(time: number) {
       lenis.raf(time);
@@ -29,30 +31,68 @@ function ScrollManager() {
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      (window as unknown as { lenis: Lenis | null }).lenis = null;
     };
   }, []);
 
   useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const easeInOutCubic = (t: number) =>
+          t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        if (id === "home") {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, {
+              duration: 1.0,
+              easing: easeInOutCubic,
+            });
+          } else {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        } else {
+          const el = document.getElementById(id);
+          if (el) {
+            if (lenisRef.current) {
+              lenisRef.current.scrollTo(el, {
+                offset: -32,
+                duration: 1.0,
+                easing: easeInOutCubic,
+              });
+            } else {
+              el.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        }
+      }, 150);
+      return () => clearTimeout(timer);
     } else {
-      window.scrollTo(0, 0);
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   return null;
-} function App() {
+}
+
+function App() {
   return (
     <BrowserRouter>
       <ScrollManager />
+      <FigmaSelectionOverlay />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<Navigate to="/#about" replace />} />
         <Route path="/case-study/:id" element={<CaseStudy />} />
+        <Route path="/callback" element={<SpotifyCallback />} />
       </Routes>
       <Analytics />
       <SpeedInsights />
-    </BrowserRouter >
+    </BrowserRouter>
   );
 }
 

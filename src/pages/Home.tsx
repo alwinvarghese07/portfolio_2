@@ -1,93 +1,55 @@
-import { lazy, Suspense, useState, useEffect } from "react";
-import Navbar from "../components/navbar";
-import MainLayout from "../layouts/MainLayout";
-import HomeSection from "../components/home";
-import Exp from "../components/exp";
-import Footer from "../components/FooterDark";
-import { motion } from "motion/react";
-
-const ProjectsSection = lazy(() => import("../components/ProjectsSection"));
+import HeroNavbar from "../components/HeroNavbar";
+import HeroSection from "../components/HeroSection";
+import CustomCursor from "../components/CustomCursor";
+import FooterLight from "../components/FooterLight";
+import ProjectsSection from "../components/ProjectsSection";
+import AboutSection from "../components/AboutSection";
 
 export default function Home() {
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
     return (
-        <div className="relative bg-black">
-            <section className="relative z-30 bg-black h-dvh md:h-screen overflow-hidden shadow-[0_15px_40px_-5px_rgba(255,255,255,0.15)] rounded-b-[40px] md:rounded-b-[20px]">
-                <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-                    <div className="custom-grain-layer"></div>
+        <div className="relative bg-white text-[#1A1A1A] min-h-screen font-roobert selection:bg-black/10 selection:text-black">
+            {/* Global custom cursor */}
+            <CustomCursor />
+
+            {/* Subtle architectural grid background */}
+            <div
+                className="fixed inset-0 pointer-events-none z-0 opacity-40"
+                style={{
+                    backgroundImage: `
+                        linear-gradient(to right, rgba(0,0,0,0.035) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0,0,0,0.035) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '160px 160px',
+                }}
+            />
+
+            {/* Main Content Container — 864px max-width matches the 800px card + 32px side padding */}
+            <main className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
+                
+                {/* ── First Screen Hero: Calibrated so exactly half (250px) of the 800x500 first card peeks above the fold ── */}
+                <div id="home" className="h-[calc(100dvh-160px)] sm:h-[calc(100vh-210px)] md:h-[calc(100vh-295px)] min-h-[340px] flex flex-col justify-between">
+                    <header className="shrink-0">
+                        <HeroNavbar />
+                    </header>
+
+                    <section className="flex-1 flex flex-col justify-center">
+                        <HeroSection />
+                    </section>
                 </div>
-                <MainLayout>
-                    <div className="flex flex-col px-4 md:px-8 max-w-7xl mx-auto h-full relative">
-                        <div className="shrink-0">
-                            <Navbar />
-                        </div>
 
-                        <div className="flex-1 flex flex-col md:block">
-                            <div className="h-full md:h-[60vh] flex items-center">
-                                <HomeSection />
-                            </div>
-
-                            <div className="grow md:hidden"></div>
-
-                            <div className="h-auto md:h-[40vh] py-10 md:py-0 pb-12 md:pb-0">
-                                <Exp />
-                            </div>
-                        </div>
-
-                        {/* Premium Subtle Scroll Indicator */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.8, duration: 1.5, ease: "easeOut" }}
-                            className="absolute bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
-                        >
-                            <motion.div
-                                animate={isMobile ? { y: [0, 8, 0], opacity: [0.6, 1, 0.6] } : {
-                                    y: [0, 8, 0],
-                                    filter: ["blur(1px)", "blur(0px)", "blur(1px)"]
-                                }}
-                                transition={{
-                                    duration: 3.5,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
-                                className="flex justify-center items-center text-white"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="w-7 h-7 md:w-8 md:h-8 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                </svg>
-                            </motion.div>
-                        </motion.div>
-                    </div>
-                </MainLayout>
-            </section>
-
-            <div className="relative z-20 -mt-[100vh]">
-                <section className="sticky top-0 min-h-screen bg-black w-full">
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-                        <div className="custom-grain-layer"></div>
-                    </div>
-                    <MainLayout>
-                        <div className="flex flex-col px-4 md:px-8 max-w-7xl mx-auto items-center relative z-10 w-full">
-                            <Suspense fallback={<div className="h-screen w-full" />}>
-                                <ProjectsSection />
-                            </Suspense>
-                            <Footer />
-                        </div>
-                    </MainLayout>
+                {/* ── Selected Works & Experience ── */}
+                <section id="works" data-section="projects-section" className="w-full pt-2 sm:pt-3">
+                    <ProjectsSection />
                 </section>
 
-                {/* Spacer to allow the sticky section to remain fixed for exactly 100vh before scrolling */}
-                <div className="h-screen bg-transparent pointer-events-none" />
-            </div>
+                {/* ── About Section (Bento Grid, Bio & Outside Design) ── */}
+                <AboutSection />
+
+                {/* ── Footer ── */}
+                <div className="mt-20 md:mt-28">
+                    <FooterLight />
+                </div>
+            </main>
         </div>
     );
 }
