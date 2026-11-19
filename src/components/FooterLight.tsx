@@ -2,9 +2,9 @@ import mailIcon from "../assets/images/mail.webp";
 import linkedinIcon from "../assets/images/linkedin.webp";
 import xIcon from "../assets/images/insta.webp";
 
-export default function Footer() {
+export default function Footer({ hideBorder = false }: { hideBorder?: boolean }) {
     return (
-        <footer className="w-full max-w-[800px] mx-auto mt-20 pt-10 border-t border-[#D0D0D0]">
+        <footer className={`w-full max-w-[800px] mx-auto ${hideBorder ? "pt-2" : "mt-20 pt-10 border-t border-[#D0D0D0]"}`}>
             <div className="w-full">
                 <div className="flex flex-col md:flex-row justify-between items-start gap-8 mt-6">
                     {/* Left side */}
@@ -22,30 +22,33 @@ export default function Footer() {
                         <span className="type-body-secondary text-[#666]">
                             Let's keep the conversation going.
                         </span>
-                        <div className="flex gap-4 items-center">
+                        <div className="flex gap-2 sm:gap-3 items-center">
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href="mailto:alwinvarghese229@gmail.com"
-                                className="w-9 h-9 flex items-center justify-center transition-transform hover:scale-110"
+                                aria-label="Send email to Alwin"
+                                className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-black/[0.04] active:scale-95 transition-all duration-200"
                             >
-                                <img src={mailIcon} alt="Mail" className="w-8 h-8" />
+                                <img src={mailIcon} alt="Email" className="w-7 h-7 object-contain" />
                             </a>
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href="https://linkedin.com/in/alwinvarghesesaji"
-                                className="w-9 h-9 flex items-center justify-center transition-transform hover:scale-110"
+                                aria-label="Alwin's LinkedIn Profile"
+                                className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-black/[0.04] active:scale-95 transition-all duration-200"
                             >
-                                <img src={linkedinIcon} alt="LinkedIn" className="w-7 h-7" />
+                                <img src={linkedinIcon} alt="LinkedIn" className="w-6 h-6 object-contain" />
                             </a>
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href="https://www.instagram.com/alweece/"
-                                className="w-9 h-9 flex items-center justify-center transition-transform hover:scale-110"
+                                aria-label="Alwin's Instagram Profile"
+                                className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-black/[0.04] active:scale-95 transition-all duration-200"
                             >
-                                <img src={xIcon} alt="X" className="w-8 h-8" />
+                                <img src={xIcon} alt="Instagram" className="w-7 h-7 object-contain" />
                             </a>
                         </div>
                     </div>

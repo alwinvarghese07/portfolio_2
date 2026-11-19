@@ -14,9 +14,9 @@ const BIO_PARAGRAPHS = [
     "When I'm not working, you'll probably find me producing music, watching football, F1, WWE, cricket or tweaking my Spotify playlists.",
 ];
 
-export default function AboutSection() {
+export default function AboutSection({ className = "" }: { className?: string }) {
     return (
-        <section id="about" className="w-full max-w-[800px] mx-auto mt-20 md:mt-28 flex flex-col">
+        <section id="about" className={`w-full max-w-[800px] mx-auto ${className || "mt-20 md:mt-28"} flex flex-col`}>
             {/* ── Section Heading ── */}
             <div className="mb-5 md:mb-6">
                 <h2 className="type-primary-section-heading">

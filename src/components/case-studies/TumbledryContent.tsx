@@ -74,19 +74,19 @@ export default function TumbledryContent() {
                             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
                                 {/* Competitor Logos */}
                                 <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FAFAFA] border-0 shadow-none transition-shadow">
-                                    <img src={laundrymate} alt="Competitor Logo 1" loading="lazy" className="w-full h-full object-contain rounded-xl" />
+                                    <img src={laundrymate} alt="LaundryMate logo" loading="lazy" className="w-full h-full object-contain rounded-xl" />
                                 </div>
                                 <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FAFAFA] border-0 shadow-none transition-shadow">
-                                    <img src={spincycles} alt="Competitor Logo 2" loading="lazy" className="w-full h-full object-contain rounded-xl" />
+                                    <img src={spincycles} alt="Spin Cycles logo" loading="lazy" className="w-full h-full object-contain rounded-xl" />
                                 </div>
                                 <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FAFAFA] border-0 shadow-none transition-shadow">
-                                    <img src={uclean} alt="Competitor Logo 3" loading="lazy" className="w-full h-full object-contain rounded-xl" />
+                                    <img src={uclean} alt="UClean logo" loading="lazy" className="w-full h-full object-contain rounded-xl" />
                                 </div>
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                            <img src={td_2} alt="Research Moodboard 1" loading="lazy" className="rounded-2xl w-full h-full object-contain" />
-                            <img src={td_1} alt="Research Moodboard 2" loading="lazy" className="rounded-2xl w-full h-full object-contain" />
+                            <img src={td_2} alt="Tumbledry mobile app audit screen 1" loading="lazy" className="rounded-2xl w-full h-full object-contain" />
+                            <img src={td_1} alt="Tumbledry mobile app audit screen 2" loading="lazy" className="rounded-2xl w-full h-full object-contain" />
                         </div>
                     </div>
                 </div>

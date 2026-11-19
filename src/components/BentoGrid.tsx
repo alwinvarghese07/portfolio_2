@@ -63,7 +63,7 @@ export default function BentoGrid() {
                 >
                     <img
                         src={profile}
-                        alt="Profile"
+                        alt="Alwin Varghese Saji"
                         className="w-full h-full object-cover hover:grayscale-0 transition-all duration-700"
                         fetchPriority="high"
                     />
@@ -87,7 +87,7 @@ export default function BentoGrid() {
 
                         {/* 3. HYPER-REALISTIC GLASS CORE (Tools I use) */}
                         <div
-                            data-cursor="Tools i use"
+                            data-cursor="Tools I use"
                             className="w-full h-full overflow-hidden rounded-2xl bg-[#FAFAFA]"
                         >
                             <Suspense fallback={<div className="w-full h-full bg-[#FAFAFA]" />}>

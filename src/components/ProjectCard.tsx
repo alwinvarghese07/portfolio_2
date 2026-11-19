@@ -59,7 +59,7 @@ export default function ProjectCard({
                     <h3 className="type-card-heading text-[#1A1A1A] group-hover:text-black transition-colors">
                         {title}
                     </h3>
-                    <span className="text-[#999] group-hover:text-[#1A1A1A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-[18px]">
+                    <span className="text-[#999] group-hover:text-[#1A1A1A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-[18px]" aria-hidden="true">
                         ↗
                     </span>
                 </div>
@@ -81,7 +81,7 @@ export default function ProjectCard({
 
     if (id) {
         return (
-            <Link to={`/case-study/${id}`} className="group cursor-pointer block w-full border-0 outline-none focus:outline-none focus:ring-0">
+            <Link to={`/case-study/${id}`} className="group cursor-pointer block w-full border-0 outline-none focus:outline-none focus:ring-0 active:scale-[0.995] transition-transform duration-200">
                 {CardContent}
             </Link>
         );

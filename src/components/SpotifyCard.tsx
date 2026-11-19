@@ -40,7 +40,6 @@ export default function SpotifyCard() {
 
     const handleMouseEnter = () => {
         setIsHovered(true);
-        document.body.classList.add('hide-custom-cursor');
     };
 
     const handleMouseLeave = () => {
@@ -48,7 +47,6 @@ export default function SpotifyCard() {
         // Gently reset parallax back to flat neutral
         x.set(0);
         y.set(0);
-        document.body.classList.remove('hide-custom-cursor');
     };
 
     const albumImages = [
@@ -82,7 +80,7 @@ export default function SpotifyCard() {
                 transformPerspective: 1200,
             }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="relative flex flex-col justify-between rounded-2xl p-6 md:p-7 w-full flex-1 gap-6 overflow-hidden bg-[#EDFCF3] border border-[#d2f3e0] cursor-none group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#EDFCF3]/60"
+            className="relative flex flex-col justify-between rounded-2xl p-6 md:p-7 w-full flex-1 gap-6 overflow-hidden bg-[#EDFCF3] border border-[#d2f3e0] cursor-pointer group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#EDFCF3]/60"
         >
             {/* Soft Ambient Breathing Glow / Gradient Shift */}
             <div

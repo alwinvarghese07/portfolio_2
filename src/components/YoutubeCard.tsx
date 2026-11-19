@@ -39,14 +39,12 @@ export default function YTCard() {
 
     const handleMouseEnter = () => {
         setIsHovered(true);
-        document.body.classList.add('hide-custom-cursor');
     };
 
     const handleMouseLeave = () => {
         setIsHovered(false);
         x.set(0);
         y.set(0);
-        document.body.classList.remove('hide-custom-cursor');
     };
 
     const albumImages = [
@@ -81,7 +79,7 @@ export default function YTCard() {
             }}
             whileHover={{ scale: 1.03 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="relative flex flex-col justify-between rounded-2xl p-6 md:p-7 w-full flex-1 gap-6 bg-[#FFF0F0] border border-[#fee2e2] overflow-hidden cursor-none group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#FFF0F0]/60"
+            className="relative flex flex-col justify-between rounded-2xl p-6 md:p-7 w-full flex-1 gap-6 bg-[#FFF0F0] border border-[#fee2e2] overflow-hidden cursor-pointer group shadow-sm transition-all duration-500 ease-out hover:shadow-2xl hover:shadow-[#FFF0F0]/60"
         >
             {/* Soft Ambient Breathing Glow */}
             <div

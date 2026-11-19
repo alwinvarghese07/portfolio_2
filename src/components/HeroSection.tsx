@@ -44,7 +44,7 @@ export default function HeroSection() {
                     }}
                     className="type-body text-[#555] max-w-[580px]"
                 >
-                    Hi, i'm Alwin. i design products, from the first idea to the last pixel and i cut more than i add.{" "}
+                    Hi, I'm Alwin. I design products from the first idea to the last pixel, and I cut more than I add.{" "}
                     Currently shaping products at{" "}
                     <span className="text-[#1A1A1A] font-medium underline underline-offset-4 decoration-[#D5D0CA]">
                         ITProfound Inc.

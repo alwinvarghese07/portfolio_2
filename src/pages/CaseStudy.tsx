@@ -16,7 +16,7 @@ const getCaseStudyData = (id: string | undefined) => {
         return {
             title: "Tumbledry",
             subtitle: "Reimagining the laundry pickup experience.",
-            description: "improving booking clarity, service selection, and the overall user experience.",
+            description: "Improving booking clarity, service selection, and the overall user experience.",
             mediaUrl: ShowreelVideo,
             content: "This is the placeholder content for the TumbleDry case study. It will detail the process of redesigning the laundry service platform.",
             image: TumbleDry,
@@ -61,6 +61,14 @@ export default function CaseStudy() {
 
     return (
         <div className="relative bg-white text-[#1A1A1A] min-h-screen font-roobert selection:bg-black/10 selection:text-black">
+            {/* Accessible skip link */}
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[999999] focus:px-4 focus:py-2 focus:bg-black focus:text-white focus:rounded-lg focus:shadow-xl focus:outline-none"
+            >
+                Skip to main content
+            </a>
+
             {/* Global custom cursor */}
             <CustomCursor />
 
@@ -87,7 +95,7 @@ export default function CaseStudy() {
             </div>
 
             {/* Main Content Container — 864px max-width matches the 800px card + 32px side padding */}
-            <main className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
+            <main id="main-content" className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
                 {/* ── Case Study Navbar (Matches homepage liquid-glass navbar system) ── */}
                 <header className="shrink-0 w-full">
                     <CaseStudyNavbar title={data.title} />
