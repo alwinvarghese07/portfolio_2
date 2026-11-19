@@ -7,19 +7,7 @@ export default function SpotifyLiveWidget() {
   const hasActiveTrack = Boolean(track && track.title && (track.isPlaying || track.status === 'paused'));
 
   if (!hasActiveTrack) {
-    return (
-      <div className="flex items-center h-[56px] sm:h-[60px] shrink-0">
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="type-caption text-[#777]">
-            Available for work
-          </span>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   const progressPercentage = track?.durationMs && track.durationMs > 0

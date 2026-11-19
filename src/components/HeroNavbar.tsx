@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { liquidGlass } from "../lib/liquid-glass";
 import SpotifyLiveWidget from "./SpotifyLiveWidget";
+import logoMonogram from "../assets/images/logo_monogram.png";
 
 type SectionId = "home" | "works" | "about";
 
@@ -37,8 +38,20 @@ interface NavbarContentProps {
 function NavbarContent({ activeSection, scrollToSection }: NavbarContentProps) {
     return (
         <div className="flex items-center justify-between w-full min-h-[56px] sm:min-h-[60px]">
-            {/* ── Left: Live Spotify Listening Widget / Availability Pill ── */}
-            <div className="flex items-center min-h-[56px] sm:min-h-[60px] min-w-[130px] sm:min-w-[170px] shrink-0">
+            {/* ── Left: Permanent Brand Logo & Live Spotify Listening Widget ── */}
+            <div className="flex items-center gap-3.5 min-h-[56px] sm:min-h-[60px] shrink-0">
+                <a
+                    href="#home"
+                    onClick={(e) => scrollToSection(e, "home")}
+                    className="flex items-center group cursor-pointer focus:outline-none"
+                    aria-label="Alwin Varghese Saji — Back to Top"
+                >
+                    <img
+                        src={logoMonogram}
+                        alt="Alwin Varghese Saji"
+                        className="h-[26px] sm:h-[30px] w-auto object-contain transition-transform duration-200 group-hover:scale-105 select-none"
+                    />
+                </a>
                 <SpotifyLiveWidget />
             </div>
 
