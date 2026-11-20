@@ -48,7 +48,7 @@ interface FooterPlaygroundProps {
     onShakeReady?: (shakeFn: () => void) => void;
 }
 
-export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps) {
+export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps = {}) {
     const containerRef = useRef<HTMLDivElement>(null);
     const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
     const [hoveredTool, setHoveredTool] = useState<{ name: string; category: string; x: number; y: number } | null>(null);
