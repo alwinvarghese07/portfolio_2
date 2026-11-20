@@ -46,8 +46,16 @@ export default function ProjectCard({
                         />
                     )
                 ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-[#FAFAFA] rounded-[22px] md:rounded-[26px] text-zinc-400">
-                        <span className="type-caption uppercase tracking-widest">Preview Coming Soon</span>
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-[#F0F2F5] rounded-[22px] md:rounded-[26px] text-neutral-400 p-6 select-none transition-transform duration-700 ease-out group-hover:scale-[1.015]">
+                        <div className="w-12 h-12 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center text-neutral-400 mb-2 shadow-xs">
+                            <svg className="w-6 h-6 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                        </div>
+                        <span className="type-caption uppercase tracking-widest text-neutral-600 font-semibold">{title}</span>
+                        <span className="text-[11px] text-neutral-400 mt-0.5">Image placeholder</span>
                     </div>
                 )}
             </div>

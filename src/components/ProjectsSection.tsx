@@ -5,6 +5,14 @@ import DribbbleShot from "../assets/videos/Dribbble-shot.mp4";
 
 const PROJECTS = [
     {
+        id: "staytransit",
+        title: "StayTransit",
+        category: "Product Design · Marketplace & Web / Mobile Apps",
+        description: "Designing airport services around a traveller’s time. Making airport experiences easier to discover and book across lounges, stays, spas and transit services.",
+        mediaUrl: undefined,
+        isVideo: false,
+    },
+    {
         id: "tumbledry",
         title: "Tumbledry",
         category: "Product Design · Mobile App",
