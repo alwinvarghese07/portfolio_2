@@ -55,6 +55,17 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
     const [isInteracting, setIsInteracting] = useState(false);
     const [isReducedMotion, setIsReducedMotion] = useState(false);
 
+    // Mobile & Tablet Visibility Flag
+    const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+
+    // Mobile Tilt Physics States
+    const [isMotionActive, setIsMotionActive] = useState(false);
+    const [statusFeedback, setStatusFeedback] = useState<string | null>(null);
+
+    // Gravity tracking for smooth physics interpolation
+    const targetGravityRef = useRef<{ x: number; y: number }>({ x: 0, y: 1.0 });
+    const isMotionActiveRef = useRef(false);
+
     // Physics references
     const engineRef = useRef<Matter.Engine | null>(null);
     const bodiesRef = useRef<(Matter.Body | null)[]>([]);
@@ -68,6 +79,13 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
     const activeDragBodyRef = useRef<Matter.Body | null>(null);
     const dragPointerHistoryRef = useRef<{ x: number; y: number; time: number }[]>([]);
     const isDraggingRef = useRef(false);
+
+    // Check if on mobile or tablet
+    useEffect(() => {
+        const isTouch = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+        const isSmallScreen = typeof window !== "undefined" && window.innerWidth < 1024;
+        setIsMobileOrTablet(isTouch || isSmallScreen);
+    }, []);
 
     // Check prefers-reduced-motion
     useEffect(() => {
@@ -85,7 +103,7 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         return 1.0;
     }, []);
 
-    // Create boundary walls: floor, left, right, and high ceiling
+    // Create boundary walls: floor, left, right, and ceiling
     const updateWalls = useCallback((width: number, height: number, engine: Matter.Engine) => {
         if (wallsRef.current.length > 0) {
             Matter.World.remove(engine.world, wallsRef.current);
@@ -103,10 +121,11 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         // Floor at bottom of playground, flush with the bottom edge
         const floor = Matter.Bodies.rectangle(width / 2, height + thickness / 2 + 4, width * 3, thickness, options);
         // Left wall spanning edge-to-edge
-        const leftWall = Matter.Bodies.rectangle(-thickness / 2, height / 2 - 200, thickness, height * 2 + 800, options);
+        const leftWall = Matter.Bodies.rectangle(-thickness / 2, height / 2, thickness, height * 3, options);
         // Right wall
-        const rightWall = Matter.Bodies.rectangle(width + thickness / 2, height / 2 - 200, thickness, height * 2 + 800, options);
-        // High ceiling so thrown blocks don't escape
+        const rightWall = Matter.Bodies.rectangle(width + thickness / 2, height / 2, thickness, height * 3, options);
+        // Ceiling at the top edge of the container (thickness 200, center at -100 means bottom edge touches y=0)
+        // Initial drop position starts high (-500) so dropping blocks enter cleanly
         const ceiling = Matter.Bodies.rectangle(width / 2, -400 - thickness / 2, width * 3, thickness, options);
 
         wallsRef.current = [floor, leftWall, rightWall, ceiling];
@@ -130,6 +149,11 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         const rect = container.getBoundingClientRect();
         const width = rect.width;
         const scale = getScale(width);
+
+        // Open ceiling for incoming drop
+        if (wallsRef.current[3]) {
+            Matter.Body.setPosition(wallsRef.current[3], { x: width / 2, y: -500 });
+        }
 
         elementsRef.current.forEach((el) => {
             if (el) {
@@ -182,6 +206,15 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
             dropTimersRef.current.push(timer);
         });
 
+        // Seal ceiling after all blocks have dropped so inverted tilt keeps blocks inside bounds
+        const sealTimer = window.setTimeout(() => {
+            if (wallsRef.current[3] && containerRef.current) {
+                const currentWidth = containerRef.current.getBoundingClientRect().width;
+                Matter.Body.setPosition(wallsRef.current[3], { x: currentWidth / 2, y: -100 });
+            }
+        }, 2200);
+        dropTimersRef.current.push(sealTimer);
+
         hasDroppedRef.current = true;
     }, [getScale]);
 
@@ -214,6 +247,132 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         }
     }, [onShakeReady, handleShake]);
 
+    // Handle device orientation events (Phone Tilt Physics)
+    const handleOrientation = useCallback((e: DeviceOrientationEvent) => {
+        const gamma = e.gamma; // [-90, 90] left/right
+        const beta = e.beta;   // [-180, 180] front/back
+
+        if (gamma === null || beta === null || gamma === undefined || beta === undefined) {
+            return;
+        }
+
+        // Screen orientation compensation (portrait vs landscape)
+        const orientationAngle =
+            (window.screen?.orientation?.angle ??
+            (window.orientation as number) ??
+            0);
+
+        let rawX = gamma;
+        let rawY = beta - 45; // 45° is natural handheld viewing angle
+
+        if (orientationAngle === 90) {
+            rawX = beta - 45;
+            rawY = -gamma;
+        } else if (orientationAngle === -90 || orientationAngle === 270) {
+            rawX = -(beta - 45);
+            rawY = gamma;
+        } else if (orientationAngle === 180) {
+            rawX = -gamma;
+            rawY = -(beta - 45);
+        }
+
+        // Sensitivity: 30° tilt achieves full 1.0 gravity force
+        const SENSITIVITY = 30;
+        const gx = Math.max(-1.8, Math.min(1.8, (rawX / SENSITIVITY) * 1.0));
+        // Normal baseline is 1.0 downward gravity when rawY = 0
+        const gy = Math.max(-1.8, Math.min(1.8, 1.0 + (rawY / SENSITIVITY) * 1.0));
+
+        targetGravityRef.current = { x: gx, y: gy };
+    }, []);
+
+    // Enable tilt motion tracking
+    const enableMotion = useCallback(() => {
+        setIsMotionActive(true);
+        isMotionActiveRef.current = true;
+        setStatusFeedback(null);
+        window.addEventListener("deviceorientation", handleOrientation, true);
+    }, [handleOrientation]);
+
+    // Disable tilt motion and restore standard gravity
+    const disableMotion = useCallback(() => {
+        setIsMotionActive(false);
+        isMotionActiveRef.current = false;
+        window.removeEventListener("deviceorientation", handleOrientation, true);
+        targetGravityRef.current = { x: 0, y: 1.0 };
+    }, [handleOrientation]);
+
+    // Auto-activate motion for un-gated browsers (Android, Chrome, Firefox)
+    useEffect(() => {
+        if (typeof window === "undefined" || !("DeviceOrientationEvent" in window)) return;
+
+        const doe = window.DeviceOrientationEvent as unknown as {
+            requestPermission?: () => Promise<"granted" | "denied">;
+        };
+
+        // If not gated by iOS requestPermission, automatically enable motion
+        if (typeof doe.requestPermission !== "function") {
+            enableMotion();
+        }
+    }, [enableMotion]);
+
+    // Toggle motion control with iOS permission flow & HTTPS check
+    const toggleMotion = useCallback(async () => {
+        if (isMotionActiveRef.current) {
+            disableMotion();
+            return;
+        }
+
+        // If accessed over plain HTTP on LAN IP, motion sensors are blocked by mobile OS security policy
+        if (
+            typeof window !== "undefined" &&
+            window.location.protocol === "http:" &&
+            window.location.hostname !== "localhost" &&
+            window.location.hostname !== "127.0.0.1"
+        ) {
+            setStatusFeedback("Redirecting to HTTPS for sensors...");
+            window.location.href = window.location.href.replace("http://", "https://");
+            return;
+        }
+
+        // Check if DeviceOrientationEvent exists in window
+        if (typeof window === "undefined" || !("DeviceOrientationEvent" in window)) {
+            setStatusFeedback("Sensors not supported on this browser");
+            setTimeout(() => setStatusFeedback(null), 3500);
+            return;
+        }
+
+        // iOS 13+ permission gate check
+        const doe = window.DeviceOrientationEvent as unknown as {
+            requestPermission?: () => Promise<"granted" | "denied">;
+        };
+
+        if (typeof doe.requestPermission === "function") {
+            try {
+                const response = await doe.requestPermission();
+                if (response === "granted") {
+                    enableMotion();
+                } else {
+                    setStatusFeedback("Motion Permission Denied");
+                    setTimeout(() => setStatusFeedback(null), 3500);
+                }
+            } catch (err) {
+                console.warn("DeviceOrientation permission error:", err);
+                setStatusFeedback("Error: Please open via HTTPS");
+                setTimeout(() => setStatusFeedback(null), 3500);
+            }
+        } else {
+            // Android, Chrome, or un-gated environment
+            enableMotion();
+        }
+    }, [enableMotion, disableMotion]);
+
+    // Cleanup orientation listener on unmount
+    useEffect(() => {
+        return () => {
+            window.removeEventListener("deviceorientation", handleOrientation, true);
+        };
+    }, [handleOrientation]);
+
     // Setup Matter.js Engine & RAF loop
     useEffect(() => {
         if (isReducedMotion) return;
@@ -239,7 +398,16 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
                 const delta = Math.min(currentTime - lastTime, 32);
                 lastTime = currentTime;
 
-                Matter.Engine.update(engineRef.current, delta);
+                // Smooth gravity interpolation: lerps towards tilt target or default {x:0, y:1.0}
+                const activeEngine = engineRef.current;
+                const smoothing = isMotionActiveRef.current ? 0.12 : 0.08;
+                const targetX = isMotionActiveRef.current ? targetGravityRef.current.x : 0;
+                const targetY = isMotionActiveRef.current ? targetGravityRef.current.y : 1.0;
+
+                activeEngine.gravity.x += (targetX - activeEngine.gravity.x) * smoothing;
+                activeEngine.gravity.y += (targetY - activeEngine.gravity.y) * smoothing;
+
+                Matter.Engine.update(activeEngine, delta);
 
                 const currentWidth = containerRef.current?.getBoundingClientRect().width || width;
                 const scale = getScale(currentWidth);
@@ -303,6 +471,22 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
 
     // Pointer Drag & Throw Handlers
     const handlePointerDown = (e: React.PointerEvent) => {
+        // Auto-request iOS permission on first touch interaction if not yet active
+        if (!isMotionActiveRef.current && typeof window !== "undefined" && "DeviceOrientationEvent" in window) {
+            const doe = window.DeviceOrientationEvent as unknown as {
+                requestPermission?: () => Promise<"granted" | "denied">;
+            };
+            if (typeof doe.requestPermission === "function") {
+                doe.requestPermission()
+                    .then((response) => {
+                        if (response === "granted") {
+                            enableMotion();
+                        }
+                    })
+                    .catch(() => {});
+            }
+        }
+
         const container = containerRef.current;
         const engine = engineRef.current;
         if (!container || !engine) return;
@@ -440,44 +624,77 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
     }
 
     return (
-        <div
-            ref={containerRef}
-            data-physics-playground="true"
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            onPointerLeave={handlePointerLeave}
-            className="relative w-full h-[140px] sm:h-[155px] md:h-[165px] overflow-hidden select-none will-change-transform cursor-default"
-            style={{
-                touchAction: isInteracting ? "none" : "pan-y",
-            }}
-        >
-            {/* Physics Bodies Rendered as High-Resolution 3D Tool Cushions */}
-            {TOOLS.map((tool, index) => (
-                <div
-                    key={tool.id}
-                    ref={(el) => {
-                        elementsRef.current[index] = el;
-                    }}
-                    className="absolute top-0 left-0 pointer-events-none will-change-transform opacity-0"
-                    style={{
-                        width: `${tool.baseSize}px`,
-                        height: `${tool.baseSize}px`,
-                    }}
-                >
-                    <img
-                        src={tool.src}
-                        alt={tool.name}
-                        width={tool.baseSize * 2}
-                        height={tool.baseSize * 2}
-                        loading="eager"
-                        decoding="async"
-                        draggable={false}
-                        className="w-full h-full object-contain pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.08)] select-none"
-                    />
+        <div className="w-full flex flex-col items-center">
+            {/* Show "Try tilting your phone." only on mobile & tablet */}
+            {isMobileOrTablet && (
+                <div className="mb-3.5 flex lg:hidden items-center justify-center z-20">
+                    <button
+                        type="button"
+                        onClick={toggleMotion}
+                        aria-label="Try tilting your phone"
+                        className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-300 select-none active:scale-95 cursor-pointer shadow-xs ${
+                            statusFeedback
+                                ? "bg-amber-50 text-amber-900 border border-amber-300"
+                                : isMotionActive
+                                ? "bg-[#1A1A1A] text-white shadow-md ring-2 ring-emerald-400/40"
+                                : "bg-white/95 hover:bg-white text-[#444] hover:text-[#1A1A1A] border border-black/15 shadow-xs"
+                        }`}
+                    >
+                        <span
+                            className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                                statusFeedback
+                                    ? "bg-amber-500"
+                                    : isMotionActive
+                                    ? "bg-emerald-400 animate-pulse"
+                                    : "bg-[#888]"
+                            }`}
+                        />
+                        <span>
+                            {statusFeedback || "Try tilting your phone."}
+                        </span>
+                    </button>
                 </div>
-            ))}
+            )}
+
+            <div
+                ref={containerRef}
+                data-physics-playground="true"
+                onPointerDown={handlePointerDown}
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerUp}
+                onPointerLeave={handlePointerLeave}
+                className="relative w-full h-[140px] sm:h-[155px] md:h-[165px] overflow-hidden select-none will-change-transform cursor-default"
+                style={{
+                    touchAction: isInteracting ? "none" : "pan-y",
+                }}
+            >
+                {/* Physics Bodies Rendered as High-Resolution 3D Tool Cushions */}
+                {TOOLS.map((tool, index) => (
+                    <div
+                        key={tool.id}
+                        ref={(el) => {
+                            elementsRef.current[index] = el;
+                        }}
+                        className="absolute top-0 left-0 pointer-events-none will-change-transform opacity-0"
+                        style={{
+                            width: `${tool.baseSize}px`,
+                            height: `${tool.baseSize}px`,
+                        }}
+                    >
+                        <img
+                            src={tool.src}
+                            alt={tool.name}
+                            width={tool.baseSize * 2}
+                            height={tool.baseSize * 2}
+                            loading="eager"
+                            decoding="async"
+                            draggable={false}
+                            className="w-full h-full object-contain pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.08)] select-none"
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
