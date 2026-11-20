@@ -397,6 +397,12 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         (window as unknown as { lenis?: { start: () => void } }).lenis?.start();
     };
 
+    const handlePointerLeave = () => {
+        if (!isDraggingRef.current) {
+            setIsOverBlock(false);
+        }
+    };
+
     // Reduced Motion Fallback UI
     if (isReducedMotion) {
         return (
@@ -428,9 +434,10 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
-            data-cursor={isInteracting ? "grabbing" : isOverBlock ? "pointer" : undefined}
+            onPointerLeave={handlePointerLeave}
+            data-cursor={isInteracting || isOverBlock ? "block-hand" : undefined}
             className={`relative w-full h-[140px] sm:h-[155px] md:h-[165px] overflow-hidden select-none will-change-transform ${
-                isInteracting ? "cursor-grabbing" : isOverBlock ? "cursor-pointer" : "cursor-default"
+                isInteracting || isOverBlock ? "cursor-none" : "cursor-default"
             }`}
             style={{
                 touchAction: isInteracting ? "none" : "pan-y",

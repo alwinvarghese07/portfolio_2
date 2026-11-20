@@ -1,16 +1,20 @@
 import { useEffect, useRef } from 'react';
 import ferrariCursor from '../assets/images/ferrari_cursor.png';
+import handCursor from '../assets/images/hand_cursor.png';
 
 export default function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
     const roundCursorRef = useRef<HTMLDivElement>(null);
     const pillCursorRef = useRef<HTMLDivElement>(null);
+    const handCursorRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLSpanElement>(null);
 
     // Interaction states using refs
     const isVisible = useRef(false);
     const isHoveringBento = useRef(false);
+    const isHoveringHand = useRef(false);
     const isClickable = useRef(false);
+    const isMouseDownRef = useRef(false);
     const currentText = useRef<string | null>(null);
 
     // Position tracking
@@ -180,16 +184,23 @@ export default function CustomCursor() {
                 }
             }
 
-            // 1. Detect Bento Grid items
+            // 1. Detect Bento Grid items vs Block Hand Cursor
             const bentoEl = target.closest("[data-cursor]") as HTMLElement;
             if (bentoEl) {
                 const label = bentoEl.getAttribute("data-cursor");
-                if (currentText.current !== label) {
-                    currentText.current = label;
-                    if (textRef.current) textRef.current.textContent = label;
+                if (label === "block-hand") {
+                    isHoveringHand.current = true;
+                    isHoveringBento.current = false;
+                } else {
+                    isHoveringHand.current = false;
+                    if (currentText.current !== label) {
+                        currentText.current = label;
+                        if (textRef.current) textRef.current.textContent = label;
+                    }
+                    isHoveringBento.current = true;
                 }
-                isHoveringBento.current = true;
             } else {
+                isHoveringHand.current = false;
                 isHoveringBento.current = false;
             }
 
@@ -197,14 +208,17 @@ export default function CustomCursor() {
             const clickableEl = target.closest("a, button, [role='button'], [data-cursor]");
             isClickable.current = !!clickableEl;
 
-            if (isClickable.current || isHoveringBento.current) {
+            if (isClickable.current || isHoveringBento.current || isHoveringHand.current) {
                 cancelHold();
             }
         };
 
         const onMouseDown = (e: MouseEvent) => {
+            if (e.button === 0) {
+                isMouseDownRef.current = true;
+            }
             if (e.button !== 0) return; // Left click only
-            if (isLaunching.current || isHoveringBento.current || isClickable.current) return;
+            if (isLaunching.current || isHoveringBento.current || isClickable.current || isHoveringHand.current) return;
 
             const target = e.target as HTMLElement;
 
@@ -223,6 +237,7 @@ export default function CustomCursor() {
 
         const onMouseUp = (e: MouseEvent) => {
             if (e.button === 0) {
+                isMouseDownRef.current = false;
                 cancelHold();
             }
         };
@@ -355,6 +370,19 @@ export default function CustomCursor() {
                 }
             }
 
+            // Update hand cursor for blocks
+            if (handCursorRef.current) {
+                if (isHoveringHand.current) {
+                    handCursorRef.current.style.transform = isMouseDownRef.current
+                        ? 'scale(0.88) rotate(-6deg)'
+                        : 'scale(1)';
+                    handCursorRef.current.style.opacity = '1';
+                } else {
+                    handCursorRef.current.style.transform = 'scale(0.4)';
+                    handCursorRef.current.style.opacity = '0';
+                }
+            }
+
             rafId = requestAnimationFrame(animate);
         };
         animate();
@@ -417,6 +445,27 @@ export default function CustomCursor() {
                     <span ref={textRef} className="text-white text-xs md:text-sm font-semibold whitespace-nowrap select-none">
                     </span>
                 </div>
+            </div>
+
+            {/* 3. CARTOON GLOVE HAND CURSOR FOR BLOCKS */}
+            <div
+                ref={handCursorRef}
+                className="absolute pointer-events-none select-none will-change-transform opacity-0 transition-all duration-200"
+                style={{
+                    left: '-10px',
+                    top: '0px',
+                    width: '38px',
+                    height: '40px',
+                    transformOrigin: '10px 0px',
+                    transform: 'scale(0.4)',
+                }}
+            >
+                <img
+                    src={handCursor}
+                    alt="Hand Cursor"
+                    className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)]"
+                    draggable={false}
+                />
             </div>
         </div>
     );
