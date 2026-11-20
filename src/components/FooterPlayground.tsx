@@ -51,7 +51,7 @@ interface FooterPlaygroundProps {
 export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps = {}) {
     const containerRef = useRef<HTMLDivElement>(null);
     const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
-    const [hoveredTool, setHoveredTool] = useState<{ name: string; category: string; x: number; y: number } | null>(null);
+    const [isOverBlock, setIsOverBlock] = useState(false);
     const [isInteracting, setIsInteracting] = useState(false);
     const [isReducedMotion, setIsReducedMotion] = useState(false);
 
@@ -345,20 +345,10 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         if (!isDraggingRef.current) {
             const activeBodies = bodiesRef.current.filter((b): b is Matter.Body => b !== null);
             const hovered = Matter.Query.point(activeBodies, { x: localX, y: localY });
-            if (hovered.length > 0) {
-                const bodyIndex = bodiesRef.current.indexOf(hovered[0]);
-                if (bodyIndex !== -1) {
-                    const tool = TOOLS[bodyIndex];
-                    setHoveredTool({
-                        name: tool.name,
-                        category: tool.category,
-                        x: localX,
-                        y: Math.max(20, localY - 45),
-                    });
-                    return;
-                }
+            const over = hovered.length > 0;
+            if (over !== isOverBlock) {
+                setIsOverBlock(over);
             }
-            setHoveredTool(null);
             return;
         }
 
@@ -374,16 +364,6 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         const history = dragPointerHistoryRef.current;
         history.push({ x: localX, y: localY, time: now });
         if (history.length > 5) history.shift();
-
-        const bodyIndex = bodiesRef.current.indexOf(activeBody);
-        if (bodyIndex !== -1) {
-            setHoveredTool({
-                name: TOOLS[bodyIndex].name,
-                category: TOOLS[bodyIndex].category,
-                x: localX,
-                y: Math.max(20, localY - 50),
-            });
-        }
     };
 
     const handlePointerUp = () => {
@@ -412,7 +392,7 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         isDraggingRef.current = false;
         setIsInteracting(false);
         dragPointerHistoryRef.current = [];
-        setHoveredTool(null);
+        setIsOverBlock(false);
 
         (window as unknown as { lenis?: { start: () => void } }).lenis?.start();
     };
@@ -448,29 +428,14 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
-            data-cursor={isInteracting ? "grabbing" : "grab"}
-            className="relative w-full h-[140px] sm:h-[155px] md:h-[165px] overflow-hidden select-none cursor-grab active:cursor-grabbing will-change-transform"
+            data-cursor={isInteracting ? "grabbing" : isOverBlock ? "pointer" : undefined}
+            className={`relative w-full h-[140px] sm:h-[155px] md:h-[165px] overflow-hidden select-none will-change-transform ${
+                isInteracting ? "cursor-grabbing" : isOverBlock ? "cursor-pointer" : "cursor-default"
+            }`}
             style={{
                 touchAction: isInteracting ? "none" : "pan-y",
             }}
         >
-            {/* Floating Tooltip for Active/Hovered Tool */}
-            {hoveredTool && (
-                <div
-                    className="absolute z-30 pointer-events-none select-none -translate-x-1/2 -translate-y-full transition-opacity duration-150"
-                    style={{
-                        left: hoveredTool.x,
-                        top: hoveredTool.y,
-                    }}
-                >
-                    <div className="px-2.5 py-1 rounded-full bg-black/90 backdrop-blur-md text-white text-[11px] font-mono tracking-wide shadow-md flex items-center gap-1.5 whitespace-nowrap">
-                        <span className="font-medium text-white">{hoveredTool.name}</span>
-                        <span className="text-white/40">·</span>
-                        <span className="text-white/70 text-[10px]">{hoveredTool.category}</span>
-                    </div>
-                </div>
-            )}
-
             {/* Physics Bodies Rendered as High-Resolution 3D Tool Cushions */}
             {TOOLS.map((tool, index) => (
                 <div
