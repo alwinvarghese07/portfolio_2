@@ -7,7 +7,7 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
     return (
         <footer className={`w-full max-w-[800px] mx-auto overflow-hidden ${hideBorder ? "pt-2" : "mt-20 pt-10 border-t border-[#D0D0D0]"}`}>
             <div className="w-full">
-                {/* ── Conversation & Socials ── */}
+                {/* ── Conversation & Socials (Footer Content) ── */}
                 <div className="flex flex-col md:flex-row justify-between items-start gap-8 mt-6">
                     {/* Left side */}
                     <div className="flex flex-col gap-2">
@@ -56,16 +56,16 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
                     </div>
                 </div>
 
-                {/* ── Center Space Physics Playground ── */}
-                <div className="w-full mt-6 sm:mt-8">
-                    <FooterPlayground />
-                </div>
-
-                {/* ── Footer Bottom: Centered Copyright with top margin gap ── */}
-                <div className="w-full mt-6 md:mt-8 pb-8 flex justify-center">
+                {/* ── Copyright Line: directly below the footer content ── */}
+                <div className="w-full mt-10 sm:mt-12 mb-6 sm:mb-8 flex justify-center">
                     <span className="type-caption text-[#999]">
                         © Alwin Varghese Saji, 2026
                     </span>
+                </div>
+
+                {/* ── Interactive Physics Blocks: at the very bottom ── */}
+                <div className="w-full pb-4 sm:pb-6">
+                    <FooterPlayground />
                 </div>
             </div>
         </footer>
