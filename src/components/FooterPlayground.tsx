@@ -100,8 +100,8 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
             label: "boundary",
         };
 
-        // Floor at bottom of playground
-        const floor = Matter.Bodies.rectangle(width / 2, height + thickness / 2, width * 3, thickness, options);
+        // Floor at bottom of playground, flush with the bottom edge
+        const floor = Matter.Bodies.rectangle(width / 2, height + thickness / 2 + 4, width * 3, thickness, options);
         // Left wall spanning edge-to-edge
         const leftWall = Matter.Bodies.rectangle(-thickness / 2, height / 2 - 200, thickness, height * 2 + 800, options);
         // Right wall

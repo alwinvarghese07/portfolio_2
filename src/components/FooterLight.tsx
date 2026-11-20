@@ -63,8 +63,8 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
                     </span>
                 </div>
 
-                {/* ── Interactive Physics Blocks: at the very bottom ── */}
-                <div className="w-full pb-2 sm:pb-4">
+                {/* ── Interactive Physics Blocks: at the very bottom touching edge ── */}
+                <div className="w-full pb-0 mb-0">
                     <FooterPlayground />
                 </div>
             </div>
