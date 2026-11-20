@@ -57,14 +57,14 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
                 </div>
 
                 {/* ── Copyright Line: directly below the footer content ── */}
-                <div className="w-full mt-10 sm:mt-12 mb-6 sm:mb-8 flex justify-center">
+                <div className="w-full mt-5 sm:mt-6 mb-2 sm:mb-3 flex justify-center">
                     <span className="type-caption text-[#999]">
                         © Alwin Varghese Saji, 2026
                     </span>
                 </div>
 
                 {/* ── Interactive Physics Blocks: at the very bottom ── */}
-                <div className="w-full pb-4 sm:pb-6">
+                <div className="w-full pb-2 sm:pb-4">
                     <FooterPlayground />
                 </div>
             </div>

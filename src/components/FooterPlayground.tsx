@@ -449,7 +449,7 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
             data-cursor={isInteracting ? "grabbing" : "grab"}
-            className="relative w-full h-[260px] sm:h-[300px] md:h-[320px] overflow-hidden select-none cursor-grab active:cursor-grabbing will-change-transform"
+            className="relative w-full h-[140px] sm:h-[155px] md:h-[165px] overflow-hidden select-none cursor-grab active:cursor-grabbing will-change-transform"
             style={{
                 touchAction: isInteracting ? "none" : "pan-y",
             }}
