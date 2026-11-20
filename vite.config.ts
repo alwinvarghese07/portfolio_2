@@ -25,7 +25,8 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
           motion: ['motion'],
-          lenis: ['@studio-freight/lenis']
+          lenis: ['@studio-freight/lenis'],
+          matter: ['matter-js']
         }
       }
     }

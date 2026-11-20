@@ -1,12 +1,19 @@
 import mailIcon from "../assets/images/mail.webp";
 import linkedinIcon from "../assets/images/linkedin.webp";
 import xIcon from "../assets/images/insta.webp";
+import FooterPlayground from "./FooterPlayground";
 
 export default function Footer({ hideBorder = false }: { hideBorder?: boolean }) {
     return (
         <footer className={`w-full max-w-[800px] mx-auto ${hideBorder ? "pt-2" : "mt-20 pt-10 border-t border-[#D0D0D0]"}`}>
-            <div className="w-full">
-                <div className="flex flex-col md:flex-row justify-between items-start gap-8 mt-6">
+            <div className="w-full flex flex-col gap-12 sm:gap-14">
+                {/* ── Interactive Physics Tool Playground ── */}
+                <div className="w-full">
+                    <FooterPlayground />
+                </div>
+
+                {/* ── Conversation & Socials ── */}
+                <div className="flex flex-col md:flex-row justify-between items-start gap-8 pt-2">
                     {/* Left side */}
                     <div className="flex flex-col gap-2">
                         <h2 className="type-card-heading text-[22px] md:text-[24px] text-[#1A1A1A]">
@@ -55,7 +62,7 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
                 </div>
 
                 {/* Copyright */}
-                <div className="w-full mt-16 pb-8 flex justify-center">
+                <div className="w-full pb-8 flex justify-center">
                     <span className="type-caption text-[#999]">
                         © Alwin Varghese Saji, 2026
                     </span>
