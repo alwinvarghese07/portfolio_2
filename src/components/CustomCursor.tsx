@@ -15,6 +15,7 @@ export default function CustomCursor() {
     const isHoveringHand = useRef(false);
     const isClickable = useRef(false);
     const isMouseDownRef = useRef(false);
+    const handTiltRef = useRef(0);
     const currentText = useRef<string | null>(null);
 
     // Position tracking
@@ -280,12 +281,20 @@ export default function CustomCursor() {
             lastFrameTime.current = now;
 
             const lerpFactor = 0.15;
-            cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * lerpFactor;
-            cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * lerpFactor;
+            const dx = mousePos.current.x - cursorPos.current.x;
+            const dy = mousePos.current.y - cursorPos.current.y;
+            cursorPos.current.x += dx * lerpFactor;
+            cursorPos.current.y += dy * lerpFactor;
 
             if (cursorRef.current) {
                 cursorRef.current.style.transform = `translate3d(${cursorPos.current.x}px, ${cursorPos.current.y}px, 0)`;
             }
+
+            // Directional tilt calculation for hand cursor
+            const targetTilt = isMouseDownRef.current
+                ? Math.max(-36, Math.min(36, dx * 0.9 + dy * 0.15))
+                : Math.max(-24, Math.min(24, dx * 0.45));
+            handTiltRef.current += (targetTilt - handTiltRef.current) * 0.25;
 
             // F1 Cursor States
             if (roundCursorRef.current) {
@@ -373,12 +382,14 @@ export default function CustomCursor() {
             // Update hand cursor for blocks
             if (handCursorRef.current) {
                 if (isHoveringHand.current) {
-                    handCursorRef.current.style.transform = isMouseDownRef.current
-                        ? 'scale(0.88) rotate(-6deg)'
-                        : 'scale(1)';
+                    handCursorRef.current.style.transition = 'opacity 150ms ease';
+                    const scaleVal = isMouseDownRef.current ? 0.85 : 1;
+                    const rotVal = handTiltRef.current.toFixed(1);
+                    handCursorRef.current.style.transform = `scale(${scaleVal}) rotate(${rotVal}deg)`;
                     handCursorRef.current.style.opacity = '1';
                 } else {
-                    handCursorRef.current.style.transform = 'scale(0.4)';
+                    handCursorRef.current.style.transition = 'opacity 150ms ease, transform 150ms ease';
+                    handCursorRef.current.style.transform = 'scale(0.3) rotate(0deg)';
                     handCursorRef.current.style.opacity = '0';
                 }
             }
@@ -450,20 +461,20 @@ export default function CustomCursor() {
             {/* 3. CARTOON GLOVE HAND CURSOR FOR BLOCKS */}
             <div
                 ref={handCursorRef}
-                className="absolute pointer-events-none select-none will-change-transform opacity-0 transition-all duration-200"
+                className="absolute pointer-events-none select-none will-change-transform opacity-0"
                 style={{
-                    left: '-10px',
+                    left: '-7px',
                     top: '0px',
-                    width: '38px',
-                    height: '40px',
-                    transformOrigin: '10px 0px',
-                    transform: 'scale(0.4)',
+                    width: '26px',
+                    height: '28px',
+                    transformOrigin: '7px 0px',
+                    transform: 'scale(0.3) rotate(0deg)',
                 }}
             >
                 <img
                     src={handCursor}
                     alt="Hand Cursor"
-                    className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_2px_8px_rgba(0,0,0,0.18)]"
+                    className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
                     draggable={false}
                 />
             </div>

@@ -313,16 +313,26 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         const localX = clientX - rect.left;
         const localY = clientY - rect.top;
 
-        const clickedBodies = Matter.Query.point(
-            bodiesRef.current.filter((b): b is Matter.Body => b !== null),
-            { x: localX, y: localY }
-        );
+        const activeBodies = bodiesRef.current.filter((b): b is Matter.Body => b !== null);
+        const clickedBodies = Matter.Query.point(activeBodies, { x: localX, y: localY });
+        let targetBody: Matter.Body | null = clickedBodies[0] || null;
 
-        if (clickedBodies.length > 0) {
-            const targetBody = clickedBodies[0];
+        if (!targetBody) {
+            let closestDist = 45;
+            for (const body of activeBodies) {
+                const d = Math.hypot(body.position.x - localX, body.position.y - localY);
+                if (d < closestDist) {
+                    closestDist = d;
+                    targetBody = body;
+                }
+            }
+        }
+
+        if (targetBody) {
             activeDragBodyRef.current = targetBody;
             isDraggingRef.current = true;
             setIsInteracting(true);
+            setIsOverBlock(true);
 
             (window as unknown as { lenis?: { stop: () => void } }).lenis?.stop();
 
@@ -344,8 +354,17 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
 
         if (!isDraggingRef.current) {
             const activeBodies = bodiesRef.current.filter((b): b is Matter.Body => b !== null);
-            const hovered = Matter.Query.point(activeBodies, { x: localX, y: localY });
-            const over = hovered.length > 0;
+            const direct = Matter.Query.point(activeBodies, { x: localX, y: localY });
+            let over = direct.length > 0;
+            if (!over) {
+                for (const body of activeBodies) {
+                    const d = Math.hypot(body.position.x - localX, body.position.y - localY);
+                    if (d < 45) {
+                        over = true;
+                        break;
+                    }
+                }
+            }
             if (over !== isOverBlock) {
                 setIsOverBlock(over);
             }
@@ -355,13 +374,22 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         const activeBody = activeDragBodyRef.current;
         if (!activeBody) return;
 
-        Matter.Body.setPosition(activeBody, {
-            x: Math.max(30, Math.min(rect.width - 30, localX)),
-            y: Math.max(20, Math.min(rect.height - 20, localY)),
-        });
+        const prevPos = { ...activeBody.position };
+        const newX = Math.max(30, Math.min(rect.width - 30, localX));
+        const newY = Math.max(20, Math.min(rect.height - 20, localY));
+
+        Matter.Body.setPosition(activeBody, { x: newX, y: newY });
 
         const now = performance.now();
         const history = dragPointerHistoryRef.current;
+        const last = history[history.length - 1];
+        if (last) {
+            const dt = Math.max(16, now - last.time);
+            const vx = ((newX - prevPos.x) / dt) * 16;
+            const vy = ((newY - prevPos.y) / dt) * 16;
+            Matter.Body.setVelocity(activeBody, { x: vx, y: vy });
+        }
+
         history.push({ x: localX, y: localY, time: now });
         if (history.length > 5) history.shift();
     };
