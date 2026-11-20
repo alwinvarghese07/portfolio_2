@@ -21,7 +21,7 @@ interface ToolItem {
     name: string;
     category: string;
     src: string;
-    baseSize: number; // in px on 800px desktop
+    baseSize: number; // in px on 800px+ desktop
 }
 
 const TOOLS: ToolItem[] = [
@@ -40,7 +40,15 @@ const TOOLS: ToolItem[] = [
     { id: "music", name: "Music Craft", category: "Audio Production", src: musicImg, baseSize: 72 },
 ];
 
-export default function FooterPlayground() {
+export interface FooterPlaygroundHandle {
+    shake: () => void;
+}
+
+interface FooterPlaygroundProps {
+    onShakeReady?: (shakeFn: () => void) => void;
+}
+
+export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
     const [hoveredTool, setHoveredTool] = useState<{ name: string; category: string; x: number; y: number } | null>(null);
@@ -70,37 +78,38 @@ export default function FooterPlayground() {
         return () => media.removeEventListener("change", listener);
     }, []);
 
-    // Scale calculation based on container width
+    // Responsive scaling based on viewport width
     const getScale = useCallback((width: number) => {
         if (width < 480) return 0.68;
         if (width < 768) return 0.82;
         return 1.0;
     }, []);
 
-    // Create boundary walls
+    // Create boundary walls: floor, left, right, and high ceiling
     const updateWalls = useCallback((width: number, height: number, engine: Matter.Engine) => {
-        // Remove existing walls
         if (wallsRef.current.length > 0) {
             Matter.World.remove(engine.world, wallsRef.current);
             wallsRef.current = [];
         }
 
-        const thickness = 100;
+        const thickness = 200;
         const options: Matter.IChamferableBodyDefinition = {
             isStatic: true,
-            friction: 0.4,
-            restitution: 0.25,
+            friction: 0.35,
+            restitution: 0.28,
             label: "boundary",
         };
 
-        // Floor
-        const floor = Matter.Bodies.rectangle(width / 2, height + thickness / 2, width * 2, thickness, options);
-        // Left wall (extended upward so blocks dropping in don't escape sideways)
-        const leftWall = Matter.Bodies.rectangle(-thickness / 2, height / 2 - 200, thickness, height * 2 + 600, options);
+        // Floor at bottom of playground
+        const floor = Matter.Bodies.rectangle(width / 2, height + thickness / 2, width * 3, thickness, options);
+        // Left wall spanning edge-to-edge
+        const leftWall = Matter.Bodies.rectangle(-thickness / 2, height / 2 - 200, thickness, height * 2 + 800, options);
         // Right wall
-        const rightWall = Matter.Bodies.rectangle(width + thickness / 2, height / 2 - 200, thickness, height * 2 + 600, options);
+        const rightWall = Matter.Bodies.rectangle(width + thickness / 2, height / 2 - 200, thickness, height * 2 + 800, options);
+        // High ceiling so thrown blocks don't escape
+        const ceiling = Matter.Bodies.rectangle(width / 2, -400 - thickness / 2, width * 3, thickness, options);
 
-        wallsRef.current = [floor, leftWall, rightWall];
+        wallsRef.current = [floor, leftWall, rightWall, ceiling];
         Matter.World.add(engine.world, wallsRef.current);
     }, []);
 
@@ -110,11 +119,9 @@ export default function FooterPlayground() {
         const engine = engineRef.current;
         if (!container || !engine) return;
 
-        // Clear any pending drop timers
         dropTimersRef.current.forEach(clearTimeout);
         dropTimersRef.current = [];
 
-        // Clear existing tool bodies from world
         bodiesRef.current.forEach((body) => {
             if (body) Matter.World.remove(engine.world, body);
         });
@@ -124,7 +131,6 @@ export default function FooterPlayground() {
         const width = rect.width;
         const scale = getScale(width);
 
-        // Reset DOM elements out of view
         elementsRef.current.forEach((el) => {
             if (el) {
                 el.style.opacity = "0";
@@ -132,43 +138,41 @@ export default function FooterPlayground() {
             }
         });
 
-        // Staggered drop sequence
         TOOLS.forEach((tool, index) => {
-            // Randomized delay: ~110ms to 240ms between blocks
-            const delay = index * 130 + Math.random() * 80;
+            // Randomized delay: ~110ms to 230ms between blocks
+            const delay = index * 120 + Math.random() * 80;
 
             const timer = window.setTimeout(() => {
                 if (!engineRef.current || !containerRef.current) return;
 
                 const size = tool.baseSize * scale;
 
-                // Evenly distributed spawn column across width with random jitter
-                const colRatio = 0.12 + (index / (TOOLS.length - 1)) * 0.76;
-                const jitter = (Math.random() - 0.5) * (width * 0.15);
+                // Evenly distributed spawn column across full footer width with random jitter
+                const colRatio = 0.08 + (index / (TOOLS.length - 1)) * 0.84;
+                const jitter = (Math.random() - 0.5) * (width * 0.12);
                 const spawnX = Math.max(size / 2 + 10, Math.min(width - size / 2 - 10, width * colRatio + jitter));
-                const spawnY = -size - Math.random() * 60; // Just above the visible container top
+                const spawnY = -size - Math.random() * 50;
 
-                // Rigid body with smooth rounded pillow corners
-                const body = Matter.Bodies.rectangle(spawnX, spawnY, size * 0.95, size * 0.95, {
-                    chamfer: { radius: size * 0.22 },
-                    restitution: 0.32,      // Natural soft inflatable bounce
-                    friction: 0.22,         // Good grip when sliding against other blocks
-                    frictionAir: 0.018,     // Gentle air resistance for floaty settling
+                // Rigid body with soft rounded cushion chamfer
+                const body = Matter.Bodies.rectangle(spawnX, spawnY, size * 0.94, size * 0.94, {
+                    chamfer: { radius: size * 0.24 },
+                    restitution: 0.3,
+                    friction: 0.28,
+                    frictionAir: 0.018,
                     density: 0.003,
                     angle: (Math.random() - 0.5) * 0.5,
                 });
 
-                // Impart subtle initial tumble velocity
+                // Subtle initial tumble velocity
                 Matter.Body.setVelocity(body, {
                     x: (Math.random() - 0.5) * 2.2,
-                    y: Math.random() * 2 + 1.5,
+                    y: Math.random() * 2 + 1.2,
                 });
-                Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.04);
+                Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.035);
 
                 bodiesRef.current[index] = body;
                 Matter.World.add(engine.world, body);
 
-                // Make DOM element visible
                 const el = elementsRef.current[index];
                 if (el) {
                     el.style.opacity = "1";
@@ -181,31 +185,36 @@ export default function FooterPlayground() {
         hasDroppedRef.current = true;
     }, [getScale]);
 
-    // Shake things up: imparts a playful upward shockwave impulse or replays drop
+    // Shake things up: imparts upward pop and rotational impulse
     const handleShake = useCallback(() => {
         const engine = engineRef.current;
         if (!engine) return;
 
-        // If blocks are already in world, impart a joyful upward and chaotic lateral impulse
         let hasActiveBodies = false;
         bodiesRef.current.forEach((body) => {
             if (body) {
                 hasActiveBodies = true;
                 Matter.Body.applyForce(body, body.position, {
-                    x: (Math.random() - 0.5) * 0.14,
-                    y: -0.12 - Math.random() * 0.1, // strong pop upwards
+                    x: (Math.random() - 0.5) * 0.12,
+                    y: -0.14 - Math.random() * 0.08,
                 });
-                Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.18);
+                Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.16);
             }
         });
 
-        // If no bodies or first time, run full drop sequence
         if (!hasActiveBodies) {
             startDropSequence();
         }
     }, [startDropSequence]);
 
-    // Setup Matter.js Engine & Game Loop
+    // Expose shake to parent
+    useEffect(() => {
+        if (onShakeReady) {
+            onShakeReady(handleShake);
+        }
+    }, [onShakeReady, handleShake]);
+
+    // Setup Matter.js Engine & RAF loop
     useEffect(() => {
         if (isReducedMotion) return;
 
@@ -216,27 +225,22 @@ export default function FooterPlayground() {
         const width = rect.width;
         const height = rect.height;
 
-        // 1. Initialize Matter.js Engine
         const engine = Matter.Engine.create({
             gravity: { x: 0, y: 1.0, scale: 0.001 },
             enableSleeping: false,
         });
         engineRef.current = engine;
 
-        // 2. Setup Boundaries
         updateWalls(width, height, engine);
 
-        // 3. RAF Simulation Loop with Direct DOM Sync
         let lastTime = performance.now();
         const updateLoop = (currentTime: number) => {
-            // Only simulate when visible in viewport
             if (isVisibleRef.current && engineRef.current) {
                 const delta = Math.min(currentTime - lastTime, 32);
                 lastTime = currentTime;
 
                 Matter.Engine.update(engineRef.current, delta);
 
-                // Synchronize DOM elements directly without triggering React re-renders
                 const currentWidth = containerRef.current?.getBoundingClientRect().width || width;
                 const scale = getScale(currentWidth);
 
@@ -249,7 +253,6 @@ export default function FooterPlayground() {
                     const { x, y } = body.position;
                     const angle = body.angle;
 
-                    // GPU-accelerated translate3d + rotate
                     el.style.transform = `translate3d(${x - size / 2}px, ${y - size / 2}px, 0) rotate(${angle}rad)`;
                 });
             } else {
@@ -261,7 +264,7 @@ export default function FooterPlayground() {
 
         rafIdRef.current = requestAnimationFrame(updateLoop);
 
-        // 4. IntersectionObserver: triggers initial drop & pauses when offscreen
+        // IntersectionObserver: trigger drop and pause offscreen
         const observer = new IntersectionObserver(
             ([entry]) => {
                 isVisibleRef.current = entry.isIntersecting;
@@ -269,11 +272,11 @@ export default function FooterPlayground() {
                     startDropSequence();
                 }
             },
-            { threshold: 0.15 }
+            { threshold: 0.1 }
         );
         observer.observe(container);
 
-        // 5. ResizeObserver: adjusts walls and clamps bodies dynamically
+        // ResizeObserver: update walls dynamically
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 const newWidth = entry.contentRect.width;
@@ -285,7 +288,6 @@ export default function FooterPlayground() {
         });
         resizeObserver.observe(container);
 
-        // 6. Cleanup
         return () => {
             if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
             dropTimersRef.current.forEach(clearTimeout);
@@ -311,7 +313,6 @@ export default function FooterPlayground() {
         const localX = clientX - rect.left;
         const localY = clientY - rect.top;
 
-        // Find nearest body clicked
         const clickedBodies = Matter.Query.point(
             bodiesRef.current.filter((b): b is Matter.Body => b !== null),
             { x: localX, y: localY }
@@ -323,15 +324,11 @@ export default function FooterPlayground() {
             isDraggingRef.current = true;
             setIsInteracting(true);
 
-            // Pause Lenis smooth scroll while dragging
             (window as unknown as { lenis?: { stop: () => void } }).lenis?.stop();
 
-            // Set static during drag for precise pointer following
             Matter.Body.setStatic(targetBody, true);
-
             dragPointerHistoryRef.current = [{ x: localX, y: localY, time: performance.now() }];
 
-            // Capture pointer on container
             (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
             e.preventDefault();
         }
@@ -345,7 +342,6 @@ export default function FooterPlayground() {
         const localX = e.clientX - rect.left;
         const localY = e.clientY - rect.top;
 
-        // Hover detection for tooltip when not dragging
         if (!isDraggingRef.current) {
             const activeBodies = bodiesRef.current.filter((b): b is Matter.Body => b !== null);
             const hovered = Matter.Query.point(activeBodies, { x: localX, y: localY });
@@ -366,23 +362,19 @@ export default function FooterPlayground() {
             return;
         }
 
-        // Active dragging
         const activeBody = activeDragBodyRef.current;
         if (!activeBody) return;
 
-        // Update body position directly
         Matter.Body.setPosition(activeBody, {
             x: Math.max(30, Math.min(rect.width - 30, localX)),
-            y: Math.max(30, Math.min(rect.height - 20, localY)),
+            y: Math.max(20, Math.min(rect.height - 20, localY)),
         });
 
-        // Track velocity history (keep last 4 points for throwing momentum)
         const now = performance.now();
         const history = dragPointerHistoryRef.current;
         history.push({ x: localX, y: localY, time: now });
         if (history.length > 5) history.shift();
 
-        // Update tooltip position to follow dragged block
         const bodyIndex = bodiesRef.current.indexOf(activeBody);
         if (bodyIndex !== -1) {
             setHoveredTool({
@@ -397,10 +389,8 @@ export default function FooterPlayground() {
     const handlePointerUp = () => {
         const activeBody = activeDragBodyRef.current;
         if (activeBody) {
-            // Restore dynamic physics state
             Matter.Body.setStatic(activeBody, false);
 
-            // Calculate release velocity for natural throwing
             const history = dragPointerHistoryRef.current;
             if (history.length >= 2) {
                 const first = history[0];
@@ -409,7 +399,6 @@ export default function FooterPlayground() {
                 const vx = ((last.x - first.x) / dt) * 16;
                 const vy = ((last.y - first.y) / dt) * 16;
 
-                // Clamp throwing velocity to prevent wild clipping
                 const clampedVx = Math.max(-24, Math.min(24, vx));
                 const clampedVy = Math.max(-24, Math.min(24, vy));
 
@@ -425,23 +414,14 @@ export default function FooterPlayground() {
         dragPointerHistoryRef.current = [];
         setHoveredTool(null);
 
-        // Resume Lenis smooth scroll
         (window as unknown as { lenis?: { start: () => void } }).lenis?.start();
     };
 
-    // Reduced Motion Fallback UI: Clean, static, accessible grid
+    // Reduced Motion Fallback UI
     if (isReducedMotion) {
         return (
-            <div className="w-full flex flex-col items-center">
-                <div className="w-full flex items-center justify-between mb-4">
-                    <span className="font-mono text-[11px] text-[#888] uppercase tracking-wider">
-                        The tools behind the work
-                    </span>
-                    <span className="font-mono text-[10px] text-[#aaa]">
-                        Static View
-                    </span>
-                </div>
-                <div className="grid grid-cols-4 sm:grid-cols-7 gap-4 w-full py-4 justify-items-center">
+            <div className="w-full max-w-[800px] mx-auto px-4 sm:px-6 md:px-8 py-6 select-none">
+                <div className="grid grid-cols-4 sm:grid-cols-7 gap-4 w-full justify-items-center">
                     {TOOLS.map((tool) => (
                         <div key={tool.id} className="flex flex-col items-center gap-1.5 group">
                             <img
@@ -449,7 +429,7 @@ export default function FooterPlayground() {
                                 alt={tool.name}
                                 width={68}
                                 height={68}
-                                className="w-[56px] h-[56px] sm:w-[68px] sm:h-[68px] object-contain drop-shadow-sm transition-transform group-hover:scale-105"
+                                className="w-[52px] h-[52px] sm:w-[64px] sm:h-[64px] object-contain drop-shadow-sm transition-transform group-hover:scale-105"
                             />
                             <span className="font-mono text-[10px] text-[#777] group-hover:text-black">
                                 {tool.name}
@@ -462,110 +442,60 @@ export default function FooterPlayground() {
     }
 
     return (
-        <div className="w-full flex flex-col select-none">
-            {/* ── Editorial Header & Controls ── */}
-            <div className="flex items-center justify-between w-full mb-3 px-1">
-                <div className="flex items-center gap-2.5">
-                    <span className="font-mono text-[11px] text-[#777] uppercase tracking-wider font-medium">
-                        The tools behind the work
-                    </span>
-                    <span className="hidden sm:inline-block text-[#ccc]">/</span>
-                    <span className="hidden sm:inline-block font-mono text-[11px] text-[#999]">
-                        Grab & toss daily drivers
-                    </span>
-                </div>
-
-                {/* Understated "Shake things up" Replay Control */}
-                <button
-                    type="button"
-                    onClick={handleShake}
-                    data-cursor="pointer"
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-[#555] bg-black/[0.03] border border-black/[0.07] hover:bg-black/[0.06] hover:text-[#1A1A1A] active:scale-95 transition-all duration-200 cursor-pointer"
-                    title="Shake things up and bounce the blocks"
-                    aria-label="Shake things up"
+        <div
+            ref={containerRef}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+            data-cursor={isInteracting ? "grabbing" : "grab"}
+            className="relative w-full h-[260px] sm:h-[300px] md:h-[320px] overflow-hidden select-none cursor-grab active:cursor-grabbing will-change-transform"
+            style={{
+                touchAction: isInteracting ? "none" : "pan-y",
+            }}
+        >
+            {/* Floating Tooltip for Active/Hovered Tool */}
+            {hoveredTool && (
+                <div
+                    className="absolute z-30 pointer-events-none select-none -translate-x-1/2 -translate-y-full transition-opacity duration-150"
+                    style={{
+                        left: hoveredTool.x,
+                        top: hoveredTool.y,
+                    }}
                 >
-                    <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="transition-transform duration-300 group-hover:rotate-180"
-                        aria-hidden="true"
-                    >
-                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
-                    </svg>
-                    <span>Shake things up</span>
-                </button>
-            </div>
-
-            {/* ── Interactive Physics Playground Container ── */}
-            <div
-                ref={containerRef}
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
-                onPointerCancel={handlePointerUp}
-                data-cursor={isInteracting ? "grabbing" : "grab"}
-                className="relative w-full h-[300px] sm:h-[350px] md:h-[380px] rounded-2xl bg-gradient-to-b from-black/[0.015] to-transparent border border-[#E2E2E2] overflow-hidden touch-pan-y cursor-grab active:cursor-grabbing will-change-transform"
-                style={{
-                    touchAction: isInteracting ? "none" : "pan-y",
-                }}
-            >
-                {/* Subtle subtle floor drafting coordinate marks */}
-                <div className="absolute bottom-2 left-3 font-mono text-[9px] text-[#bbb] pointer-events-none select-none tracking-wider">
-                    2D PHYSICS // MATTER.JS
-                </div>
-                <div className="absolute bottom-2 right-3 font-mono text-[9px] text-[#bbb] pointer-events-none select-none tracking-wider">
-                    13 RIGID BODIES
-                </div>
-
-                {/* Floating Tooltip for Active/Hovered Tool */}
-                {hoveredTool && (
-                    <div
-                        className="absolute z-30 pointer-events-none select-none -translate-x-1/2 -translate-y-full transition-opacity duration-150"
-                        style={{
-                            left: hoveredTool.x,
-                            top: hoveredTool.y,
-                        }}
-                    >
-                        <div className="px-2.5 py-1 rounded-full bg-black/90 backdrop-blur-md text-white text-[11px] font-mono tracking-wide shadow-md flex items-center gap-1.5 whitespace-nowrap">
-                            <span className="font-medium text-white">{hoveredTool.name}</span>
-                            <span className="text-white/40">·</span>
-                            <span className="text-white/70 text-[10px]">{hoveredTool.category}</span>
-                        </div>
+                    <div className="px-2.5 py-1 rounded-full bg-black/90 backdrop-blur-md text-white text-[11px] font-mono tracking-wide shadow-md flex items-center gap-1.5 whitespace-nowrap">
+                        <span className="font-medium text-white">{hoveredTool.name}</span>
+                        <span className="text-white/40">·</span>
+                        <span className="text-white/70 text-[10px]">{hoveredTool.category}</span>
                     </div>
-                )}
+                </div>
+            )}
 
-                {/* Physics Bodies Rendered as High-Resolution 3D Tool Cushions */}
-                {TOOLS.map((tool, index) => (
-                    <div
-                        key={tool.id}
-                        ref={(el) => {
-                            elementsRef.current[index] = el;
-                        }}
-                        className="absolute top-0 left-0 pointer-events-none will-change-transform opacity-0"
-                        style={{
-                            width: `${tool.baseSize}px`,
-                            height: `${tool.baseSize}px`,
-                        }}
-                    >
-                        <img
-                            src={tool.src}
-                            alt={tool.name}
-                            width={tool.baseSize * 2}
-                            height={tool.baseSize * 2}
-                            loading="eager"
-                            decoding="async"
-                            draggable={false}
-                            className="w-full h-full object-contain pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.08)] select-none"
-                        />
-                    </div>
-                ))}
-            </div>
+            {/* Physics Bodies Rendered as High-Resolution 3D Tool Cushions */}
+            {TOOLS.map((tool, index) => (
+                <div
+                    key={tool.id}
+                    ref={(el) => {
+                        elementsRef.current[index] = el;
+                    }}
+                    className="absolute top-0 left-0 pointer-events-none will-change-transform opacity-0"
+                    style={{
+                        width: `${tool.baseSize}px`,
+                        height: `${tool.baseSize}px`,
+                    }}
+                >
+                    <img
+                        src={tool.src}
+                        alt={tool.name}
+                        width={tool.baseSize * 2}
+                        height={tool.baseSize * 2}
+                        loading="eager"
+                        decoding="async"
+                        draggable={false}
+                        className="w-full h-full object-contain pointer-events-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.08)] select-none"
+                    />
+                </div>
+            ))}
         </div>
     );
 }

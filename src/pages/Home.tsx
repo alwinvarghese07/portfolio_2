@@ -74,7 +74,7 @@ export default function Home() {
             </main>
 
             {/* ── Footer: Full width space without vertical grid lines, content position preserved ── */}
-            <div className="w-full max-w-[864px] mx-auto px-4 sm:px-6 md:px-8 mt-8 md:mt-12">
+            <div className="w-full mt-6 md:mt-8">
                 <FooterLight hideBorder={true} />
             </div>
         </div>
