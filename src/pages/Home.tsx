@@ -24,13 +24,13 @@ export default function Home() {
             <main id="main-content" className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
                 {/* ── Architectural Column Guideline (Left) ── */}
                 <div
-                    className="absolute -top-6 sm:-top-10 -bottom-6 sm:-bottom-10 left-0 w-[1px] bg-[#E2E2E2] pointer-events-none select-none hidden sm:block"
+                    className="absolute -top-6 sm:-top-10 bottom-0 left-0 w-[1px] bg-[#E2E2E2] pointer-events-none select-none hidden sm:block"
                     aria-hidden="true"
                 />
 
                 {/* ── Architectural Column Guideline (Right) ── */}
                 <div
-                    className="absolute -top-6 sm:-top-10 -bottom-6 sm:-bottom-10 right-0 w-[1px] bg-[#E2E2E2] pointer-events-none select-none hidden sm:block"
+                    className="absolute -top-6 sm:-top-10 bottom-0 right-0 w-[1px] bg-[#E2E2E2] pointer-events-none select-none hidden sm:block"
                     aria-hidden="true"
                 />
 
@@ -71,12 +71,12 @@ export default function Home() {
                 <div className="w-full mt-16 md:mt-24">
                     <EditorialDivider />
                 </div>
-
-                {/* ── Footer ── */}
-                <div className="mt-8 md:mt-12">
-                    <FooterLight hideBorder={true} />
-                </div>
             </main>
+
+            {/* ── Footer: Full width space without vertical grid lines, content position preserved ── */}
+            <div className="w-full max-w-[864px] mx-auto px-4 sm:px-6 md:px-8 mt-8 md:mt-12">
+                <FooterLight hideBorder={true} />
+            </div>
         </div>
     );
 }
