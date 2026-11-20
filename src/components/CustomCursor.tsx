@@ -1,21 +1,17 @@
 import { useEffect, useRef } from 'react';
 import ferrariCursor from '../assets/images/ferrari_cursor.png';
-import handCursor from '../assets/images/hand_cursor.png';
 
 export default function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
     const roundCursorRef = useRef<HTMLDivElement>(null);
     const pillCursorRef = useRef<HTMLDivElement>(null);
-    const handCursorRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLSpanElement>(null);
 
     // Interaction states using refs
     const isVisible = useRef(false);
     const isHoveringBento = useRef(false);
-    const isHoveringHand = useRef(false);
     const isClickable = useRef(false);
     const isMouseDownRef = useRef(false);
-    const handTiltRef = useRef(0);
     const currentText = useRef<string | null>(null);
 
     // Position tracking
@@ -45,11 +41,11 @@ export default function CustomCursor() {
         const isInteractive = (target: HTMLElement | null): boolean => {
             if (!target) return false;
             return !!target.closest(
-                "a, button, input, textarea, select, [role='button'], [data-cursor], [draggable='true'], iframe, video, audio, [contenteditable='true'], nav, header"
+                "a, button, input, textarea, select, [role='button'], [data-cursor], [draggable='true'], iframe, video, audio, [contenteditable='true'], nav, header, [data-physics-playground]"
             );
         };
 
-        const isSelectableTextOrContent = (e: MouseEvent, target: HTMLElement | null): boolean => {
+        const isSelectableTextOrContent = (e: MouseEvent | PointerEvent, target: HTMLElement | null): boolean => {
             if (!target) return false;
 
             // 1. Any active text selection currently exists on the page
@@ -106,7 +102,6 @@ export default function CustomCursor() {
             }
 
             // 5. Content card or nested content container check:
-            // Do not classify a card or content section as blank space
             const isPageRootCanvas =
                 target === document.body ||
                 target === document.documentElement ||
@@ -128,11 +123,14 @@ export default function CustomCursor() {
             return false;
         };
 
-        const isGenuinelyEmptyBackground = (e: MouseEvent, target: HTMLElement | null): boolean => {
+        const isGenuinelyEmptyBackground = (e: MouseEvent | PointerEvent, target: HTMLElement | null): boolean => {
             if (!target) return false;
 
             // Never activate on clickable or interactive elements
             if (isInteractive(target)) return false;
+
+            // Never activate inside physics playground
+            if (target.closest('[data-physics-playground]')) return false;
 
             // Never activate on or near selectable text or inside content containers
             if (isSelectableTextOrContent(e, target)) return false;
@@ -163,67 +161,95 @@ export default function CustomCursor() {
             }
         };
 
-        const onMouseMove = (e: MouseEvent) => {
-            mousePos.current = { x: e.clientX, y: e.clientY };
+        const updatePointerPosition = (clientX: number, clientY: number) => {
+            mousePos.current.x = clientX;
+            mousePos.current.y = clientY;
             if (!isVisible.current) {
                 isVisible.current = true;
-                cursorPos.current = { x: e.clientX, y: e.clientY };
+                cursorPos.current.x = clientX;
+                cursorPos.current.y = clientY;
                 if (cursorRef.current) {
                     cursorRef.current.style.display = 'flex';
                     cursorRef.current.style.opacity = '1';
                 }
             }
+        };
 
-            const target = e.target as HTMLElement;
+        const onPointerMove = (e: PointerEvent) => {
+            if (e.pointerType === 'touch') return;
 
-            // If holding in empty space, but user starts dragging (moved > 3px) or moves over text/interactive:
-            // Cancel hold immediately to allow drag gestures without interference
+            updatePointerPosition(e.clientX, e.clientY);
+
+            const target = e.target as HTMLElement | null;
+
+            // If holding in empty space, but user starts dragging (moved > 3px) or moves over text/interactive/physics:
             if (isHolding.current) {
                 const dist = Math.hypot(e.clientX - holdStartPos.current.x, e.clientY - holdStartPos.current.y);
-                if (dist > 3 || isInteractive(target) || isSelectableTextOrContent(e, target)) {
+                if (
+                    dist > 3 ||
+                    (target && isInteractive(target)) ||
+                    (target && target.closest('[data-physics-playground]')) ||
+                    isSelectableTextOrContent(e, target)
+                ) {
                     cancelHold();
                 }
             }
 
-            // 1. Detect Bento Grid items vs Block Hand Cursor
-            const bentoEl = target.closest("[data-cursor]") as HTMLElement;
-            if (bentoEl) {
-                const label = bentoEl.getAttribute("data-cursor");
-                if (label === "block-hand") {
-                    isHoveringHand.current = true;
-                    isHoveringBento.current = false;
-                } else {
-                    isHoveringHand.current = false;
-                    if (currentText.current !== label) {
-                        currentText.current = label;
-                        if (textRef.current) textRef.current.textContent = label;
+            if (!target) return;
+
+            const isPhysics = !!target.closest('[data-physics-playground]');
+
+            // 1. Detect Bento Grid items (only when outside physics playground)
+            if (!isPhysics) {
+                const bentoEl = target.closest("[data-cursor]") as HTMLElement;
+                if (bentoEl) {
+                    const label = bentoEl.getAttribute("data-cursor");
+                    if (label && label !== "none" && label !== "default") {
+                        if (currentText.current !== label) {
+                            currentText.current = label;
+                            if (textRef.current) textRef.current.textContent = label;
+                        }
+                        isHoveringBento.current = true;
+                    } else {
+                        isHoveringBento.current = false;
                     }
-                    isHoveringBento.current = true;
+                } else {
+                    isHoveringBento.current = false;
                 }
+
+                // 2. Detect Clickable items (links, buttons)
+                const clickableEl = target.closest("a, button, [role='button']");
+                isClickable.current = !!clickableEl;
             } else {
-                isHoveringHand.current = false;
                 isHoveringBento.current = false;
+                isClickable.current = false;
             }
 
-            // 2. Detect Clickable items
-            const clickableEl = target.closest("a, button, [role='button'], [data-cursor]");
-            isClickable.current = !!clickableEl;
-
-            if (isClickable.current || isHoveringBento.current || isHoveringHand.current) {
+            if (isClickable.current || isHoveringBento.current || isPhysics) {
                 cancelHold();
             }
         };
 
-        const onMouseDown = (e: MouseEvent) => {
+        const onPointerDown = (e: PointerEvent) => {
+            if (e.pointerType === 'touch') return;
+
             if (e.button === 0) {
                 isMouseDownRef.current = true;
+                updatePointerPosition(e.clientX, e.clientY);
             }
             if (e.button !== 0) return; // Left click only
-            if (isLaunching.current || isHoveringBento.current || isClickable.current || isHoveringHand.current) return;
 
-            const target = e.target as HTMLElement;
+            const target = e.target as HTMLElement | null;
 
-            // Only genuinely empty background reaches here — selectable text & interactive elements are ignored
+            // Never activate F1 launch hold inside physics playground
+            if (target && target.closest('[data-physics-playground]')) {
+                cancelHold();
+                return;
+            }
+
+            if (isLaunching.current || isHoveringBento.current || isClickable.current) return;
+
+            // Only genuinely empty background reaches here
             if (!isGenuinelyEmptyBackground(e, target)) {
                 cancelHold();
                 return;
@@ -233,10 +259,10 @@ export default function CustomCursor() {
             holdStartTime.current = performance.now();
             holdStartPos.current = { x: e.clientX, y: e.clientY };
             holdProgress.current = 0;
-            // Never set userSelect = 'none' here — preserve natural browser drag/selection
         };
 
-        const onMouseUp = (e: MouseEvent) => {
+        const onPointerUp = (e: PointerEvent) => {
+            if (e.pointerType === 'touch') return;
             if (e.button === 0) {
                 isMouseDownRef.current = false;
                 cancelHold();
@@ -265,9 +291,12 @@ export default function CustomCursor() {
             }
         };
 
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('mousedown', onMouseDown);
-        window.addEventListener('mouseup', onMouseUp);
+        // Window-level capture listener ensures continuous pointer tracking during active drag
+        // Even when elements call setPointerCapture() or preventDefault()
+        window.addEventListener('pointermove', onPointerMove, { capture: true, passive: true });
+        window.addEventListener('pointerdown', onPointerDown, { capture: true, passive: true });
+        window.addEventListener('pointerup', onPointerUp, { capture: true, passive: true });
+        window.addEventListener('pointercancel', onPointerUp, { capture: true, passive: true });
         window.addEventListener('blur', onCancel);
         document.addEventListener('mouseleave', onMouseLeave);
         document.addEventListener('mouseenter', onMouseEnter);
@@ -280,21 +309,14 @@ export default function CustomCursor() {
             const dt = Math.min((now - lastFrameTime.current) / 1000, 0.05);
             lastFrameTime.current = now;
 
-            const lerpFactor = 0.15;
-            const dx = mousePos.current.x - cursorPos.current.x;
-            const dy = mousePos.current.y - cursorPos.current.y;
-            cursorPos.current.x += dx * lerpFactor;
-            cursorPos.current.y += dy * lerpFactor;
+            // Tighter lerp during active drag (0.35) for instant responsiveness, standard lerp (0.18) when idle
+            const lerpFactor = isMouseDownRef.current ? 0.35 : 0.18;
+            cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * lerpFactor;
+            cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * lerpFactor;
 
             if (cursorRef.current) {
                 cursorRef.current.style.transform = `translate3d(${cursorPos.current.x}px, ${cursorPos.current.y}px, 0)`;
             }
-
-            // Directional tilt calculation for hand cursor
-            const targetTilt = isMouseDownRef.current
-                ? Math.max(-36, Math.min(36, dx * 0.9 + dy * 0.15))
-                : Math.max(-24, Math.min(24, dx * 0.45));
-            handTiltRef.current += (targetTilt - handTiltRef.current) * 0.25;
 
             // F1 Cursor States
             if (roundCursorRef.current) {
@@ -361,7 +383,7 @@ export default function CustomCursor() {
                         isRecovering.current = false;
                     }
                 } else {
-                    // Normal Idle
+                    // Normal Idle or Active Physics Object Dragging: Visible Ferrari Car
                     roundCursorRef.current.style.transition = 'all 300ms cubic-bezier(0.16, 1, 0.3, 1)';
                     roundCursorRef.current.style.transform = 'scale(1)';
                     roundCursorRef.current.style.opacity = '1';
@@ -379,29 +401,15 @@ export default function CustomCursor() {
                 }
             }
 
-            // Update hand cursor for blocks
-            if (handCursorRef.current) {
-                if (isHoveringHand.current) {
-                    handCursorRef.current.style.transition = 'opacity 150ms ease';
-                    const scaleVal = isMouseDownRef.current ? 0.85 : 1;
-                    const rotVal = handTiltRef.current.toFixed(1);
-                    handCursorRef.current.style.transform = `scale(${scaleVal}) rotate(${rotVal}deg)`;
-                    handCursorRef.current.style.opacity = '1';
-                } else {
-                    handCursorRef.current.style.transition = 'opacity 150ms ease, transform 150ms ease';
-                    handCursorRef.current.style.transform = 'scale(0.3) rotate(0deg)';
-                    handCursorRef.current.style.opacity = '0';
-                }
-            }
-
             rafId = requestAnimationFrame(animate);
         };
         animate();
 
         return () => {
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mousedown', onMouseDown);
-            window.removeEventListener('mouseup', onMouseUp);
+            window.removeEventListener('pointermove', onPointerMove, { capture: true });
+            window.removeEventListener('pointerdown', onPointerDown, { capture: true });
+            window.removeEventListener('pointerup', onPointerUp, { capture: true });
+            window.removeEventListener('pointercancel', onPointerUp, { capture: true });
             window.removeEventListener('blur', onCancel);
             document.removeEventListener('mouseleave', onMouseLeave);
             document.removeEventListener('mouseenter', onMouseEnter);
@@ -456,27 +464,6 @@ export default function CustomCursor() {
                     <span ref={textRef} className="text-white text-xs md:text-sm font-semibold whitespace-nowrap select-none">
                     </span>
                 </div>
-            </div>
-
-            {/* 3. CARTOON GLOVE HAND CURSOR FOR BLOCKS */}
-            <div
-                ref={handCursorRef}
-                className="absolute pointer-events-none select-none will-change-transform opacity-0"
-                style={{
-                    left: '-7px',
-                    top: '0px',
-                    width: '26px',
-                    height: '28px',
-                    transformOrigin: '7px 0px',
-                    transform: 'scale(0.3) rotate(0deg)',
-                }}
-            >
-                <img
-                    src={handCursor}
-                    alt="Hand Cursor"
-                    className="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
-                    draggable={false}
-                />
             </div>
         </div>
     );
