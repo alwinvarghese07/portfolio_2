@@ -31,7 +31,7 @@ export default function WanderContent() {
 
                     <div className="flex flex-col gap-6 md:gap-8">
                         {/* Role, Responsibilities, Tools Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-7 sm:p-10 bg-[#FAFAFA] rounded-3xl md:rounded-4xl border-0 shadow-none divide-y md:divide-y-0 md:divide-x divide-black/[0.06]">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-7 sm:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none divide-y md:divide-y-0 md:divide-x divide-black/[0.06]">
                             <div className="flex flex-col gap-2 pt-2 md:pt-0">
                                 <h4 className="text-[11px] font-bold uppercase tracking-widest text-[#888]">Role</h4>
                                 <p className="text-[#1A1A1A] font-medium type-body">UI/UX Designer</p>
@@ -61,7 +61,7 @@ export default function WanderContent() {
                         </div>
 
                         {/* Project Description & Goal Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 bg-[#FAFAFA] p-7 sm:p-10 rounded-3xl md:rounded-4xl border-0 shadow-none">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 bg-[#FBFBFB] p-7 sm:p-10 rounded-3xl md:rounded-4xl border-0 shadow-none">
                             <div className="flex flex-col gap-3">
                                 <h4 className="text-xl sm:text-2xl font-semibold font-roobert text-[#1A1A1A]">Project Description</h4>
                                 <p className="text-[#555] leading-relaxed type-body">
@@ -78,7 +78,7 @@ export default function WanderContent() {
                     </div>
 
                     {/* What is Wander editorial callout */}
-                    <div className="flex flex-col items-center gap-4 p-8 sm:p-10 rounded-3xl md:rounded-4xl bg-[#FAFAFA] border-0 shadow-none text-center max-w-[760px] mx-auto w-full">
+                    <div className="flex flex-col items-center gap-4 p-8 sm:p-10 rounded-3xl md:rounded-4xl bg-[#FBFBFB] border-0 shadow-none text-center max-w-[760px] mx-auto w-full">
                         <div className="flex justify-center items-center gap-3 flex-wrap">
                             <h2 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">What is </h2>
                             <div className="w-36 sm:w-40">
@@ -132,8 +132,8 @@ export default function WanderContent() {
 
                     <div className="flex flex-col gap-6">
                         {/* AllTrails */}
-                        <div className="flex flex-col md:flex-row border-0 rounded-3xl overflow-hidden bg-[#FAFAFA] shadow-none transition-shadow">
-                            <div className="md:w-1/4 p-6 sm:p-8 flex items-center justify-start md:justify-center bg-[#F0F0F0] border-0">
+                        <div className="flex flex-col md:flex-row border-0 rounded-3xl overflow-hidden bg-[#FBFBFB] shadow-none transition-shadow">
+                            <div className="md:w-1/4 p-6 sm:p-8 flex items-center justify-start md:justify-center bg-[#FBFBFB] border-0">
                                 <div className="flex justify-center items-center gap-3">
                                     <div className="w-10 h-10 sm:w-12 sm:h-12">
                                         <img src={alltrails} alt="AllTrails" loading="lazy" className="w-full h-full rounded-lg object-contain" />
@@ -162,8 +162,8 @@ export default function WanderContent() {
                         </div>
 
                         {/* Gaia GPS */}
-                        <div className="flex flex-col md:flex-row border-0 rounded-3xl overflow-hidden bg-[#FAFAFA] shadow-none transition-shadow">
-                            <div className="md:w-1/4 p-6 sm:p-8 flex items-center justify-start md:justify-center bg-[#F0F0F0] border-0">
+                        <div className="flex flex-col md:flex-row border-0 rounded-3xl overflow-hidden bg-[#FBFBFB] shadow-none transition-shadow">
+                            <div className="md:w-1/4 p-6 sm:p-8 flex items-center justify-start md:justify-center bg-[#FBFBFB] border-0">
                                 <div className="flex justify-center items-center gap-3">
                                     <div className="w-10 h-10 sm:w-12 sm:h-12">
                                         <img src={gaiagps} alt="Gaia GPS" loading="lazy" className="w-full h-full object-contain rounded-lg" />
@@ -213,7 +213,7 @@ export default function WanderContent() {
 
                     <div className="grid grid-cols-1 gap-8 md:gap-10 mt-2">
                         {/* Persona 1 */}
-                        <div className="flex flex-col md:flex-row gap-8 items-center md:items-start bg-[#FAFAFA] p-7 sm:p-9 md:p-10 rounded-3xl md:rounded-4xl border-0 shadow-none">
+                        <div className="flex flex-col md:flex-row gap-8 items-center md:items-start bg-[#FBFBFB] p-7 sm:p-9 md:p-10 rounded-3xl md:rounded-4xl border-0 shadow-none">
                             <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] shrink-0 rounded-full bg-white overflow-hidden shadow-none border-0">
                                 <img src={persona1} alt="Persona 1" loading="lazy" className="w-full h-full object-cover" />
                             </div>
@@ -256,7 +256,7 @@ export default function WanderContent() {
                         </div>
 
                         {/* Persona 2 */}
-                        <div className="flex flex-col md:flex-row-reverse gap-8 items-center md:items-start bg-[#FAFAFA] p-7 sm:p-9 md:p-10 rounded-3xl md:rounded-4xl border-0 shadow-none">
+                        <div className="flex flex-col md:flex-row-reverse gap-8 items-center md:items-start bg-[#FBFBFB] p-7 sm:p-9 md:p-10 rounded-3xl md:rounded-4xl border-0 shadow-none">
                             <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] shrink-0 rounded-full bg-white overflow-hidden shadow-none border-0">
                                 <img src={persona2} alt="Persona 2" loading="lazy" className="w-full h-full object-cover" />
                             </div>
@@ -401,7 +401,7 @@ export default function WanderContent() {
                         <div className="h-px bg-black/[0.08] grow"></div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start bg-[#FAFAFA] p-8 sm:p-12 md:p-14 rounded-3xl md:rounded-4xl border-0 shadow-none">
+                    <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start bg-[#FBFBFB] p-8 sm:p-12 md:p-14 rounded-3xl md:rounded-4xl border-0 shadow-none">
                         <div className="md:w-1/2 flex flex-col gap-3">
                             <h4 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">Wrapping It Up</h4>
                             <p className="text-[#444] leading-relaxed type-body">

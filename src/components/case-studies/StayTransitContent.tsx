@@ -23,10 +23,10 @@ function ShowcaseFrame({
             {/* Outer Showcase Frame */}
             <div className="w-full p-2.5 sm:p-4 md:p-5 rounded-[22px] md:rounded-[26px] bg-[#F2F4F7] border border-black/[0.06] shadow-[0_16px_40px_-20px_rgba(0,0,0,0.06)]">
                 {/* Inner Mockup Canvas / Surface */}
-                <div className={`w-full ${aspect} rounded-[16px] md:rounded-[20px] bg-white border border-black/[0.07] overflow-hidden flex flex-col relative shadow-xs`}>
+                <div className={`w-full ${aspect} rounded-[16px] md:rounded-[20px] bg-white border border-black/[0.07] overflow-hidden flex flex-col relative shadow-none`}>
                     {/* Browser-style minimal header bar for web screens */}
                     {(variant === "browser" || variant === "default") && (
-                        <div className="h-7 sm:h-8 px-3 sm:px-4 bg-[#FAFAFA] border-b border-black/[0.05] flex items-center justify-between shrink-0 select-none">
+                        <div className="h-7 sm:h-8 px-3 sm:px-4 bg-[#FBFBFB] border-b border-black/[0.05] flex items-center justify-between shrink-0 select-none">
                             <div className="flex items-center gap-1.5">
                                 <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-black/15" />
                                 <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-black/15" />
@@ -41,11 +41,11 @@ function ShowcaseFrame({
 
                     {/* Canvas Area with interface placeholder wireframe hints */}
                     <div className="grow bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center relative select-none">
-                        <div className="w-14 h-14 rounded-2xl bg-white border border-black/[0.06] flex items-center justify-center text-neutral-400 mb-3 shadow-xs">
+                        <div className="w-14 h-14 rounded-2xl bg-white border border-black/[0.06] flex items-center justify-center text-neutral-400 mb-3 shadow-none">
                             <svg className="w-7 h-7 stroke-[1.4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                <circle cx="8.5" cy="8.5" r="1.5"/>
-                                <polyline points="21 15 16 10 5 21"/>
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
                             </svg>
                         </div>
 
@@ -82,7 +82,7 @@ export default function StayTransitContent() {
             <Reveal>
                 <div className="flex flex-col gap-6">
                     {/* Project Overview Spotlight Card */}
-                    <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border border-black/[0.07] grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start shadow-xs">
+                    <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none">
                         <div className="md:col-span-4 flex items-center gap-2.5">
                             <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                                 <FigmaHighlight>Project overview</FigmaHighlight>
@@ -145,7 +145,7 @@ export default function StayTransitContent() {
 
                     {/* 3-column Journey Situations Card Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 my-2">
-                        <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-black/[0.07] hover:border-black/15 transition-all shadow-xs flex flex-col justify-between min-h-[160px]">
+                        <div className="p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[160px]">
                             <div>
                                 <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">SITUATION 01</span>
                                 <h3 className="text-[17px] font-semibold text-[#171A22] mb-1.5">Before departure</h3>
@@ -155,7 +155,7 @@ export default function StayTransitContent() {
                             </div>
                         </div>
 
-                        <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-black/[0.07] hover:border-black/15 transition-all shadow-xs flex flex-col justify-between min-h-[160px]">
+                        <div className="p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[160px]">
                             <div>
                                 <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">SITUATION 02</span>
                                 <h3 className="text-[17px] font-semibold text-[#171A22] mb-1.5">After arrival</h3>
@@ -165,7 +165,7 @@ export default function StayTransitContent() {
                             </div>
                         </div>
 
-                        <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-black/[0.07] hover:border-black/15 transition-all shadow-xs flex flex-col justify-between min-h-[160px]">
+                        <div className="p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[160px]">
                             <div>
                                 <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">SITUATION 03</span>
                                 <h3 className="text-[17px] font-semibold text-[#171A22] mb-1.5">During transit</h3>
@@ -205,7 +205,7 @@ export default function StayTransitContent() {
 
                     {/* Two-Column Scope Split Card */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-2">
-                        <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/[0.08] shadow-xs flex flex-col gap-4">
+                        <div className="p-6 sm:p-7 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-4">
                             <div className="flex items-center gap-2.5">
                                 <span className="w-1.5 h-4 rounded-full bg-[#245CF5]" />
                                 <h3 className="text-[18px] font-semibold text-[#171A22]">Traveller-facing product</h3>
@@ -234,7 +234,7 @@ export default function StayTransitContent() {
                             </ul>
                         </div>
 
-                        <div className="p-6 sm:p-7 rounded-2xl bg-white border border-black/[0.08] shadow-xs flex flex-col gap-4">
+                        <div className="p-6 sm:p-7 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-4">
                             <div className="flex items-center gap-2.5">
                                 <span className="w-1.5 h-4 rounded-full bg-[#1E8B68]" />
                                 <h3 className="text-[18px] font-semibold text-[#171A22]">Operational product</h3>
@@ -300,7 +300,7 @@ export default function StayTransitContent() {
                     {/* Editorial Exploration Matrix */}
                     <div className="flex flex-col gap-3 my-2">
                         {/* Exploration 01 */}
-                        <div className="p-5 sm:p-6 rounded-2xl bg-white border border-black/[0.08] shadow-xs grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
                             <div className="md:col-span-3">
                                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-black/5 text-[#717680] text-[11px] font-bold uppercase tracking-wider">
                                     Exploration 01
@@ -315,7 +315,7 @@ export default function StayTransitContent() {
                         </div>
 
                         {/* Exploration 02 */}
-                        <div className="p-5 sm:p-6 rounded-2xl bg-white border border-black/[0.08] shadow-xs grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
                             <div className="md:col-span-3">
                                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-black/5 text-[#717680] text-[11px] font-bold uppercase tracking-wider">
                                     Exploration 02
@@ -330,7 +330,7 @@ export default function StayTransitContent() {
                         </div>
 
                         {/* Final Direction (Highlighted Solution) */}
-                        <div className="p-5 sm:p-6 rounded-2xl bg-[#EDF2FF]/60 border border-[#245CF5]/30 shadow-xs grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start ring-1 ring-[#245CF5]/20">
+                        <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
                             <div className="md:col-span-3">
                                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#245CF5] text-white text-[11px] font-bold uppercase tracking-wider">
                                     Final direction
@@ -346,7 +346,7 @@ export default function StayTransitContent() {
                     </div>
 
                     {/* Editorial Takeaway Banner (The Shift) */}
-                    <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#F0F4FF] border border-[#245CF5]/20 my-2 shadow-xs">
+                    <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none my-2">
                         <div className="flex items-start gap-4">
                             <span className="text-2xl leading-none text-[#245CF5]" aria-hidden="true">“</span>
                             <p className="text-[16px] sm:text-[18px] text-[#283B6E] font-medium leading-relaxed">
@@ -429,7 +429,7 @@ export default function StayTransitContent() {
                     </p>
 
                     {/* Architecture Workflow Canvas - Light Theme */}
-                    <div className="my-4 p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border border-black/[0.08] shadow-xs">
+                    <div className="my-4 p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none">
                         <div className="flex items-center gap-2 mb-2">
                             <span className="w-2 h-2 rounded-full bg-[#245CF5]" />
                             <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#171A22]">How time-based discovery works</h3>
@@ -439,7 +439,7 @@ export default function StayTransitContent() {
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1.2fr_auto_1fr] items-center gap-4 md:gap-3">
-                            <div className="p-5 rounded-xl bg-white border border-black/[0.08] text-center shadow-xs">
+                            <div className="p-5 rounded-xl bg-white border-0 shadow-none text-center">
                                 <b className="block text-[14px] font-semibold text-[#171A22]">Property admin</b>
                                 <span className="block text-[12px] text-[#596272] mt-1.5 leading-relaxed">
                                     Creates packages, durations, prices and conditions
@@ -448,7 +448,7 @@ export default function StayTransitContent() {
 
                             <div className="text-center text-[#245CF5] text-2xl font-bold rotate-90 md:rotate-0">→</div>
 
-                            <div className="p-5 rounded-xl bg-[#EDF2FF] border border-[#245CF5]/30 text-center shadow-xs ring-1 ring-[#245CF5]/20">
+                            <div className="p-5 rounded-xl bg-[#EDF2FF] border-0 shadow-none text-center">
                                 <b className="block text-[14px] font-semibold text-[#245CF5]">StayTransit matching</b>
                                 <span className="block text-[12px] text-[#3F4856] mt-1.5 leading-relaxed">
                                     Reads the traveller’s time window and identifies eligible options
@@ -457,7 +457,7 @@ export default function StayTransitContent() {
 
                             <div className="text-center text-[#245CF5] text-2xl font-bold rotate-90 md:rotate-0">→</div>
 
-                            <div className="p-5 rounded-xl bg-white border border-black/[0.08] text-center shadow-xs">
+                            <div className="p-5 rounded-xl bg-white border-0 shadow-none text-center">
                                 <b className="block text-[14px] font-semibold text-[#171A22]">Traveller results</b>
                                 <span className="block text-[12px] text-[#596272] mt-1.5 leading-relaxed">
                                     Sees properties with packages that fit the selected time
@@ -607,7 +607,7 @@ export default function StayTransitContent() {
 
                     {/* Step Progression Ribbon */}
                     <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 my-2">
-                        <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col justify-between min-h-[110px]">
+                        <div className="p-4 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[110px]">
                             <span className="text-[11px] font-mono text-[#245CF5] font-semibold">STEP 01</span>
                             <div>
                                 <b className="text-[13.5px] font-semibold text-[#171A22] block mb-0.5">Select</b>
@@ -615,7 +615,7 @@ export default function StayTransitContent() {
                             </div>
                         </div>
 
-                        <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col justify-between min-h-[110px]">
+                        <div className="p-4 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[110px]">
                             <span className="text-[11px] font-mono text-[#245CF5] font-semibold">STEP 02</span>
                             <div>
                                 <b className="text-[13.5px] font-semibold text-[#171A22] block mb-0.5">Review</b>
@@ -623,7 +623,7 @@ export default function StayTransitContent() {
                             </div>
                         </div>
 
-                        <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col justify-between min-h-[110px]">
+                        <div className="p-4 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[110px]">
                             <span className="text-[11px] font-mono text-[#245CF5] font-semibold">STEP 03</span>
                             <div>
                                 <b className="text-[13.5px] font-semibold text-[#171A22] block mb-0.5">Pay</b>
@@ -631,7 +631,7 @@ export default function StayTransitContent() {
                             </div>
                         </div>
 
-                        <div className="p-4 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col justify-between min-h-[110px]">
+                        <div className="p-4 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[110px]">
                             <span className="text-[11px] font-mono text-[#245CF5] font-semibold">STEP 04</span>
                             <div>
                                 <b className="text-[13.5px] font-semibold text-[#171A22] block mb-0.5">Confirm</b>
@@ -639,7 +639,7 @@ export default function StayTransitContent() {
                             </div>
                         </div>
 
-                        <div className="col-span-2 sm:col-span-1 p-4 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col justify-between min-h-[110px]">
+                        <div className="col-span-2 sm:col-span-1 p-4 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[110px]">
                             <span className="text-[11px] font-mono text-[#245CF5] font-semibold">STEP 05</span>
                             <div>
                                 <b className="text-[13.5px] font-semibold text-[#171A22] block mb-0.5">Revisit</b>
@@ -680,7 +680,7 @@ export default function StayTransitContent() {
                     </p>
 
                     {/* Ecosystem Architecture Canvas - Light Theme */}
-                    <div className="my-4 p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border border-black/[0.08] shadow-xs">
+                    <div className="my-4 p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none">
                         <div className="flex items-center gap-2 mb-2">
                             <span className="w-2 h-2 rounded-full bg-[#245CF5]" />
                             <h3 className="text-[18px] sm:text-[20px] font-semibold text-[#171A22]">One marketplace, multiple working environments</h3>
@@ -690,7 +690,7 @@ export default function StayTransitContent() {
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-[1.1fr_auto_1.3fr_auto_1.1fr] items-center gap-4 md:gap-3">
-                            <div className="p-5 rounded-xl bg-white border border-black/[0.08] text-center shadow-xs">
+                            <div className="p-5 rounded-xl bg-white border-0 shadow-none text-center">
                                 <b className="block text-[14px] font-semibold text-[#171A22]">Property / Merchant</b>
                                 <span className="block text-[12px] text-[#596272] mt-1.5 leading-relaxed">
                                     Manages property details, services and packages
@@ -699,7 +699,7 @@ export default function StayTransitContent() {
 
                             <div className="text-center text-[#245CF5] text-2xl font-bold rotate-90 md:rotate-0">→</div>
 
-                            <div className="p-5 rounded-xl bg-[#EDF2FF] border border-[#245CF5]/30 text-center ring-1 ring-[#245CF5]/20 shadow-xs">
+                            <div className="p-5 rounded-xl bg-[#EDF2FF] border-0 shadow-none text-center">
                                 <b className="block text-[14px] font-semibold text-[#245CF5]">StayTransit platform</b>
                                 <span className="block text-[12px] text-[#3F4856] mt-1.5 leading-relaxed">
                                     Brings property offerings into the traveller discovery and booking experience
@@ -708,7 +708,7 @@ export default function StayTransitContent() {
 
                             <div className="text-center text-[#245CF5] text-2xl font-bold rotate-90 md:rotate-0">→</div>
 
-                            <div className="p-5 rounded-xl bg-white border border-black/[0.08] text-center shadow-xs">
+                            <div className="p-5 rounded-xl bg-white border-0 shadow-none text-center">
                                 <b className="block text-[14px] font-semibold text-[#171A22]">Traveller</b>
                                 <span className="block text-[12px] text-[#596272] mt-1.5 leading-relaxed">
                                     Discovers, selects and books a suitable service
@@ -735,19 +735,19 @@ export default function StayTransitContent() {
 
                     {/* 4 Roles Card Matrix */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-2">
-                        <div className="p-5 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col gap-2">
+                        <div className="p-5 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <h4 className="text-[16px] font-semibold text-[#171A22]">Super Admin</h4>
                             <p className="text-[13px] text-[#596272] leading-relaxed">
                                 The central administration experience for overseeing the StayTransit platform and its participating businesses.
                             </p>
                         </div>
-                        <div className="p-5 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col gap-2">
+                        <div className="p-5 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <h4 className="text-[16px] font-semibold text-[#171A22]">Merchant</h4>
                             <p className="text-[13px] text-[#596272] leading-relaxed">
                                 The property-facing workspace for managing property information, services, packages, pricing and the conditions attached to those offerings.
                             </p>
                         </div>
-                        <div className="p-5 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col gap-2">
+                        <div className="p-5 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <h4 className="text-[16px] font-semibold text-[#171A22]">Partner</h4>
                             <p className="text-[13px] text-[#596272] leading-relaxed">
                                 A dedicated workspace for partners working within the StayTransit ecosystem.
@@ -755,7 +755,7 @@ export default function StayTransitContent() {
                         </div>
                     </div>
 
-                    <div className="p-5 rounded-xl bg-white border border-black/[0.08] shadow-xs flex flex-col gap-2 max-w-[800px]">
+                    <div className="p-5 rounded-xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2 max-w-[800px]">
                         <h4 className="text-[16px] font-semibold text-[#171A22]">Financial dashboard</h4>
                         <p className="text-[13px] text-[#596272] leading-relaxed">
                             A separate operational area for the financial workflows that support the marketplace.
@@ -858,7 +858,7 @@ export default function StayTransitContent() {
 
                     {/* Outcome Metric Cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-2">
-                        <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border border-black/[0.08] shadow-xs flex flex-col justify-between">
+                        <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between">
                             <div>
                                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#245CF5]/10 text-[#245CF5] text-[11px] font-bold uppercase tracking-wider mb-3">
                                     Product Surface 01
@@ -872,7 +872,7 @@ export default function StayTransitContent() {
                             </div>
                         </div>
 
-                        <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border border-black/[0.08] shadow-xs flex flex-col justify-between">
+                        <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between">
                             <div>
                                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#1E8B68]/10 text-[#1E8B68] text-[11px] font-bold uppercase tracking-wider mb-3">
                                     Product Surface 02

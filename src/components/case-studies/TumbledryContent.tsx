@@ -20,7 +20,7 @@ export default function TumbledryContent() {
         <div className="w-full flex flex-col gap-14 sm:gap-18 md:gap-24 font-roobert text-[#1A1A1A]">
             {/* ── 1. PRODUCT OVERVIEW ── */}
             <Reveal>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 sm:p-8 bg-[#FAFAFA] rounded-2xl md:rounded-3xl border-0 shadow-none text-left sm:text-center divide-y sm:divide-y-0 sm:divide-x divide-black/[0.06]">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 sm:p-8 bg-[#FBFBFB] rounded-2xl md:rounded-3xl border-0 shadow-none text-left sm:text-center divide-y sm:divide-y-0 sm:divide-x divide-black/[0.06]">
                     <div className="flex flex-col gap-1.5 pt-2 sm:pt-0">
                         <span className="text-[11px] font-bold text-[#888] uppercase tracking-widest">Role</span>
                         <span className="type-body text-[#1A1A1A] font-medium">Product Designer</span>
@@ -38,7 +38,7 @@ export default function TumbledryContent() {
 
             {/* ── 2. UNDERSTANDING THE CURRENT EXPERIENCE ── */}
             <Reveal>
-                <div className="flex flex-col md:flex-row items-start bg-[#FAFAFA] p-7 sm:p-10 md:p-12 rounded-3xl md:rounded-4xl gap-6 md:gap-10 border-0 shadow-none">
+                <div className="flex flex-col md:flex-row items-start bg-[#FBFBFB] p-7 sm:p-10 md:p-12 rounded-3xl md:rounded-4xl gap-6 md:gap-10 border-0 shadow-none">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold font-roobert text-[#1A1A1A] leading-tight shrink-0 md:max-w-[280px]">
                         The Current Experience
                     </h2>
@@ -73,13 +73,13 @@ export default function TumbledryContent() {
                             </p>
                             <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
                                 {/* Competitor Logos */}
-                                <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FAFAFA] border-0 shadow-none transition-shadow">
+                                <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FBFBFB] border-0 shadow-none transition-shadow">
                                     <img src={laundrymate} alt="LaundryMate logo" loading="lazy" className="w-full h-full object-contain rounded-xl" />
                                 </div>
-                                <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FAFAFA] border-0 shadow-none transition-shadow">
+                                <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FBFBFB] border-0 shadow-none transition-shadow">
                                     <img src={spincycles} alt="Spin Cycles logo" loading="lazy" className="w-full h-full object-contain rounded-xl" />
                                 </div>
-                                <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FAFAFA] border-0 shadow-none transition-shadow">
+                                <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FBFBFB] border-0 shadow-none transition-shadow">
                                     <img src={uclean} alt="UClean logo" loading="lazy" className="w-full h-full object-contain rounded-xl" />
                                 </div>
                             </div>
@@ -97,21 +97,21 @@ export default function TumbledryContent() {
                 <div className="flex flex-col gap-6">
                     <h4 className="type-card-heading text-2xl sm:text-3xl text-[#1A1A1A]">Key Insights</h4>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2">
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
+                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
                             <span className="text-[11px] font-bold text-[#168BEB] uppercase tracking-wider">Insight 01</span>
                             <h5 className="text-xl font-semibold text-[#1A1A1A]">Price Clarity</h5>
                             <p className="text-[#555] type-body leading-relaxed">
                                 Users need to understand the expected cost before scheduling a pickup. When pricing is hidden or difficult to find, it creates uncertainty during the booking decision.
                             </p>
                         </div>
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
+                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
                             <span className="text-[11px] font-bold text-[#168BEB] uppercase tracking-wider">Insight 02</span>
                             <h5 className="text-xl font-semibold text-[#1A1A1A]">Service Details</h5>
                             <p className="text-[#555] type-body leading-relaxed">
                                 The booking flow does not capture important details such as garment type or quantity. Without this information, users may not fully understand what they are requesting from the service.
                             </p>
                         </div>
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FAFAFA] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
+                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
                             <span className="text-[11px] font-bold text-[#168BEB] uppercase tracking-wider">Insight 03</span>
                             <h5 className="text-xl font-semibold text-[#1A1A1A]">Booking Confirmation</h5>
                             <p className="text-[#555] type-body leading-relaxed">
@@ -189,7 +189,7 @@ export default function TumbledryContent() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                        <div className="rounded-3xl md:rounded-4xl overflow-hidden bg-[#FAFAFA] border-0 shadow-none flex items-center justify-center p-6 md:p-8">
+                        <div className="rounded-3xl md:rounded-4xl overflow-hidden bg-[#FBFBFB] border-0 shadow-none flex items-center justify-center p-6 md:p-8">
                             <img
                                 src={emptyState1}
                                 alt="Empty State Placeholder 1"
@@ -197,7 +197,7 @@ export default function TumbledryContent() {
                                 className="w-full max-h-[520px] object-contain rounded-2xl"
                             />
                         </div>
-                        <div className="rounded-3xl md:rounded-4xl overflow-hidden bg-[#FAFAFA] border-0 shadow-none flex items-center justify-center p-6 md:p-8">
+                        <div className="rounded-3xl md:rounded-4xl overflow-hidden bg-[#FBFBFB] border-0 shadow-none flex items-center justify-center p-6 md:p-8">
                             <img
                                 src={emptyState2}
                                 alt="Empty State Placeholder 2"
@@ -223,7 +223,7 @@ export default function TumbledryContent() {
                 {/* Moment 1 */}
                 <Reveal>
                     <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-8 group">
-                        <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FAFAFA] rounded-3xl md:rounded-4xl border-0 shadow-none">
+                        <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none">
                             <h4 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">Booking Experience</h4>
                             <p className="type-body text-[#555] leading-relaxed">
                                 A clearer booking flow that gives users visibility into pricing and order details before scheduling a pickup.
@@ -243,7 +243,7 @@ export default function TumbledryContent() {
                 {/* Moment 2 */}
                 <Reveal>
                     <div className="flex flex-col md:flex-row-reverse items-stretch gap-6 md:gap-8 group">
-                        <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FAFAFA] rounded-3xl md:rounded-4xl border-0 shadow-none">
+                        <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none">
                             <h4 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">Live Tracking</h4>
                             <p className="type-body text-[#555] leading-relaxed">
                                 A simple tracking experience that keeps users informed about the progress of their laundry order.
@@ -264,7 +264,7 @@ export default function TumbledryContent() {
                 {/* Moment 3 */}
                 <Reveal>
                     <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-8 group">
-                        <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FAFAFA] rounded-3xl md:rounded-4xl border-0 shadow-none">
+                        <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none">
                             <h4 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">Notifications</h4>
                             <p className="type-body text-[#555] leading-relaxed">
                                 Timely updates keep users aware of important events without needing to constantly check the app.
@@ -284,7 +284,7 @@ export default function TumbledryContent() {
 
             {/* ── 9. OUTCOME / REFLECTION ── */}
             <Reveal>
-                <div className="bg-[#FAFAFA] text-[#1A1A1A] rounded-3xl md:rounded-4xl p-8 sm:p-12 md:p-14 flex flex-col gap-6 border-0 shadow-none">
+                <div className="bg-[#FBFBFB] text-[#1A1A1A] rounded-3xl md:rounded-4xl p-8 sm:p-12 md:p-14 flex flex-col gap-6 border-0 shadow-none">
                     <h3 className="type-card-heading text-2xl sm:text-3xl md:text-4xl text-[#1A1A1A] tracking-tight">Takeaway</h3>
                     <div className="flex flex-col gap-4">
                         <p className="type-body font-normal text-[#444] leading-relaxed">

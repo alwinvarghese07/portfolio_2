@@ -13,6 +13,14 @@ const PROJECTS = [
         isVideo: false,
     },
     {
+        id: "medaram-jathara",
+        title: "Medaram Jathara 2026",
+        category: "Product Design · Guest App + Guest Web",
+        description: "A connected digital experience helping visitors prepare for a large-scale tribal festival and access essential information, services and emergency safety support on the ground.",
+        mediaUrl: undefined,
+        isVideo: false,
+    },
+    {
         id: "tumbledry",
         title: "Tumbledry",
         category: "Product Design · Mobile App",

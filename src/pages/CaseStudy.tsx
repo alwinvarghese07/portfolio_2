@@ -8,6 +8,7 @@ import CaseStudyNavbar from "../components/CaseStudyNavbar";
 import TumbledryContent from "../components/case-studies/TumbledryContent";
 import WanderContent from "../components/case-studies/WanderContent";
 import StayTransitContent from "../components/case-studies/StayTransitContent";
+import MedaramJatharaContent from "../components/case-studies/MedaramJatharaContent";
 import Wander from "../assets/images/header.webp";
 import TumbleDry from "../assets/images/alwin.webp";
 
@@ -15,13 +16,24 @@ import TumbleDry from "../assets/images/alwin.webp";
 const getCaseStudyData = (id: string | undefined) => {
     if (id === "staytransit") {
         return {
-            title: "Designing airport services around a traveller’s time.",
+            title: "StayTransit",
             navTitle: "StayTransit",
             kicker: undefined,
-            subtitle: "Making airport experiences easier to discover and book.",
+            subtitle: "Designing airport services around a traveller’s time. Making airport experiences easier to discover and book across lounges, stays, spas and transit services. airport experiences easier to discover and book.",
             description: "StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the marketplace.",
             mediaUrl: undefined,
             content: "StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the marketplace.",
+            image: undefined,
+        };
+    } else if (id === "medaram-jathara" || id === "medaram") {
+        return {
+            title: "Medaram Jathara 2026",
+            navTitle: "Medaram Jathara 2026",
+            kicker: undefined,
+            subtitle: "A connected digital experience that helps visitors prepare for a large-scale tribal festival and access essential information and support while they are there.",
+            description: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana. The project contains two product surfaces: a Guest Web experience and a Guest App.",
+            mediaUrl: undefined,
+            content: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana across a Guest Web experience and a Guest App.",
             image: undefined,
         };
     } else if (id === "tumbledry") {
@@ -129,13 +141,13 @@ export default function CaseStudy() {
                     </h1>
 
                     {data.subtitle && (
-                        <p className="text-[15px] sm:text-[17px] md:text-[18px] text-[#596272] font-normal leading-relaxed max-w-[680px] mt-0.5">
+                        <p className="text-[15px] sm:text-[17px] md:text-[16px] text-[#596272] font-normal leading-relaxed w-full mt-0.5">
                             {data.subtitle}
                         </p>
                     )}
 
                     {/* ── Hero Media Showcase (LCP candidate, high fetchpriority per modern-web-guidance) ── */}
-                    <div className="w-full mt-4 sm:mt-6 aspect-[16/10] rounded-[22px] md:rounded-[26px] overflow-hidden bg-[#FAFAFA] border-0 shadow-none relative">
+                    <div className="w-full mt-4 sm:mt-6 aspect-[16/10] rounded-[22px] md:rounded-[26px] overflow-hidden bg-[#FBFBFB] border-0 shadow-none relative">
                         {id === "tumbledry" && data.mediaUrl ? (
                             <video
                                 src={data.mediaUrl}
@@ -156,9 +168,9 @@ export default function CaseStudy() {
                             <div className="w-full h-full flex flex-col items-center justify-center bg-[#F0F2F5] text-neutral-400 p-6 select-none rounded-[22px] md:rounded-[26px]">
                                 <div className="w-14 h-14 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center text-neutral-400 mb-2.5 shadow-xs">
                                     <svg className="w-7 h-7 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                        <circle cx="8.5" cy="8.5" r="1.5"/>
-                                        <polyline points="21 15 16 10 5 21"/>
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                        <circle cx="8.5" cy="8.5" r="1.5" />
+                                        <polyline points="21 15 16 10 5 21" />
                                     </svg>
                                 </div>
                                 <span className="text-xs uppercase tracking-widest text-neutral-600 font-semibold">{data.navTitle || data.title} Cover Placeholder</span>
@@ -172,12 +184,14 @@ export default function CaseStudy() {
                 <div className="w-full max-w-[800px] mx-auto mt-12 sm:mt-16 md:mt-20">
                     {id === "staytransit" ? (
                         <StayTransitContent />
+                    ) : id === "medaram-jathara" || id === "medaram" ? (
+                        <MedaramJatharaContent />
                     ) : id === "wander" ? (
                         <WanderContent />
                     ) : id === "tumbledry" ? (
                         <TumbledryContent />
                     ) : (
-                        <div className="mt-8 flex flex-col gap-6 w-full p-8 bg-[#FAFAFA] rounded-3xl border-0 shadow-none">
+                        <div className="mt-8 flex flex-col gap-6 w-full p-8 bg-[#FBFBFB] rounded-3xl border-0 shadow-none">
                             <h2 className="type-card-heading text-2xl text-[#1A1A1A]">Overview</h2>
                             <p className="type-body text-[#555] leading-relaxed">
                                 {data.content}
