@@ -1,5 +1,6 @@
 import Reveal from "../reveal";
 import FigmaHighlight from "../FigmaHighlight";
+import { EditorialDivider } from "../EditorialGrid";
 
 interface ShowcaseFrameProps {
     title: string;
@@ -122,6 +123,8 @@ export default function StayTransitContent() {
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 01 / CONTEXT ── */}
             <Reveal>
                 <section className="flex flex-col gap-4 sm:gap-5">
@@ -181,6 +184,8 @@ export default function StayTransitContent() {
                     </p>
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 02 / MY ROLE ── */}
             <Reveal>
@@ -269,6 +274,8 @@ export default function StayTransitContent() {
                     </p>
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 03 / THE CORE CHALLENGE ── */}
             <Reveal>
@@ -361,6 +368,8 @@ export default function StayTransitContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 04 / SEARCH ── */}
             <Reveal>
                 <section className="flex flex-col gap-4 sm:gap-5">
@@ -403,6 +412,8 @@ export default function StayTransitContent() {
                     </p>
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 05 / MATCHING LOGIC (Light Section) ── */}
             <Reveal>
@@ -474,6 +485,8 @@ export default function StayTransitContent() {
                     </p>
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 06 / PROPERTY DETAILS ── */}
             <Reveal>
@@ -555,6 +568,8 @@ export default function StayTransitContent() {
                     />
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 07 / CHECKOUT ── */}
             <Reveal>
@@ -657,6 +672,8 @@ export default function StayTransitContent() {
                     </div>
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 08 / THE ECOSYSTEM (Light Section) ── */}
             <Reveal>
@@ -802,6 +819,8 @@ export default function StayTransitContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 09 / PLATFORM ── */}
             <Reveal>
                 <section className="flex flex-col gap-4 sm:gap-5">
@@ -837,6 +856,8 @@ export default function StayTransitContent() {
                     </div>
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 10 / OUTCOME ── */}
             <Reveal>
@@ -892,6 +913,8 @@ export default function StayTransitContent() {
                     </p>
                 </section>
             </Reveal>
+
+            <EditorialDivider />
 
             {/* ── 11 / REFLECTION ── */}
             <Reveal>

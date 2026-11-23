@@ -14,35 +14,38 @@ import uclean from "../../assets/images/uclean.webp";
 import emptyState1 from "../../assets/images/empty_bag.png";
 import emptyState2 from "../../assets/images/no_slot.png";
 import FigmaHighlight from "../FigmaHighlight";
+import { EditorialDivider } from "../EditorialGrid";
 
 export default function TumbledryContent() {
     return (
-        <div className="w-full flex flex-col gap-14 sm:gap-18 md:gap-24 font-roobert text-[#1A1A1A]">
+        <div className="w-full flex flex-col gap-10 sm:gap-14 md:gap-18 font-roobert text-[#171A22]">
             {/* ── 1. PRODUCT OVERVIEW ── */}
             <Reveal>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 sm:p-8 bg-[#FBFBFB] rounded-2xl md:rounded-3xl border-0 shadow-none text-left sm:text-center divide-y sm:divide-y-0 sm:divide-x divide-black/[0.06]">
-                    <div className="flex flex-col gap-1.5 pt-2 sm:pt-0">
-                        <span className="text-[11px] font-bold text-[#888] uppercase tracking-widest">Role</span>
-                        <span className="type-body text-[#1A1A1A] font-medium">Product Designer</span>
+                    <div className="flex flex-col gap-1 pt-2 sm:pt-0">
+                        <span className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Role</span>
+                        <span className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Product Designer</span>
                     </div>
-                    <div className="flex flex-col gap-1.5 pt-4 sm:pt-0 sm:pl-4">
-                        <span className="text-[11px] font-bold text-[#888] uppercase tracking-widest">Platform</span>
-                        <span className="type-body text-[#1A1A1A] font-medium">iOS & Android App</span>
+                    <div className="flex flex-col gap-1 pt-4 sm:pt-0 sm:pl-4">
+                        <span className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Platform</span>
+                        <span className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">iOS & Android App</span>
                     </div>
-                    <div className="flex flex-col gap-1.5 pt-4 sm:pt-0 sm:pl-4">
-                        <span className="text-[11px] font-bold text-[#888] uppercase tracking-widest">Focus</span>
-                        <span className="type-body text-[#1A1A1A] font-medium">UX Research, UX/UI Design, Prototyping</span>
+                    <div className="flex flex-col gap-1 pt-4 sm:pt-0 sm:pl-4">
+                        <span className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Focus</span>
+                        <span className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">UX Research, UX/UI Design, Prototyping</span>
                     </div>
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 2. UNDERSTANDING THE CURRENT EXPERIENCE ── */}
             <Reveal>
                 <div className="flex flex-col md:flex-row items-start bg-[#FBFBFB] p-7 sm:p-10 md:p-12 rounded-3xl md:rounded-4xl gap-6 md:gap-10 border-0 shadow-none">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold font-roobert text-[#1A1A1A] leading-tight shrink-0 md:max-w-[280px]">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight shrink-0 md:max-w-[280px]">
                         The Current Experience
                     </h2>
-                    <div className="flex flex-col gap-4 type-body text-[#555] leading-relaxed">
+                    <div className="flex flex-col gap-4 text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
                         <p>
                             Tumbledry provides a mobile app that allows users to schedule laundry pickups and deliveries. However, reviewing the product revealed several gaps in the overall experience - from booking and pricing visibility to order clarity and payment expectations.
                         </p>
@@ -53,25 +56,28 @@ export default function TumbledryContent() {
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 3. RESEARCH ── */}
             <Reveal>
-                <div className="flex flex-col gap-8 md:gap-10">
-                    <div className="flex items-center gap-4">
+                <div className="flex flex-col gap-6 sm:gap-8">
+                    <div>
                         <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
-                            <FigmaHighlight>Research</FigmaHighlight>
+                            <FigmaHighlight>01 / RESEARCH</FigmaHighlight>
                         </h3>
-                        <div className="h-px bg-black/[0.08] grow"></div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
-                        <div className="flex flex-col gap-5">
-                            <h4 className="type-card-heading text-2xl sm:text-3xl text-[#1A1A1A]">Digging deeper</h4>
-                            <p className="text-[#555] type-body leading-relaxed">
+                        <div className="flex flex-col gap-4">
+                            <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
+                                Digging deeper
+                            </h2>
+                            <p className="text-[17px] sm:text-[19px] text-[#3F4856] font-normal leading-relaxed">
                                 To better understand the current experience, I audited the Tumbledry mobile app and walked through the entire lifecycle of a laundry order - from selecting a service to scheduling pickup and tracking the order. This helped uncover friction points, inconsistencies, and areas where the experience could be simplified or made more transparent.
                             </p>
-                            <p className="text-[#555] type-body leading-relaxed">
+                            <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
                                 In addition, I explored a few other laundry service apps to understand how similar platforms communicate pricing, order details, and booking confirmations during the scheduling process. Comparing these experiences helped identify common patterns, usability gaps, and opportunities to create a more seamless and trustworthy booking flow.
                             </p>
-                            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-3">
+                            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
                                 {/* Competitor Logos */}
                                 <div className="h-16 w-16 sm:h-18 sm:w-18 flex items-center justify-center p-2 rounded-2xl bg-[#FBFBFB] border-0 shadow-none transition-shadow">
                                     <img src={laundrymate} alt="LaundryMate logo" loading="lazy" className="w-full h-full object-contain rounded-xl" />
@@ -92,29 +98,38 @@ export default function TumbledryContent() {
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 4. KEY INSIGHTS ── */}
             <Reveal>
                 <div className="flex flex-col gap-6">
-                    <h4 className="type-card-heading text-2xl sm:text-3xl text-[#1A1A1A]">Key Insights</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-2">
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
-                            <span className="text-[11px] font-bold text-[#168BEB] uppercase tracking-wider">Insight 01</span>
-                            <h5 className="text-xl font-semibold text-[#1A1A1A]">Price Clarity</h5>
-                            <p className="text-[#555] type-body leading-relaxed">
+                    <div>
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
+                            <FigmaHighlight>02 / INSIGHTS</FigmaHighlight>
+                        </h3>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
+                        Key Insights
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-1">
+                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2.5">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-1 font-medium">INSIGHT 01</span>
+                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22] mb-1">Price Clarity</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 Users need to understand the expected cost before scheduling a pickup. When pricing is hidden or difficult to find, it creates uncertainty during the booking decision.
                             </p>
                         </div>
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
-                            <span className="text-[11px] font-bold text-[#168BEB] uppercase tracking-wider">Insight 02</span>
-                            <h5 className="text-xl font-semibold text-[#1A1A1A]">Service Details</h5>
-                            <p className="text-[#555] type-body leading-relaxed">
+                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2.5">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-1 font-medium">INSIGHT 02</span>
+                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22] mb-1">Service Details</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 The booking flow does not capture important details such as garment type or quantity. Without this information, users may not fully understand what they are requesting from the service.
                             </p>
                         </div>
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-3 hover:-translate-y-0.5 transition-all">
-                            <span className="text-[11px] font-bold text-[#168BEB] uppercase tracking-wider">Insight 03</span>
-                            <h5 className="text-xl font-semibold text-[#1A1A1A]">Booking Confirmation</h5>
-                            <p className="text-[#555] type-body leading-relaxed">
+                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2.5">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-1 font-medium">INSIGHT 03</span>
+                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22] mb-1">Booking Confirmation</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 After selecting a pickup slot, tapping “Schedule Pickup” immediately places the order. Users typically expect a confirmation or review step before committing to a service booking.
                             </p>
                         </div>
@@ -122,54 +137,60 @@ export default function TumbledryContent() {
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 5. LOW FIDELITY EXPLORATION ── */}
             <Reveal>
-                <div className="flex flex-col gap-8 md:gap-10">
-                    <div className="flex items-center gap-4">
+                <div className="flex flex-col gap-6 sm:gap-8">
+                    <div>
                         <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
-                            <FigmaHighlight>Ideation</FigmaHighlight>
+                            <FigmaHighlight>03 / IDEATION</FigmaHighlight>
                         </h3>
-                        <div className="h-px bg-black/[0.08] grow"></div>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <h4 className="type-card-heading text-2xl sm:text-3xl text-[#1A1A1A]">Low Fidelity & Flows</h4>
-                        <p className="text-[#555] type-body leading-relaxed max-w-[760px]">
+                        <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
+                            Low Fidelity & Flows
+                        </h2>
+                        <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                             With the key insights identified, the next step was to explore ways to simplify the booking experience while improving transparency for users. Early wireframes focused on restructuring the scheduling flow, surfacing pricing at the right moment, capturing essential service details such as garment types, and introducing a confirmation step before placing an order.
                         </p>
                     </div>
                     <div className="flex flex-col gap-8 mt-2">
                         <div className="flex flex-col gap-3">
-                            <h5 className="text-lg sm:text-xl font-semibold text-[#1A1A1A] font-roobert tracking-wide">Order Flow</h5>
+                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22]">Order Flow</h3>
                             <img src={orders} alt="Order Flow" loading="lazy" className="w-full h-auto rounded-2xl md:rounded-3xl object-cover" />
                         </div>
                         <div className="flex flex-col gap-3">
-                            <h5 className="text-lg sm:text-xl font-semibold text-[#1A1A1A] font-roobert tracking-wide">My Orders Flow</h5>
+                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22]">My Orders Flow</h3>
                             <img src={myorders} alt="My Orders Flow" loading="lazy" className="w-full h-auto rounded-2xl md:rounded-3xl object-cover" />
                         </div>
                         <div className="flex flex-col gap-3">
-                            <h5 className="text-lg sm:text-xl font-semibold text-[#1A1A1A] font-roobert tracking-wide">Sketches</h5>
+                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22]">Sketches</h3>
                             <img src={lowFidelity} alt="Sketches" loading="lazy" className="w-full h-auto rounded-2xl md:rounded-3xl object-cover" />
                         </div>
                     </div>
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 6. DESIGN SOLUTION & HIGH FIDELITY ── */}
             <Reveal>
-                <div className="flex flex-col gap-8 md:gap-10">
-                    <div className="flex items-center gap-4">
+                <div className="flex flex-col gap-6 sm:gap-8">
+                    <div>
                         <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
-                            <FigmaHighlight>Design Solution</FigmaHighlight>
+                            <FigmaHighlight>04 / DESIGN SOLUTION</FigmaHighlight>
                         </h3>
-                        <div className="h-px bg-black/[0.08] grow"></div>
                     </div>
                     <div className="flex flex-col gap-4">
-                        <h4 className="type-card-heading text-2xl sm:text-3xl text-[#1A1A1A]">High Fidelity Transformation</h4>
+                        <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
+                            High Fidelity Transformation
+                        </h2>
                         <div className="flex flex-col gap-3">
-                            <p className="text-[#555] type-body leading-relaxed">
+                            <p className="text-[17px] sm:text-[19px] text-[#3F4856] font-normal leading-relaxed max-w-[800px]">
                                 Building on the early wireframes, the concepts were translated into a complete high-fidelity redesign of the Tumbledry mobile experience. The focus was to create a clearer and more structured service journey, ensuring users could understand what they were booking at every step of the process.
                             </p>
-                            <p className="text-[#555] type-body leading-relaxed">
+                            <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                                 The redesigned flow surfaces pricing earlier, captures important service details such as garment types, and introduces a confirmation step before scheduling pickup. Improvements were also made to navigation, order tracking, and information hierarchy to make the overall experience feel more transparent and predictable while keeping the booking process simple.
                             </p>
                         </div>
@@ -178,12 +199,21 @@ export default function TumbledryContent() {
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 7. EMPTY STATES ── */}
             <Reveal>
-                <div className="flex flex-col gap-6 md:gap-8">
+                <div className="flex flex-col gap-6 sm:gap-8">
+                    <div>
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
+                            <FigmaHighlight>05 / EMPTY STATES</FigmaHighlight>
+                        </h3>
+                    </div>
                     <div className="flex flex-col gap-3">
-                        <h4 className="type-card-heading text-2xl sm:text-3xl text-[#1A1A1A]">Empty States</h4>
-                        <p className="text-[#555] type-body leading-relaxed max-w-full">
+                        <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
+                            Empty States
+                        </h2>
+                        <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                             Empty states play a crucial role in guiding users when there's no data to display. I designed them to be informative yet visually engaging, ensuring users understand what to do next.
                         </p>
                     </div>
@@ -209,14 +239,15 @@ export default function TumbledryContent() {
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 8. EXPERIENCE MOMENTS ── */}
             <div className="flex flex-col gap-8 md:gap-10">
                 <Reveal>
-                    <div className="flex items-center gap-4">
+                    <div>
                         <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
-                            <FigmaHighlight>Experience Moments</FigmaHighlight>
+                            <FigmaHighlight>06 / EXPERIENCE MOMENTS</FigmaHighlight>
                         </h3>
-                        <div className="h-px bg-black/[0.08] grow"></div>
                     </div>
                 </Reveal>
 
@@ -224,11 +255,11 @@ export default function TumbledryContent() {
                 <Reveal>
                     <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-8 group">
                         <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none">
-                            <h4 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">Booking Experience</h4>
-                            <p className="type-body text-[#555] leading-relaxed">
+                            <h3 className="text-2xl sm:text-3xl font-semibold text-[#171A22] tracking-tight">Booking Experience</h3>
+                            <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
                                 A clearer booking flow that gives users visibility into pricing and order details before scheduling a pickup.
                             </p>
-                            <ul className="type-body text-[#555] leading-relaxed list-disc pl-5 space-y-1.5 marker:text-[#168BEB]">
+                            <ul className="flex flex-col gap-2.5 text-[14px] text-[#424B59] leading-relaxed list-disc pl-5">
                                 <li>Pricing is surfaced earlier in the booking flow</li>
                                 <li>Users can add garment details before confirming</li>
                                 <li>A confirmation step prevents accidental bookings</li>
@@ -244,11 +275,11 @@ export default function TumbledryContent() {
                 <Reveal>
                     <div className="flex flex-col md:flex-row-reverse items-stretch gap-6 md:gap-8 group">
                         <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none">
-                            <h4 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">Live Tracking</h4>
-                            <p className="type-body text-[#555] leading-relaxed">
+                            <h3 className="text-2xl sm:text-3xl font-semibold text-[#171A22] tracking-tight">Live Tracking</h3>
+                            <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
                                 A simple tracking experience that keeps users informed about the progress of their laundry order.
                             </p>
-                            <ul className="type-body text-[#555] leading-relaxed list-disc pl-5 space-y-1.5 marker:text-[#168BEB]">
+                            <ul className="flex flex-col gap-2.5 text-[14px] text-[#424B59] leading-relaxed list-disc pl-5">
                                 <li>Visual order status shows the current stage of the service</li>
                                 <li>Users can quickly check pickup, processing, and delivery updates</li>
                                 <li>Order details remain accessible throughout the journey</li>
@@ -265,11 +296,11 @@ export default function TumbledryContent() {
                 <Reveal>
                     <div className="flex flex-col md:flex-row items-stretch gap-6 md:gap-8 group">
                         <div className="md:w-5/12 flex flex-col justify-center gap-4 p-7 sm:p-9 md:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none">
-                            <h4 className="text-2xl sm:text-3xl font-semibold font-roobert text-[#1A1A1A]">Notifications</h4>
-                            <p className="type-body text-[#555] leading-relaxed">
+                            <h3 className="text-2xl sm:text-3xl font-semibold text-[#171A22] tracking-tight">Notifications</h3>
+                            <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
                                 Timely updates keep users aware of important events without needing to constantly check the app.
                             </p>
-                            <ul className="type-body text-[#555] leading-relaxed list-disc pl-5 space-y-1.5 marker:text-[#168BEB]">
+                            <ul className="flex flex-col gap-2.5 text-[14px] text-[#424B59] leading-relaxed list-disc pl-5">
                                 <li>Pickup reminders help users prepare their laundry</li>
                                 <li>Status updates notify users as the order progresses</li>
                                 <li>Delivery alerts inform users when the order is ready</li>
@@ -282,15 +313,17 @@ export default function TumbledryContent() {
                 </Reveal>
             </div>
 
+            <EditorialDivider />
+
             {/* ── 9. OUTCOME / REFLECTION ── */}
             <Reveal>
-                <div className="bg-[#FBFBFB] text-[#1A1A1A] rounded-3xl md:rounded-4xl p-8 sm:p-12 md:p-14 flex flex-col gap-6 border-0 shadow-none">
-                    <h3 className="type-card-heading text-2xl sm:text-3xl md:text-4xl text-[#1A1A1A] tracking-tight">Takeaway</h3>
-                    <div className="flex flex-col gap-4">
-                        <p className="type-body font-normal text-[#444] leading-relaxed">
+                <div className="bg-[#FBFBFB] text-[#171A22] rounded-3xl md:rounded-4xl p-8 sm:p-12 md:p-14 flex flex-col gap-6 border-0 shadow-none">
+                    <h3 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">Takeaway</h3>
+                    <div className="flex flex-col gap-4 text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
+                        <p>
                             Redesigning the Tumbledry experience highlighted how important transparency is in service-based products. When users are booking a service that involves cost and physical pickup, they need clear visibility into what they are scheduling and what it will cost.
                         </p>
-                        <p className="type-body font-normal text-[#444] leading-relaxed">
+                        <p>
                             This project also reinforced the value of structuring complex flows into simple, predictable steps. By surfacing pricing earlier, capturing service details, and introducing a confirmation step, the overall booking experience becomes easier to understand and more trustworthy.
                         </p>
                     </div>

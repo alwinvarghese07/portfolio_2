@@ -1,5 +1,6 @@
 import Reveal from "../reveal";
 import FigmaHighlight from "../FigmaHighlight";
+import { EditorialDivider } from "../EditorialGrid";
 
 interface ShowcaseFrameProps {
     title: string;
@@ -78,7 +79,7 @@ function ShowcaseFrame({
             {caption && (
                 <figcaption className="mt-3 px-2 flex items-start gap-2.5 text-left">
                     <span className="w-1 h-3 rounded-full bg-[#174A78] shrink-0 mt-1" aria-hidden="true" />
-                    <p className="text-[12.5px] sm:text-[13px] text-[#596272] leading-relaxed">
+                    <p className="text-[13px] sm:text-[13.5px] text-[#596272] leading-relaxed">
                         <strong className="text-[#171A22] font-semibold">{title}: </strong>
                         {caption}{" "}
                         {figmaLink && (
@@ -108,36 +109,36 @@ export default function MedaramJatharaContent() {
                     {/* Project Overview Spotlight Card */}
                     <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col md:flex-row gap-3 md:gap-8 items-start">
                         <div className="shrink-0 md:w-36 flex items-center">
-                            <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                            <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                                 <FigmaHighlight>Project overview</FigmaHighlight>
                             </h3>
                         </div>
                         <div className="grow">
-                            <p className="text-[#2D3748] text-[14px] sm:text-[14.5px] leading-relaxed">
+                            <p className="text-[#3F4856] text-[15px] sm:text-[16px] leading-relaxed">
                                 A connected digital experience that helps visitors prepare for a large-scale tribal festival and access essential information and support while they are there. Built around the Sammakka–Saralamma Jathara in Medaram, Telangana across two touchpoints: a Guest Web experience and a Guest App.
                             </p>
                         </div>
                     </div>
 
                     {/* Project Meta Bar */}
-                    <div className="py-1 px-1">
-                        <dl className="grid grid-cols-2 md:grid-cols-4 gap-5 sm:gap-6">
+                    <div className="py-2">
+                        <dl className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
                             <div>
-                                <dt className="text-[11px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Touchpoints</dt>
-                                <dd className="text-[13.5px] sm:text-[14px] font-semibold text-[#171A22]">Guest App + Guest Web</dd>
+                                <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Touchpoints</dt>
+                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Guest App + Guest Web</dd>
                             </div>
                             <div>
-                                <dt className="text-[11px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Location</dt>
-                                <dd className="text-[13.5px] sm:text-[14px] font-semibold text-[#171A22]">Medaram, Telangana</dd>
+                                <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Location</dt>
+                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Medaram, Telangana</dd>
                             </div>
                             <div>
-                                <dt className="text-[11px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Scope</dt>
-                                <dd className="text-[13.5px] sm:text-[14px] font-semibold text-[#171A22]">Product design & flows</dd>
+                                <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Scope</dt>
+                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Product design & flows</dd>
                             </div>
                             <div>
-                                <dt className="text-[11px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Adoption</dt>
-                                <dd className="inline-flex items-center gap-1.5 text-[13.5px] sm:text-[14px] font-semibold text-[#171A22]">
-                                    <span className="w-2 h-2 rounded-full bg-[#1E8B68] animate-pulse" />
+                                <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Adoption</dt>
+                                <dd className="inline-flex items-center gap-2 text-[15px] sm:text-[16px] font-semibold text-[#171A22]">
+                                    <span className="w-2.5 h-2.5 rounded-full bg-[#1E8B68] animate-pulse" />
                                     5,000+ Downloads
                                 </dd>
                             </div>
@@ -146,42 +147,46 @@ export default function MedaramJatharaContent() {
                 </div>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 01 / PROJECT SNAPSHOT ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>01 / PROJECT SNAPSHOT</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         One festival. Two digital touchpoints.
                     </h2>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#2D3748] leading-relaxed max-w-[760px]">
+                    <p className="text-[17px] sm:text-[19px] text-[#3F4856] font-normal leading-relaxed max-w-[800px]">
                         Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana. The project contains two product surfaces: a Guest Web experience and a Guest App.
                     </p>
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         The website is primarily for discovery and preparation before a visit. The mobile app is designed for people attending the festival who need quick access to practical information, services and safety support.
                     </p>
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 02 / CONTEXT ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>02 / CONTEXT</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Designing for the scale of Medaram
                     </h2>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         The full-scale 2024 Jathara was held from 21–24 February. On the final day, Telangana minister Danasari Anasuya said approximately 1.35 crore devotees had offered prayers by Saturday afternoon. The Government of India’s Press Information Bureau described the biennial gathering as the second-largest fair in India after the Kumbh Mela.
                     </p>
 
@@ -218,7 +223,7 @@ export default function MedaramJatharaContent() {
                         </div>
                     </div>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         The same ministerial briefing said 20 departments were involved in the event. These figures communicate the operational scale and the importance of clear assistance pathways. They are context—not outcomes caused by this 2026 product.
                     </p>
 
@@ -231,20 +236,22 @@ export default function MedaramJatharaContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 03 / THE CHALLENGE ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>03 / THE CHALLENGE</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Make the festival easier to navigate, before and during the visit
                     </h2>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         Visitors need different information at different moments: travel routes and schedules before setting out; then medical help, drinking water, parking, help desks, missing-person support or emergency assistance once they reach the festival area.
                     </p>
 
@@ -253,9 +260,9 @@ export default function MedaramJatharaContent() {
                         <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-0.5">
                                 <span className="w-1.5 h-3.5 rounded-full bg-[#174A78]" />
-                                <h3 className="text-[15px] font-semibold text-[#171A22]">Before the visit</h3>
+                                <h3 className="text-[17px] font-semibold text-[#171A22]">Before the visit</h3>
                             </div>
-                            <p className="text-[13.5px] text-[#4A5568] leading-relaxed">
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 Help people understand the festival, plan the journey and find reliable official information.
                             </p>
                         </div>
@@ -263,9 +270,9 @@ export default function MedaramJatharaContent() {
                         <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <div className="flex items-center gap-2 mb-0.5">
                                 <span className="w-1.5 h-3.5 rounded-full bg-[#245CF5]" />
-                                <h3 className="text-[15px] font-semibold text-[#171A22]">During the visit</h3>
+                                <h3 className="text-[17px] font-semibold text-[#171A22]">During the visit</h3>
                             </div>
-                            <p className="text-[13.5px] text-[#4A5568] leading-relaxed">
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 Make essential services and safety actions easy to locate and act on in a crowded, unfamiliar environment.
                             </p>
                         </div>
@@ -281,60 +288,62 @@ export default function MedaramJatharaContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 04 / PEOPLE AND NEEDS ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>04 / PEOPLE AND NEEDS</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Different visitors, different moments of need
                     </h2>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         The experience brings together several visitor needs:
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 my-1">
                         <div className="p-5 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <span className="w-6 h-6 rounded-md bg-[#174A78]/10 text-[#174A78] flex items-center justify-center text-[11px] font-bold font-mono">01</span>
-                            <h3 className="text-[14px] font-semibold text-[#171A22]">First-time visitors</h3>
-                            <p className="text-[13px] text-[#596272] leading-relaxed">
+                            <h3 className="text-[17px] font-semibold text-[#171A22]">First-time visitors</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 Need to understand the event, reach Medaram and find key locations without getting disoriented.
                             </p>
                         </div>
 
                         <div className="p-5 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <span className="w-6 h-6 rounded-md bg-[#174A78]/10 text-[#174A78] flex items-center justify-center text-[11px] font-bold font-mono">02</span>
-                            <h3 className="text-[14px] font-semibold text-[#171A22]">Families & groups</h3>
-                            <p className="text-[13px] text-[#596272] leading-relaxed">
+                            <h3 className="text-[17px] font-semibold text-[#171A22]">Families & groups</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 May need help locating one another or quickly initiating a missing-person report in large crowds.
                             </p>
                         </div>
 
                         <div className="p-5 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <span className="w-6 h-6 rounded-md bg-[#174A78]/10 text-[#174A78] flex items-center justify-center text-[11px] font-bold font-mono">03</span>
-                            <h3 className="text-[14px] font-semibold text-[#171A22]">Assistance seekers</h3>
-                            <p className="text-[13px] text-[#596272] leading-relaxed">
+                            <h3 className="text-[17px] font-semibold text-[#171A22]">Assistance seekers</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 Visitors requiring urgent medical assistance, accessibility support or on-ground help from an event desk.
                             </p>
                         </div>
 
                         <div className="p-5 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2 sm:col-span-2 md:col-span-2">
                             <span className="w-6 h-6 rounded-md bg-[#174A78]/10 text-[#174A78] flex items-center justify-center text-[11px] font-bold font-mono">04</span>
-                            <h3 className="text-[14px] font-semibold text-[#171A22]">Everyday facility seekers</h3>
-                            <p className="text-[13px] text-[#596272] leading-relaxed">
+                            <h3 className="text-[17px] font-semibold text-[#171A22]">Everyday facility seekers</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 Visitors looking for drinking water, toilets, parking zones, accommodation, prasadam or darshan timings and procedures.
                             </p>
                         </div>
 
                         <div className="p-5 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2">
                             <span className="w-6 h-6 rounded-md bg-[#174A78]/10 text-[#174A78] flex items-center justify-center text-[11px] font-bold font-mono">05</span>
-                            <h3 className="text-[14px] font-semibold text-[#171A22]">Remote planners</h3>
-                            <p className="text-[13px] text-[#596272] leading-relaxed">
+                            <h3 className="text-[17px] font-semibold text-[#171A22]">Remote planners</h3>
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 People planning from afar who need accurate schedules, transport routes, road guidelines and official advisories.
                             </p>
                         </div>
@@ -342,16 +351,18 @@ export default function MedaramJatharaContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 05 / PRODUCT STRATEGY ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>05 / PRODUCT STRATEGY</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         One ecosystem, two distinct jobs
                     </h2>
 
@@ -395,22 +406,24 @@ export default function MedaramJatharaContent() {
                         </div>
                     </div>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         The app and website serve different contexts of use, while forming one connected visitor experience.
                     </p>
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 06 / INFORMATION ARCHITECTURE ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>06 / INFORMATION ARCHITECTURE</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         What each surface brings together
                     </h2>
 
@@ -486,16 +499,18 @@ export default function MedaramJatharaContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 07 / KEY JOURNEYS ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>07 / KEY JOURNEYS</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Three useful paths through the experience
                     </h2>
 
@@ -589,20 +604,22 @@ export default function MedaramJatharaContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 08 / SELECTED INTERFACE SCREENS ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>08 / SELECTED INTERFACE SCREENS</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         How the experience takes shape
                     </h2>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         The selected screens show how the two digital touchpoints support visitors before and during the festival.
                     </p>
 
@@ -639,16 +656,18 @@ export default function MedaramJatharaContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 09 / DESIGN DECISIONS ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>09 / DESIGN DECISIONS</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Decisions worth explaining
                     </h2>
 
@@ -657,7 +676,7 @@ export default function MedaramJatharaContent() {
                             <span className="w-7 h-7 rounded-lg bg-white text-[#174A78] text-[11px] font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 border-0 shadow-none">01</span>
                             <div>
                                 <h3 className="text-[14px] font-semibold text-[#171A22] mb-0.5">Separate by context</h3>
-                                <p className="text-[13px] text-[#596272] leading-relaxed">
+                                <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                     Web for pre-visit discovery, app for on-ground utility.
                                 </p>
                             </div>
@@ -667,7 +686,7 @@ export default function MedaramJatharaContent() {
                             <span className="w-7 h-7 rounded-lg bg-white text-[#174A78] text-[11px] font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 border-0 shadow-none">02</span>
                             <div>
                                 <h3 className="text-[14px] font-semibold text-[#171A22] mb-0.5">Prioritise urgent actions</h3>
-                                <p className="text-[13px] text-[#596272] leading-relaxed">
+                                <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                     Place emergency and help pathways close to the app home and safety areas.
                                 </p>
                             </div>
@@ -677,7 +696,7 @@ export default function MedaramJatharaContent() {
                             <span className="w-7 h-7 rounded-lg bg-white text-[#174A78] text-[11px] font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 border-0 shadow-none">03</span>
                             <div>
                                 <h3 className="text-[14px] font-semibold text-[#171A22] mb-0.5">Make services scannable</h3>
-                                <p className="text-[13px] text-[#596272] leading-relaxed">
+                                <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                     Use clear categories and dedicated detail screens for a broad set of facilities.
                                 </p>
                             </div>
@@ -687,7 +706,7 @@ export default function MedaramJatharaContent() {
                             <span className="w-7 h-7 rounded-lg bg-white text-[#174A78] text-[11px] font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 border-0 shadow-none">04</span>
                             <div>
                                 <h3 className="text-[14px] font-semibold text-[#171A22] mb-0.5">Show practical details</h3>
-                                <p className="text-[13px] text-[#596272] leading-relaxed">
+                                <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                     Provide location and timing information where the interface supports it, while acknowledging that operational availability can change.
                                 </p>
                             </div>
@@ -697,7 +716,7 @@ export default function MedaramJatharaContent() {
                             <span className="w-7 h-7 rounded-lg bg-white text-[#174A78] text-[11px] font-bold font-mono flex items-center justify-center shrink-0 mt-0.5 border-0 shadow-none">05</span>
                             <div>
                                 <h3 className="text-[14px] font-semibold text-[#171A22] mb-0.5">Structure sensitive reports</h3>
-                                <p className="text-[13px] text-[#596272] leading-relaxed">
+                                <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                     Collect key details in missing-person and incident-reporting flows rather than relying only on an unstructured message.
                                 </p>
                             </div>
@@ -706,16 +725,18 @@ export default function MedaramJatharaContent() {
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 10 / OUTCOMES ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>10 / OUTCOMES</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Reach and real-world context
                     </h2>
 
@@ -742,26 +763,28 @@ export default function MedaramJatharaContent() {
                         </div>
                     </div>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         The mobile application recorded more than 5,000 downloads.
                     </p>
 
-                    <p className="text-[14px] sm:text-[14.5px] text-[#4A5568] leading-relaxed max-w-[760px]">
+                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                         During the 2024 Jathara, the minister reported 5,090 missing-child cases and 5,062 reunifications, highlighting the importance of clear reporting and assistance pathways at an event of this scale.
                     </p>
                 </section>
             </Reveal>
 
+            <EditorialDivider />
+
             {/* ── 11 / SOURCES ── */}
             <Reveal>
                 <section className="flex flex-col gap-3.5 sm:gap-4 pb-6">
                     <div>
-                        <h3 className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#717680]">
+                        <h3 className="type-metadata font-semibold tracking-wider text-[#777] uppercase">
                             <FigmaHighlight>11 / SOURCES</FigmaHighlight>
                         </h3>
                     </div>
 
-                    <h2 className="text-[20px] sm:text-[22px] md:text-[24px] font-semibold text-[#171A22] tracking-tight leading-snug">
+                    <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Evidence and references
                     </h2>
 
@@ -822,7 +845,7 @@ export default function MedaramJatharaContent() {
                             <h3 className="text-[13.5px] font-semibold text-[#171A22] mb-1.5">
                                 Project metric — 5,000+ downloads
                             </h3>
-                            <p className="text-[13px] text-[#596272] leading-relaxed">
+                            <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
                                 Provided directly by the designer for this case study. No independent analytics source was supplied in this conversation; attach evidence before treating it as publicly verified.
                             </p>
                         </div>

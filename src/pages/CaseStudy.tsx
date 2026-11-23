@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import ShowreelVideo from "../assets/videos/Showreel-Grid-Mobile-[remix] (1).mp4";
 import DribbbleShot from "../assets/videos/Dribbble-shot.mp4";
+import StayTransitVideo from "../assets/videos/st_banner.mp4";
 import FooterLight from "../components/FooterLight";
 import CustomCursor from "../components/CustomCursor";
 import CaseStudyNavbar from "../components/CaseStudyNavbar";
@@ -9,8 +10,10 @@ import TumbledryContent from "../components/case-studies/TumbledryContent";
 import WanderContent from "../components/case-studies/WanderContent";
 import StayTransitContent from "../components/case-studies/StayTransitContent";
 import MedaramJatharaContent from "../components/case-studies/MedaramJatharaContent";
+import MedaramBanner from "../assets/images/medaram_banner.png";
 import Wander from "../assets/images/header.webp";
 import TumbleDry from "../assets/images/alwin.webp";
+import { EditorialDivider } from "../components/EditorialGrid";
 
 // Case study data registry
 const getCaseStudyData = (id: string | undefined) => {
@@ -21,7 +24,7 @@ const getCaseStudyData = (id: string | undefined) => {
             kicker: undefined,
             subtitle: "Designing airport services around a traveller’s time. Making airport experiences easier to discover and book across lounges, stays, spas and transit services. airport experiences easier to discover and book.",
             description: "StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the marketplace.",
-            mediaUrl: undefined,
+            mediaUrl: StayTransitVideo,
             content: "StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the marketplace.",
             image: undefined,
         };
@@ -34,7 +37,7 @@ const getCaseStudyData = (id: string | undefined) => {
             description: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana. The project contains two product surfaces: a Guest Web experience and a Guest App.",
             mediaUrl: undefined,
             content: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana across a Guest Web experience and a Guest App.",
-            image: undefined,
+            image: MedaramBanner,
         };
     } else if (id === "tumbledry") {
         return {
@@ -88,7 +91,7 @@ export default function CaseStudy() {
     }
 
     return (
-        <div className="relative bg-white text-[#1A1A1A] min-h-screen font-roobert selection:bg-black/10 selection:text-black">
+        <div className="relative bg-white text-[#1A1A1A] min-h-screen font-roobert selection:bg-black/10 selection:text-black overflow-x-clip">
             {/* Accessible skip link */}
             <a
                 href="#main-content"
@@ -99,18 +102,6 @@ export default function CaseStudy() {
 
             {/* Global custom cursor */}
             <CustomCursor />
-
-            {/* Subtle architectural grid background (matching homepage) */}
-            <div
-                className="fixed inset-0 pointer-events-none z-0 opacity-40"
-                style={{
-                    backgroundImage: `
-                        linear-gradient(to right, rgba(0,0,0,0.035) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(0,0,0,0.035) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '160px 160px',
-                }}
-            />
 
             {/* Atmospheric soft aura backdrop */}
             <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[340px] sm:w-[540px] h-[260px] pointer-events-none -z-0">
@@ -124,9 +115,25 @@ export default function CaseStudy() {
 
             {/* Main Content Container — 864px max-width matches the 800px card + 32px side padding */}
             <main id="main-content" className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
+                {/* ── Architectural Column Guideline (Left) ── */}
+                <div
+                    className="absolute -top-6 sm:-top-10 bottom-0 left-0 w-[1px] bg-[#E2E2E2] pointer-events-none select-none hidden sm:block"
+                    aria-hidden="true"
+                />
+
+                {/* ── Architectural Column Guideline (Right) ── */}
+                <div
+                    className="absolute -top-6 sm:-top-10 bottom-0 right-0 w-[1px] bg-[#E2E2E2] pointer-events-none select-none hidden sm:block"
+                    aria-hidden="true"
+                />
+
                 {/* ── Case Study Navbar (Matches homepage liquid-glass navbar system) ── */}
-                <header className="shrink-0 w-full">
+                <header className="shrink-0 w-full z-20">
                     <CaseStudyNavbar title={data.navTitle || data.title} />
+                    {/* ── Editorial Divider 1: Anchors the top navigation from the case study hero ── */}
+                    <div className="w-full pt-3 sm:pt-4">
+                        <EditorialDivider />
+                    </div>
                 </header>
 
                 {/* ── Case Study Hero Header ── */}
@@ -147,14 +154,15 @@ export default function CaseStudy() {
                     )}
 
                     {/* ── Hero Media Showcase (LCP candidate, high fetchpriority per modern-web-guidance) ── */}
-                    <div className="w-full mt-4 sm:mt-6 aspect-[16/10] rounded-[22px] md:rounded-[26px] overflow-hidden bg-[#FBFBFB] border-0 shadow-none relative">
-                        {id === "tumbledry" && data.mediaUrl ? (
+                    <div className={`w-full mt-4 sm:mt-6 ${id === "staytransit" ? "aspect-[1916/1080]" : id === "medaram-jathara" || id === "medaram" ? "aspect-[6688/3732]" : "aspect-[16/10]"} rounded-[22px] md:rounded-[26px] overflow-hidden bg-[#FBFBFB] border-0 shadow-none relative`}>
+                        {data.mediaUrl ? (
                             <video
                                 src={data.mediaUrl}
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
+                                preload="auto"
                                 className="w-full h-full object-cover rounded-[22px] md:rounded-[26px]"
                             />
                         ) : data.image ? (
@@ -180,8 +188,8 @@ export default function CaseStudy() {
                     </div>
                 </div>
 
-                {/* ── Case Study Detailed Content ── */}
-                <div className="w-full max-w-[800px] mx-auto mt-12 sm:mt-16 md:mt-20">
+                {/* ── Case Study Detailed Content (Project Overview flows seamlessly from banner) ── */}
+                <div className="w-full max-w-[800px] mx-auto mt-8 sm:mt-10 md:mt-12">
                     {id === "staytransit" ? (
                         <StayTransitContent />
                     ) : id === "medaram-jathara" || id === "medaram" ? (
@@ -200,9 +208,14 @@ export default function CaseStudy() {
                     )}
                 </div>
 
+                {/* ── Editorial Divider 3: Framing the Footer ── */}
+                <div className="w-full mt-16 sm:mt-20 md:mt-24">
+                    <EditorialDivider />
+                </div>
+
                 {/* ── Footer ── */}
-                <div className="mt-20 md:mt-28">
-                    <FooterLight />
+                <div className="mt-8 md:mt-12">
+                    <FooterLight hideBorder={true} />
                 </div>
             </main>
         </div>

@@ -2,6 +2,8 @@ import ProjectCard from "./ProjectCard";
 import FigmaHighlight from "./FigmaHighlight";
 import ShowreelVideo from "../assets/videos/Showreel-Grid-Mobile-[remix] (1).mp4";
 import DribbbleShot from "../assets/videos/Dribbble-shot.mp4";
+import StayTransitVideo from "../assets/videos/st_banner.mp4";
+import MedaramBanner from "../assets/images/medaram_banner.png";
 
 const PROJECTS = [
     {
@@ -9,15 +11,15 @@ const PROJECTS = [
         title: "StayTransit",
         category: "Product Design · Marketplace & Web / Mobile Apps",
         description: "Designing airport services around a traveller’s time. Making airport experiences easier to discover and book across lounges, stays, spas and transit services.",
-        mediaUrl: undefined,
-        isVideo: false,
+        mediaUrl: StayTransitVideo,
+        isVideo: true,
     },
     {
         id: "medaram-jathara",
         title: "Medaram Jathara 2026",
         category: "Product Design · Guest App + Guest Web",
         description: "A connected digital experience helping visitors prepare for a large-scale tribal festival and access essential information, services and emergency safety support on the ground.",
-        mediaUrl: undefined,
+        mediaUrl: MedaramBanner,
         isVideo: false,
     },
     {
