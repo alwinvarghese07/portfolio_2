@@ -51,7 +51,7 @@ interface FooterPlaygroundProps {
 export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps = {}) {
     const containerRef = useRef<HTMLDivElement>(null);
     const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
-    const [isOverBlock, setIsOverBlock] = useState(false);
+    const containerWidthRef = useRef<number>(800);
     const [isInteracting, setIsInteracting] = useState(false);
     const [isReducedMotion, setIsReducedMotion] = useState(false);
 
@@ -383,6 +383,7 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         const rect = container.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;
+        containerWidthRef.current = width;
 
         const engine = Matter.Engine.create({
             gravity: { x: 0, y: 1.0, scale: 0.001 },
@@ -393,54 +394,72 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         updateWalls(width, height, engine);
 
         let lastTime = performance.now();
-        const updateLoop = (currentTime: number) => {
-            if (isVisibleRef.current && engineRef.current) {
-                const delta = Math.min(currentTime - lastTime, 32);
-                lastTime = currentTime;
-
-                // Smooth gravity interpolation: lerps towards tilt target or default {x:0, y:1.0}
-                const activeEngine = engineRef.current;
-                const smoothing = isMotionActiveRef.current ? 0.12 : 0.08;
-                const targetX = isMotionActiveRef.current ? targetGravityRef.current.x : 0;
-                const targetY = isMotionActiveRef.current ? targetGravityRef.current.y : 1.0;
-
-                activeEngine.gravity.x += (targetX - activeEngine.gravity.x) * smoothing;
-                activeEngine.gravity.y += (targetY - activeEngine.gravity.y) * smoothing;
-
-                Matter.Engine.update(activeEngine, delta);
-
-                const currentWidth = containerRef.current?.getBoundingClientRect().width || width;
-                const scale = getScale(currentWidth);
-
-                TOOLS.forEach((tool, index) => {
-                    const body = bodiesRef.current[index];
-                    const el = elementsRef.current[index];
-                    if (!body || !el) return;
-
-                    const size = tool.baseSize * scale;
-                    const { x, y } = body.position;
-                    const angle = body.angle;
-
-                    el.style.transform = `translate3d(${x - size / 2}px, ${y - size / 2}px, 0) rotate(${angle}rad)`;
-                });
-            } else {
-                lastTime = currentTime;
+        const startUpdateLoop = () => {
+            if (!rafIdRef.current && isVisibleRef.current && engineRef.current) {
+                lastTime = performance.now();
+                rafIdRef.current = requestAnimationFrame(updateLoop);
             }
+        };
+
+        const stopUpdateLoop = () => {
+            if (rafIdRef.current) {
+                cancelAnimationFrame(rafIdRef.current);
+                rafIdRef.current = null;
+            }
+        };
+
+        const updateLoop = (currentTime: number) => {
+            if (!isVisibleRef.current || !engineRef.current) {
+                rafIdRef.current = null;
+                return;
+            }
+
+            const delta = Math.min(currentTime - lastTime, 32);
+            lastTime = currentTime;
+
+            // Smooth gravity interpolation: lerps towards tilt target or default {x:0, y:1.0}
+            const activeEngine = engineRef.current;
+            const smoothing = isMotionActiveRef.current ? 0.12 : 0.08;
+            const targetX = isMotionActiveRef.current ? targetGravityRef.current.x : 0;
+            const targetY = isMotionActiveRef.current ? targetGravityRef.current.y : 1.0;
+
+            activeEngine.gravity.x += (targetX - activeEngine.gravity.x) * smoothing;
+            activeEngine.gravity.y += (targetY - activeEngine.gravity.y) * smoothing;
+
+            Matter.Engine.update(activeEngine, delta);
+
+            const currentWidth = containerWidthRef.current;
+            const scale = getScale(currentWidth);
+
+            TOOLS.forEach((tool, index) => {
+                const body = bodiesRef.current[index];
+                const el = elementsRef.current[index];
+                if (!body || !el) return;
+
+                const size = tool.baseSize * scale;
+                const { x, y } = body.position;
+                const angle = body.angle;
+
+                el.style.transform = `translate3d(${x - size / 2}px, ${y - size / 2}px, 0) rotate(${angle}rad)`;
+            });
 
             rafIdRef.current = requestAnimationFrame(updateLoop);
         };
-
-        rafIdRef.current = requestAnimationFrame(updateLoop);
 
         // IntersectionObserver: trigger drop and pause offscreen
         const observer = new IntersectionObserver(
             ([entry]) => {
                 isVisibleRef.current = entry.isIntersecting;
-                if (entry.isIntersecting && !hasDroppedRef.current) {
-                    startDropSequence();
+                if (entry.isIntersecting) {
+                    if (!hasDroppedRef.current) {
+                        startDropSequence();
+                    }
+                    startUpdateLoop();
+                } else {
+                    stopUpdateLoop();
                 }
             },
-            { threshold: 0.1 }
+            { threshold: 0.05, rootMargin: "100px" }
         );
         observer.observe(container);
 
@@ -450,6 +469,7 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
                 const newWidth = entry.contentRect.width;
                 const newHeight = entry.contentRect.height;
                 if (newWidth > 0 && newHeight > 0 && engineRef.current) {
+                    containerWidthRef.current = newWidth;
                     updateWalls(newWidth, newHeight, engineRef.current);
                 }
             }
@@ -457,7 +477,7 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         resizeObserver.observe(container);
 
         return () => {
-            if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+            stopUpdateLoop();
             dropTimersRef.current.forEach(clearTimeout);
             observer.disconnect();
             resizeObserver.disconnect();
@@ -531,12 +551,6 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         const localY = e.clientY - rect.top;
 
         if (!isDraggingRef.current) {
-            const activeBodies = bodiesRef.current.filter((b): b is Matter.Body => b !== null);
-            const hovered = Matter.Query.point(activeBodies, { x: localX, y: localY });
-            const over = hovered.length > 0;
-            if (over !== isOverBlock) {
-                setIsOverBlock(over);
-            }
             return;
         }
 
@@ -588,15 +602,11 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
         isDraggingRef.current = false;
         setIsInteracting(false);
         dragPointerHistoryRef.current = [];
-        setIsOverBlock(false);
 
         (window as unknown as { lenis?: { start: () => void } }).lenis?.start();
     };
 
     const handlePointerLeave = () => {
-        if (!isDraggingRef.current) {
-            setIsOverBlock(false);
-        }
     };
 
     // Reduced Motion Fallback UI

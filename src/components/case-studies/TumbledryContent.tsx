@@ -11,10 +11,11 @@ import td_2 from "../../assets/images/td_2.webp";
 import laundrymate from "../../assets/images/laundrymate.webp";
 import spincycles from "../../assets/images/spincycles.webp";
 import uclean from "../../assets/images/uclean.webp";
-import emptyState1 from "../../assets/images/empty_bag.png";
-import emptyState2 from "../../assets/images/no_slot.png";
+import emptyState1 from "../../assets/images/empty_bag.webp";
+import emptyState2 from "../../assets/images/no_slot.webp";
 import FigmaHighlight from "../FigmaHighlight";
 import { EditorialDivider } from "../EditorialGrid";
+import ViewportVideo from "../ViewportVideo";
 
 export default function TumbledryContent() {
     return (
@@ -266,7 +267,7 @@ export default function TumbledryContent() {
                             </ul>
                         </div>
                         <div className="md:w-7/12 w-full rounded-3xl md:rounded-4xl overflow-hidden bg-stone-900 min-h-[340px] sm:min-h-[400px] flex items-center justify-center border-0 shadow-none relative">
-                            <video src={orderlive} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                            <ViewportVideo src={orderlive} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
                         </div>
                     </div>
                 </Reveal>
@@ -287,7 +288,7 @@ export default function TumbledryContent() {
                         </div>
 
                         <div className="md:w-7/12 w-full rounded-3xl md:rounded-4xl overflow-hidden bg-stone-900 min-h-[340px] sm:min-h-[400px] flex items-center justify-center border-0 shadow-none relative">
-                            <video src={liveTracking} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                            <ViewportVideo src={liveTracking} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
                         </div>
                     </div>
                 </Reveal>
@@ -307,7 +308,7 @@ export default function TumbledryContent() {
                             </ul>
                         </div>
                         <div className="md:w-7/12 w-full rounded-3xl md:rounded-4xl overflow-hidden bg-[#CFEBFF] min-h-[340px] sm:min-h-[400px] flex items-center justify-center relative">
-                            <video src={notif} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                            <ViewportVideo src={notif} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
                         </div>
                     </div>
                 </Reveal>

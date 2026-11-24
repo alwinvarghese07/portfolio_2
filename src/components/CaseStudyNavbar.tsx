@@ -142,23 +142,40 @@ export default function CaseStudyNavbar({ title }: CaseStudyNavbarProps) {
 
     // Synchronize floating navbar trigger with scroll position
     useEffect(() => {
-        const updateNavbarState = () => {
+        const isFloatingRef = { current: false };
+        let rafId: number | null = null;
+
+        const checkScroll = () => {
             const scrollY = window.scrollY || 0;
-            setIsFloating(scrollY > 40);
+            const shouldFloat = scrollY > 40;
+            if (shouldFloat !== isFloatingRef.current) {
+                isFloatingRef.current = shouldFloat;
+                setIsFloating(shouldFloat);
+            }
         };
 
-        window.addEventListener("scroll", updateNavbarState, { passive: true });
-        updateNavbarState();
+        const onScroll = () => {
+            if (rafId === null) {
+                rafId = requestAnimationFrame(() => {
+                    rafId = null;
+                    checkScroll();
+                });
+            }
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        checkScroll();
 
         const lenis = (window as unknown as { lenis?: { on: (event: string, cb: () => void) => () => void } }).lenis;
         let unsubscribeLenis: (() => void) | undefined;
         if (lenis && typeof lenis.on === "function") {
-            unsubscribeLenis = lenis.on("scroll", updateNavbarState);
+            unsubscribeLenis = lenis.on("scroll", onScroll);
         }
 
         return () => {
-            window.removeEventListener("scroll", updateNavbarState);
+            window.removeEventListener("scroll", onScroll);
             if (unsubscribeLenis) unsubscribeLenis();
+            if (rafId !== null) cancelAnimationFrame(rafId);
         };
     }, []);
 

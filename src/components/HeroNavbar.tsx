@@ -166,62 +166,79 @@ export default function HeroNavbar() {
     const [activeSection, setActiveSection] = useState<SectionId>("home");
     const [isFloating, setIsFloating] = useState(false);
     const originalNavbarRef = useRef<HTMLDivElement>(null);
+    const activeSectionRef = useRef<SectionId>("home");
+    const isFloatingRef = useRef(false);
+    const scrollRafRef = useRef<number | null>(null);
 
     // Scroll spy for updating active navigation state and floating navbar trigger
     useEffect(() => {
+        let aboutEl = document.getElementById("about");
+        let worksEl = document.getElementById("works") || document.getElementById("projects-section");
+
         const updateNavbarAndScrollState = () => {
             const scrollY = window.scrollY || 0;
             const windowHeight = window.innerHeight;
             const docHeight = document.documentElement.scrollHeight;
 
             // Float the liquid-glass navbar smoothly when scrolling past initial top margin (~40px)
-            setIsFloating(scrollY > 40);
+            const shouldFloat = scrollY > 40;
+            if (shouldFloat !== isFloatingRef.current) {
+                isFloatingRef.current = shouldFloat;
+                setIsFloating(shouldFloat);
+            }
+
+            let nextSection: SectionId = "home";
 
             // Reached near bottom of page (About / Footer)
             if (windowHeight + scrollY >= docHeight - 70) {
-                setActiveSection("about");
-                return;
-            }
+                nextSection = "about";
+            } else {
+                if (!aboutEl) aboutEl = document.getElementById("about");
+                if (!worksEl) worksEl = document.getElementById("works") || document.getElementById("projects-section");
 
-            const aboutEl = document.getElementById("about");
-            const worksEl = document.getElementById("works") || document.getElementById("projects-section");
+                // Viewing threshold at ~35% from the top of the viewport
+                const threshold = windowHeight * 0.35;
 
-            // Viewing threshold at ~35% from the top of the viewport
-            const threshold = windowHeight * 0.35;
-
-            if (aboutEl) {
-                const aboutRect = aboutEl.getBoundingClientRect();
-                if (aboutRect.top <= threshold) {
-                    setActiveSection("about");
-                    return;
+                if (aboutEl && (aboutEl.offsetTop - scrollY) <= threshold) {
+                    nextSection = "about";
+                } else if (worksEl && (worksEl.offsetTop - scrollY) <= threshold) {
+                    nextSection = "works";
+                } else {
+                    nextSection = "home";
                 }
             }
 
-            if (worksEl) {
-                const worksRect = worksEl.getBoundingClientRect();
-                if (worksRect.top <= threshold) {
-                    setActiveSection("works");
-                    return;
-                }
+            if (nextSection !== activeSectionRef.current) {
+                activeSectionRef.current = nextSection;
+                setActiveSection(nextSection);
             }
-
-            // At or near top / hero section
-            setActiveSection("home");
         };
 
-        window.addEventListener("scroll", updateNavbarAndScrollState, { passive: true });
+        const onScroll = () => {
+            if (scrollRafRef.current === null) {
+                scrollRafRef.current = requestAnimationFrame(() => {
+                    scrollRafRef.current = null;
+                    updateNavbarAndScrollState();
+                });
+            }
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
         updateNavbarAndScrollState();
 
         // Also subscribe to Lenis scroll event if available
         const lenis = (window as unknown as { lenis?: { on: (event: string, cb: () => void) => () => void } }).lenis;
         let unsubscribeLenis: (() => void) | undefined;
         if (lenis && typeof lenis.on === "function") {
-            unsubscribeLenis = lenis.on("scroll", updateNavbarAndScrollState);
+            unsubscribeLenis = lenis.on("scroll", onScroll);
         }
 
         return () => {
-            window.removeEventListener("scroll", updateNavbarAndScrollState);
+            window.removeEventListener("scroll", onScroll);
             if (unsubscribeLenis) unsubscribeLenis();
+            if (scrollRafRef.current !== null) {
+                cancelAnimationFrame(scrollRafRef.current);
+            }
         };
     }, []);
 

@@ -1,6 +1,9 @@
 import Reveal from "../reveal";
 import FigmaHighlight from "../FigmaHighlight";
 import { EditorialDivider } from "../EditorialGrid";
+import ViewportVideo from "../ViewportVideo";
+import propDetailsVideo from "../../assets/videos/prop_details.mp4";
+import packageCardsImg from "../../assets/images/package_cards.png";
 
 interface ShowcaseFrameProps {
     title: string;
@@ -9,24 +12,30 @@ interface ShowcaseFrameProps {
     narrow?: boolean;
     variant?: "default" | "browser" | "sticky-bar" | "mobile-pair";
     badge?: string;
+    mediaUrl?: string;
+    isVideo?: boolean;
 }
 
 function ShowcaseFrame({
     title,
     caption,
-    aspect = "aspect-[16/10]",
+    aspect,
     narrow = false,
     variant = "default",
-    badge
+    badge,
+    mediaUrl,
+    isVideo = false,
 }: ShowcaseFrameProps) {
+    const resolvedAspect = aspect || (mediaUrl ? "" : "aspect-[16/10]");
+
     return (
         <figure className={`w-full ${narrow ? 'max-w-[700px] mx-auto' : ''} my-6 sm:my-8`}>
             {/* Outer Showcase Frame */}
-            <div className="w-full p-2.5 sm:p-4 md:p-5 rounded-[22px] md:rounded-[26px] bg-[#F2F4F7] border border-black/[0.06] shadow-[0_16px_40px_-20px_rgba(0,0,0,0.06)]">
+            <div className={`w-full ${isVideo || mediaUrl ? 'p-1.5 sm:p-2 md:p-2.5' : 'p-2.5 sm:p-4 md:p-5'} rounded-[20px] md:rounded-[24px] bg-[#F2F4F7] border border-black/[0.06] shadow-[0_16px_40px_-20px_rgba(0,0,0,0.06)]`}>
                 {/* Inner Mockup Canvas / Surface */}
-                <div className={`w-full ${aspect} rounded-[16px] md:rounded-[20px] bg-white border border-black/[0.07] overflow-hidden flex flex-col relative shadow-none`}>
-                    {/* Browser-style minimal header bar for web screens */}
-                    {(variant === "browser" || variant === "default") && (
+                <div className={`w-full ${resolvedAspect} rounded-[15px] md:rounded-[18px] bg-white border border-black/[0.07] overflow-hidden flex flex-col relative shadow-none`}>
+                    {/* Browser-style minimal header bar for web screens (omitted for media frames) */}
+                    {!isVideo && !mediaUrl && (variant === "browser" || variant === "default") && (
                         <div className="h-7 sm:h-8 px-3 sm:px-4 bg-[#FBFBFB] border-b border-black/[0.05] flex items-center justify-between shrink-0 select-none">
                             <div className="flex items-center gap-1.5">
                                 <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-black/15" />
@@ -40,24 +49,46 @@ function ShowcaseFrame({
                         </div>
                     )}
 
-                    {/* Canvas Area with interface placeholder wireframe hints */}
-                    <div className="grow bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center relative select-none">
-                        <div className="w-14 h-14 rounded-2xl bg-white border border-black/[0.06] flex items-center justify-center text-neutral-400 mb-3 shadow-none">
-                            <svg className="w-7 h-7 stroke-[1.4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                                <circle cx="8.5" cy="8.5" r="1.5" />
-                                <polyline points="21 15 16 10 5 21" />
-                            </svg>
-                        </div>
+                    {/* Canvas Area with interface media OR placeholder wireframe hints */}
+                    {mediaUrl ? (
+                        isVideo ? (
+                            <ViewportVideo
+                                src={mediaUrl}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                preload="metadata"
+                                className="w-full h-auto block object-cover"
+                            />
+                        ) : (
+                            <img
+                                src={mediaUrl}
+                                alt={title}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-auto block object-cover"
+                            />
+                        )
+                    ) : (
+                        <div className="grow bg-[#F8F9FA] flex flex-col items-center justify-center p-6 text-center relative select-none">
+                            <div className="w-14 h-14 rounded-2xl bg-white border border-black/[0.06] flex items-center justify-center text-neutral-400 mb-3 shadow-none">
+                                <svg className="w-7 h-7 stroke-[1.4]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                    <polyline points="21 15 16 10 5 21" />
+                                </svg>
+                            </div>
 
-                        {badge && (
-                            <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#245CF5]/10 text-[#245CF5] text-[10px] font-bold uppercase tracking-wider mb-1.5">
-                                {badge}
-                            </span>
-                        )}
-                        <span className="text-[13px] sm:text-[14px] font-semibold text-[#171A22]">{title}</span>
-                        <span className="text-[11px] text-[#717680] mt-0.5">Interface screenshot ready for swap</span>
-                    </div>
+                            {badge && (
+                                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#245CF5]/10 text-[#245CF5] text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                                    {badge}
+                                </span>
+                            )}
+                            <span className="text-[13px] sm:text-[14px] font-semibold text-[#171A22]">{title}</span>
+                            <span className="text-[11px] text-[#717680] mt-0.5">Interface screenshot ready for swap</span>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -91,7 +122,7 @@ export default function StayTransitContent() {
                         </div>
                         <div className="md:col-span-8">
                             <p className="text-[#3F4856] text-[15px] sm:text-[16px] leading-relaxed">
-                                StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the marketplace.
+                                StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the OTA.
                             </p>
                         </div>
                     </div>
@@ -101,15 +132,15 @@ export default function StayTransitContent() {
                         <dl className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
                             <div>
                                 <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">My role</dt>
-                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">End-to-end UI/UX Designer</dd>
+                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">UI/UX Designer</dd>
                             </div>
                             <div>
                                 <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Scope</dt>
-                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Product design, user flows & interfaces</dd>
+                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Research, UI/UX Design, 0 → 1 </dd>
                             </div>
                             <div>
                                 <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Platforms</dt>
-                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Web, iOS, Android & dashboards</dd>
+                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Web, iOS, Android & Dashboards</dd>
                             </div>
                             <div>
                                 <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Status</dt>
@@ -205,7 +236,7 @@ export default function StayTransitContent() {
                         My involvement covered the end-to-end design of StayTransit, not only the customer-facing screens.
                     </p>
                     <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
-                        I owned the end-to-end design work, from defining user flows to translating requirements into interfaces. My scope covered the web booking journey, iOS and Android apps, and four operational dashboards.
+                        I owned the end-to-end design work, from defining user flows to translating requirements into interfaces. My scope covered the web booking journey, iOS and Android apps and four operational dashboards.
                     </p>
 
                     {/* Two-Column Scope Split Card */}
@@ -513,6 +544,8 @@ export default function StayTransitContent() {
                         variant="browser"
                         title="Property overview and time selection"
                         caption="The property page establishes the context before asking the traveller to choose a package."
+                        mediaUrl={propDetailsVideo}
+                        isVideo={true}
                     />
 
                     {/* Subsection: Packages */}
@@ -520,23 +553,28 @@ export default function StayTransitContent() {
                         <div className="flex items-center gap-2.5 mb-2">
                             <span className="w-1.5 h-4 rounded-full bg-[#245CF5]" />
                             <h3 className="text-xl sm:text-2xl font-semibold text-[#171A22]">
-                                Packages are more than a duration and a price.
+                                Package cards need to show more than price and duration.
                             </h3>
                         </div>
                         <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
-                            Packages with the same duration may have different conditions. One two-hour option might allow children, while another may be adults-only. Those differences need to be clear before selection.
+                            Even packages with the same duration can have different conditions. Clearly highlight details like child eligibility and adults-only restrictions so users can compare options and make informed choices.
                         </p>
                     </div>
 
-                    <ShowcaseFrame
-                        title="Available packages"
-                        caption="Package cards surface duration, checkout time, guest count, refundability, included amenities and price."
-                        badge="Package Matrix"
-                    />
-
-                    <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
-                        Package cards go beyond price, showing amenities, duration, checkout time, guest eligibility and refund conditions so travellers can compare the options properly.
-                    </p>
+                    <figure className="w-full my-6 sm:my-8">
+                        <img
+                            src={packageCardsImg}
+                            alt="Available packages"
+                            className="w-full h-auto block rounded-2xl md:rounded-3xl"
+                        />
+                        <figcaption className="mt-3.5 px-2 flex items-start gap-3 text-left">
+                            <span className="w-1 h-3.5 rounded-full bg-[#245CF5] shrink-0 mt-1" aria-hidden="true" />
+                            <p className="text-[13px] sm:text-[13.5px] text-[#596272] leading-relaxed">
+                                <strong className="text-[#171A22] font-semibold">Available packages: </strong>
+                                Package cards surface duration, checkout time, guest count, refundability, included amenities and price.
+                            </p>
+                        </figcaption>
+                    </figure>
 
                     {/* Subsection: Service Rules */}
                     <div className="mt-3">

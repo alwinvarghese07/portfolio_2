@@ -45,7 +45,9 @@ export default function CustomCursor() {
             );
         };
 
-        const isSelectableTextOrContent = (e: MouseEvent | PointerEvent, target: HTMLElement | null): boolean => {
+        const TEXT_SELECTOR = "h1, h2, h3, h4, h5, h6, p, span, li, blockquote, figcaption, article, cite, code, pre, label, small, strong, em, b, i, u, mark, [class*='type-'], .select-text, dd, dt";
+
+        const isSelectableTextOrContent = (_e: MouseEvent | PointerEvent, target: HTMLElement | null): boolean => {
             if (!target) return false;
 
             // 1. Any active text selection currently exists on the page
@@ -54,54 +56,13 @@ export default function CustomCursor() {
                 return true;
             }
 
-            // 2. Check if target or any ancestor is a typography or text-containing element
-            const textAncestor = target.closest(
-                "h1, h2, h3, h4, h5, h6, p, span, li, blockquote, figcaption, article, cite, code, pre, label, small, strong, em, b, i, u, mark, [class*='type-'], .select-text, dd, dt"
-            ) as HTMLElement | null;
-
-            if (textAncestor) {
-                const style = window.getComputedStyle(textAncestor);
-                if (style.userSelect !== 'none' && (textAncestor.textContent || '').trim().length > 0) {
-                    return true;
-                }
+            // 2. Fast check: is target or ancestor a typography or text-containing element?
+            const textAncestor = target.closest(TEXT_SELECTOR) as HTMLElement | null;
+            if (textAncestor && (textAncestor.textContent || '').trim().length > 0) {
+                return true;
             }
 
-            // 3. Direct text nodes within target
-            if (target.childNodes && target.childNodes.length > 0) {
-                for (let i = 0; i < target.childNodes.length; i++) {
-                    const node = target.childNodes[i];
-                    if (node.nodeType === Node.TEXT_NODE && (node.textContent || '').trim().length > 0) {
-                        const style = window.getComputedStyle(target);
-                        if (style.userSelect !== 'none') return true;
-                    }
-                }
-            }
-
-            // 4. Point-based caret detection (inspects exact coordinates e.clientX, e.clientY)
-            if (typeof document.caretRangeFromPoint === 'function') {
-                try {
-                    const range = document.caretRangeFromPoint(e.clientX, e.clientY);
-                    if (range && range.startContainer) {
-                        const container = range.startContainer;
-                        if (container.nodeType === Node.TEXT_NODE && (container.textContent || '').trim().length > 0) {
-                            const rect = range.getBoundingClientRect ? range.getBoundingClientRect() : null;
-                            if (rect && rect.height > 0) {
-                                const distX = Math.max(0, rect.left - e.clientX, e.clientX - rect.right);
-                                const distY = Math.max(0, rect.top - e.clientY, e.clientY - rect.bottom);
-                                if (distX <= 40 && distY <= 30) {
-                                    return true;
-                                }
-                            } else {
-                                return true;
-                            }
-                        }
-                    }
-                } catch {
-                    // Ignore caret errors
-                }
-            }
-
-            // 5. Content card or nested content container check:
+            // 3. Root page canvas check (document, body, main-content, etc.)
             const isPageRootCanvas =
                 target === document.body ||
                 target === document.documentElement ||
@@ -111,12 +72,9 @@ export default function CustomCursor() {
                 target.classList.contains('custom-grain-layer');
 
             if (!isPageRootCanvas) {
-                const hasTextDescendant = target.querySelector("h1, h2, h3, h4, h5, h6, p, span, [class*='type-'], li, blockquote");
-                if (hasTextDescendant) {
-                    const style = window.getComputedStyle(target);
-                    if (style.userSelect !== 'none') {
-                        return true;
-                    }
+                // If non-canvas target directly contains non-empty text
+                if ((target.textContent || '').trim().length > 0) {
+                    return true;
                 }
             }
 
@@ -147,11 +105,7 @@ export default function CustomCursor() {
             if (isCanvas) return true;
 
             // Otherwise, target must be completely empty of text
-            if ((target.textContent || '').trim().length === 0) {
-                return true;
-            }
-
-            return false;
+            return (target.textContent || '').trim().length === 0;
         };
 
         const cancelHold = () => {
@@ -173,6 +127,7 @@ export default function CustomCursor() {
                     cursorRef.current.style.opacity = '1';
                 }
             }
+            startLoop();
         };
 
         const onPointerMove = (e: PointerEvent) => {
@@ -259,6 +214,7 @@ export default function CustomCursor() {
             holdStartTime.current = performance.now();
             holdStartPos.current = { x: e.clientX, y: e.clientY };
             holdProgress.current = 0;
+            startLoop();
         };
 
         const onPointerUp = (e: PointerEvent) => {
@@ -266,6 +222,7 @@ export default function CustomCursor() {
             if (e.button === 0) {
                 isMouseDownRef.current = false;
                 cancelHold();
+                startLoop();
             }
         };
 
@@ -282,6 +239,7 @@ export default function CustomCursor() {
         const onMouseEnter = () => {
             isVisible.current = true;
             if (cursorRef.current) cursorRef.current.style.opacity = '1';
+            startLoop();
         };
 
         const onSelectionChange = () => {
@@ -302,8 +260,18 @@ export default function CustomCursor() {
         document.addEventListener('mouseenter', onMouseEnter);
         document.addEventListener('selectionchange', onSelectionChange);
 
-        // Animation loop for smooth Lerp & F1 Launch Physics
-        let rafId: number;
+        // Animation loop for smooth Lerp & F1 Launch Physics with idle-sleep
+        let rafId: number | null = null;
+        let isLoopRunning = false;
+
+        const startLoop = () => {
+            if (!isLoopRunning) {
+                isLoopRunning = true;
+                lastFrameTime.current = performance.now();
+                rafId = requestAnimationFrame(animate);
+            }
+        };
+
         const animate = () => {
             const now = performance.now();
             const dt = Math.min((now - lastFrameTime.current) / 1000, 0.05);
@@ -311,8 +279,10 @@ export default function CustomCursor() {
 
             // Tighter lerp during active drag (0.35) for instant responsiveness, standard lerp (0.18) when idle
             const lerpFactor = isMouseDownRef.current ? 0.35 : 0.18;
-            cursorPos.current.x += (mousePos.current.x - cursorPos.current.x) * lerpFactor;
-            cursorPos.current.y += (mousePos.current.y - cursorPos.current.y) * lerpFactor;
+            const dx = mousePos.current.x - cursorPos.current.x;
+            const dy = mousePos.current.y - cursorPos.current.y;
+            cursorPos.current.x += dx * lerpFactor;
+            cursorPos.current.y += dy * lerpFactor;
 
             if (cursorRef.current) {
                 cursorRef.current.style.transform = `translate3d(${cursorPos.current.x}px, ${cursorPos.current.y}px, 0)`;
@@ -401,9 +371,23 @@ export default function CustomCursor() {
                 }
             }
 
-            rafId = requestAnimationFrame(animate);
+            const isMoving = Math.abs(dx) > 0.08 || Math.abs(dy) > 0.08;
+            const isBusy = isHolding.current || isLaunching.current || isRecovering.current;
+
+            if (isMoving || isBusy) {
+                rafId = requestAnimationFrame(animate);
+            } else {
+                cursorPos.current.x = mousePos.current.x;
+                cursorPos.current.y = mousePos.current.y;
+                if (cursorRef.current) {
+                    cursorRef.current.style.transform = `translate3d(${cursorPos.current.x}px, ${cursorPos.current.y}px, 0)`;
+                }
+                isLoopRunning = false;
+                rafId = null;
+            }
         };
-        animate();
+
+        startLoop();
 
         return () => {
             window.removeEventListener('pointermove', onPointerMove, { capture: true });
@@ -414,7 +398,8 @@ export default function CustomCursor() {
             document.removeEventListener('mouseleave', onMouseLeave);
             document.removeEventListener('mouseenter', onMouseEnter);
             document.removeEventListener('selectionchange', onSelectionChange);
-            cancelAnimationFrame(rafId);
+            if (rafId) cancelAnimationFrame(rafId);
+            isLoopRunning = false;
             document.body.style.userSelect = '';
         };
     }, []);

@@ -8,6 +8,7 @@ import {
     useMotionTemplate,
     useReducedMotion
 } from "motion/react";
+import ViewportVideo from "./ViewportVideo";
 
 interface ProjectCardProps {
     title: string;
@@ -100,17 +101,16 @@ export default function ProjectCard({
                         stiffness: 300,
                         damping: 25,
                     }}
-                    className={`w-full max-w-[800px] ${
-                        id === "staytransit"
-                            ? "aspect-[1916/1080] h-auto"
-                            : id === "medaram-jathara"
+                    className={`w-full max-w-[800px] ${id === "staytransit"
+                        ? "aspect-[1916/1080] h-auto"
+                        : id === "medaram-jathara"
                             ? "aspect-[6688/3732] h-auto"
                             : "aspect-[16/10] h-[260px] sm:h-[380px] md:h-[500px]"
-                    } mx-auto bg-[#FAFAFA] rounded-[22px] md:rounded-[26px] overflow-hidden relative border-0 outline-none ring-0 shadow-none cursor-pointer select-none`}
+                        } mx-auto bg-[#FAFAFA] rounded-[22px] md:rounded-[26px] overflow-hidden relative border-0 outline-none ring-0 shadow-none cursor-pointer select-none`}
                 >
                     {mediaUrl ? (
                         isVideo ? (
-                            <video
+                            <ViewportVideo
                                 src={mediaUrl}
                                 width={800}
                                 height={id === "staytransit" ? 451 : 500}
@@ -118,7 +118,7 @@ export default function ProjectCard({
                                 loop
                                 muted
                                 playsInline
-                                preload="auto"
+                                preload="metadata"
                                 className="w-full h-full object-cover rounded-[22px] md:rounded-[26px] border-0 outline-none"
                             />
                         ) : (

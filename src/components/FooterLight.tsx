@@ -1,7 +1,8 @@
+import { lazy, Suspense } from "react";
 import mailIcon from "../assets/images/mail.webp";
 import linkedinIcon from "../assets/images/linkedin.webp";
 import xIcon from "../assets/images/insta.webp";
-import FooterPlayground from "./FooterPlayground";
+const FooterPlayground = lazy(() => import("./FooterPlayground"));
 
 export default function Footer({ hideBorder = false }: { hideBorder?: boolean }) {
     return (
@@ -65,7 +66,9 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
 
                 {/* ── Interactive Physics Blocks: at the very bottom touching edge ── */}
                 <div className="w-full pb-0 mb-0">
-                    <FooterPlayground />
+                    <Suspense fallback={<div className="w-full h-[280px]" />}>
+                        <FooterPlayground />
+                    </Suspense>
                 </div>
             </div>
         </footer>

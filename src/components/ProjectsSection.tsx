@@ -3,7 +3,7 @@ import FigmaHighlight from "./FigmaHighlight";
 import ShowreelVideo from "../assets/videos/Showreel-Grid-Mobile-[remix] (1).mp4";
 import DribbbleShot from "../assets/videos/Dribbble-shot.mp4";
 import StayTransitVideo from "../assets/videos/st_banner.mp4";
-import MedaramBanner from "../assets/images/medaram_banner.png";
+import MedaramBanner from "../assets/images/medaram_banner.webp";
 
 const PROJECTS = [
     {

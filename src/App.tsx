@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, lazy, Suspense } from "react";
 import Lenis from "@studio-freight/lenis";
 import Home from "./pages/Home";
-import CaseStudy from "./pages/CaseStudy";
-import SpotifyCallback from "./pages/SpotifyCallback";
+const CaseStudy = lazy(() => import("./pages/CaseStudy"));
+const SpotifyCallback = lazy(() => import("./pages/SpotifyCallback"));
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { FigmaSelectionOverlay } from "./components/FigmaHighlight";
@@ -94,12 +94,14 @@ function App() {
     <BrowserRouter>
       <ScrollManager />
       <FigmaSelectionOverlay />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<Navigate to="/#about" replace />} />
-        <Route path="/case-study/:id" element={<CaseStudy />} />
-        <Route path="/callback" element={<SpotifyCallback />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen bg-white" />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<Navigate to="/#about" replace />} />
+          <Route path="/case-study/:id" element={<CaseStudy />} />
+          <Route path="/callback" element={<SpotifyCallback />} />
+        </Routes>
+      </Suspense>
       <Analytics />
       <SpeedInsights />
     </BrowserRouter>

@@ -16,7 +16,9 @@ export default defineConfig({
     basicSsl(),
     tailwindcss(),
     react(),
-    ViteImageOptimizer(),
+    ViteImageOptimizer({
+      exclude: /package_cards/,
+    }),
     viteSpotifyPlugin(),
   ],
   build: {

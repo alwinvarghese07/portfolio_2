@@ -107,6 +107,7 @@ export function FigmaSelectionOverlay() {
     const [lines, setLines] = useState<LineRect[] | null>(null);
     const [mounted, setMounted] = useState(false);
     const rafIdRef = useRef<number | null>(null);
+    const hasActiveSelectionRef = useRef(false);
 
     useEffect(() => {
         setMounted(true);
@@ -114,12 +115,14 @@ export function FigmaSelectionOverlay() {
         const updateSelection = () => {
             const selection = window.getSelection();
             if (!selection || selection.isCollapsed || selection.rangeCount === 0) {
+                hasActiveSelectionRef.current = false;
                 setLines(null);
                 return;
             }
 
             const text = selection.toString();
             if (!text || text.trim().length === 0) {
+                hasActiveSelectionRef.current = false;
                 setLines(null);
                 return;
             }
@@ -139,6 +142,7 @@ export function FigmaSelectionOverlay() {
             };
 
             if (isInsideInput(anchorNode) || isInsideInput(focusNode)) {
+                hasActiveSelectionRef.current = false;
                 setLines(null);
                 return;
             }
@@ -149,12 +153,15 @@ export function FigmaSelectionOverlay() {
                 const merged = mergeLineRects(rawRects);
 
                 if (merged.length === 0) {
+                    hasActiveSelectionRef.current = false;
                     setLines(null);
                     return;
                 }
 
+                hasActiveSelectionRef.current = true;
                 setLines(merged);
             } catch {
+                hasActiveSelectionRef.current = false;
                 setLines(null);
             }
         };
@@ -166,21 +173,39 @@ export function FigmaSelectionOverlay() {
             rafIdRef.current = requestAnimationFrame(updateSelection);
         };
 
-        document.addEventListener("selectionchange", queueUpdate);
-        window.addEventListener("scroll", queueUpdate, { passive: true });
-        window.addEventListener("resize", queueUpdate, { passive: true });
+        const onSelectionChange = () => {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed) {
+                if (hasActiveSelectionRef.current) {
+                    hasActiveSelectionRef.current = false;
+                    setLines(null);
+                }
+                return;
+            }
+            queueUpdate();
+        };
+
+        // Scroll or resize only needs to recompute rects when an active selection is displayed!
+        const onScrollOrResize = () => {
+            if (!hasActiveSelectionRef.current) return;
+            queueUpdate();
+        };
+
+        document.addEventListener("selectionchange", onSelectionChange);
+        window.addEventListener("scroll", onScrollOrResize, { passive: true });
+        window.addEventListener("resize", onScrollOrResize, { passive: true });
 
         // Connect with Lenis smooth scroll if active
         const lenis = (window as unknown as { lenis?: { on: (event: string, cb: () => void) => () => void } }).lenis;
         let unsubscribeLenis: (() => void) | undefined;
         if (lenis && typeof lenis.on === "function") {
-            unsubscribeLenis = lenis.on("scroll", queueUpdate);
+            unsubscribeLenis = lenis.on("scroll", onScrollOrResize);
         }
 
         return () => {
-            document.removeEventListener("selectionchange", queueUpdate);
-            window.removeEventListener("scroll", queueUpdate);
-            window.removeEventListener("resize", queueUpdate);
+            document.removeEventListener("selectionchange", onSelectionChange);
+            window.removeEventListener("scroll", onScrollOrResize);
+            window.removeEventListener("resize", onScrollOrResize);
             if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
             if (unsubscribeLenis) unsubscribeLenis();
         };

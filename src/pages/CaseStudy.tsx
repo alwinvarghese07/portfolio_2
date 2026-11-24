@@ -1,19 +1,20 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import ShowreelVideo from "../assets/videos/Showreel-Grid-Mobile-[remix] (1).mp4";
 import DribbbleShot from "../assets/videos/Dribbble-shot.mp4";
 import StayTransitVideo from "../assets/videos/st_banner.mp4";
 import FooterLight from "../components/FooterLight";
 import CustomCursor from "../components/CustomCursor";
 import CaseStudyNavbar from "../components/CaseStudyNavbar";
-import TumbledryContent from "../components/case-studies/TumbledryContent";
-import WanderContent from "../components/case-studies/WanderContent";
-import StayTransitContent from "../components/case-studies/StayTransitContent";
-import MedaramJatharaContent from "../components/case-studies/MedaramJatharaContent";
-import MedaramBanner from "../assets/images/medaram_banner.png";
+const TumbledryContent = lazy(() => import("../components/case-studies/TumbledryContent"));
+const WanderContent = lazy(() => import("../components/case-studies/WanderContent"));
+const StayTransitContent = lazy(() => import("../components/case-studies/StayTransitContent"));
+const MedaramJatharaContent = lazy(() => import("../components/case-studies/MedaramJatharaContent"));
+import MedaramBanner from "../assets/images/medaram_banner.webp";
 import Wander from "../assets/images/header.webp";
 import TumbleDry from "../assets/images/alwin.webp";
 import { EditorialDivider } from "../components/EditorialGrid";
+import ViewportVideo from "../components/ViewportVideo";
 
 // Case study data registry
 const getCaseStudyData = (id: string | undefined) => {
@@ -156,13 +157,13 @@ export default function CaseStudy() {
                     {/* ── Hero Media Showcase (LCP candidate, high fetchpriority per modern-web-guidance) ── */}
                     <div className={`w-full mt-4 sm:mt-6 ${id === "staytransit" ? "aspect-[1916/1080]" : id === "medaram-jathara" || id === "medaram" ? "aspect-[6688/3732]" : "aspect-[16/10]"} rounded-[22px] md:rounded-[26px] overflow-hidden bg-[#FBFBFB] border-0 shadow-none relative`}>
                         {data.mediaUrl ? (
-                            <video
+                            <ViewportVideo
                                 src={data.mediaUrl}
                                 autoPlay
                                 loop
                                 muted
                                 playsInline
-                                preload="auto"
+                                preload="metadata"
                                 className="w-full h-full object-cover rounded-[22px] md:rounded-[26px]"
                             />
                         ) : data.image ? (
@@ -190,22 +191,24 @@ export default function CaseStudy() {
 
                 {/* ── Case Study Detailed Content (Project Overview flows seamlessly from banner) ── */}
                 <div className="w-full max-w-[800px] mx-auto mt-8 sm:mt-10 md:mt-12">
-                    {id === "staytransit" ? (
-                        <StayTransitContent />
-                    ) : id === "medaram-jathara" || id === "medaram" ? (
-                        <MedaramJatharaContent />
-                    ) : id === "wander" ? (
-                        <WanderContent />
-                    ) : id === "tumbledry" ? (
-                        <TumbledryContent />
-                    ) : (
-                        <div className="mt-8 flex flex-col gap-6 w-full p-8 bg-[#FBFBFB] rounded-3xl border-0 shadow-none">
-                            <h2 className="type-card-heading text-2xl text-[#1A1A1A]">Overview</h2>
-                            <p className="type-body text-[#555] leading-relaxed">
-                                {data.content}
-                            </p>
-                        </div>
-                    )}
+                    <Suspense fallback={<div className="w-full min-h-[400px] flex items-center justify-center py-16"><div className="w-8 h-8 rounded-full border-2 border-[#168BEB] border-t-transparent animate-spin" /></div>}>
+                        {id === "staytransit" ? (
+                            <StayTransitContent />
+                        ) : id === "medaram-jathara" || id === "medaram" ? (
+                            <MedaramJatharaContent />
+                        ) : id === "wander" ? (
+                            <WanderContent />
+                        ) : id === "tumbledry" ? (
+                            <TumbledryContent />
+                        ) : (
+                            <div className="mt-8 flex flex-col gap-6 w-full p-8 bg-[#FBFBFB] rounded-3xl border-0 shadow-none">
+                                <h2 className="type-card-heading text-2xl text-[#1A1A1A]">Overview</h2>
+                                <p className="type-body text-[#555] leading-relaxed">
+                                    {data.content}
+                                </p>
+                            </div>
+                        )}
+                    </Suspense>
                 </div>
 
                 {/* ── Editorial Divider 3: Framing the Footer ── */}
