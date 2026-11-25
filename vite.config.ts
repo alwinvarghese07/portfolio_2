@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
-import basicSsl from '@vitejs/plugin-basic-ssl'
 import { viteSpotifyPlugin } from './scripts/vite-spotify-plugin'
 
 // https://vite.dev/config/
@@ -13,11 +12,10 @@ export default defineConfig({
     host: true,
   },
   plugins: [
-    basicSsl(),
     tailwindcss(),
     react(),
     ViteImageOptimizer({
-      exclude: /package_cards/,
+      exclude: /package_cards|sticky_action_bar|checkout_summary|mobile_/,
     }),
     viteSpotifyPlugin(),
   ],

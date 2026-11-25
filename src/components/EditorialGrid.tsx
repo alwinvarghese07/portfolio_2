@@ -66,20 +66,27 @@ export function GridCrosshair({ className = "" }: GridCrosshairProps) {
 
 interface EditorialDividerProps {
     className?: string;
+    fullWidth?: boolean;
 }
 
 /**
  * Editorial Horizontal Divider
- * An art-directed 1px horizontal rule spanning full viewport width with beating intersection hearts.
+ * An art-directed 1px horizontal rule with beating intersection hearts.
+ * When fullWidth is false (default), the horizontal rule spans strictly across the center column
+ * between the left and right guidelines, with the outer left/right extensions removed.
  */
-export function EditorialDivider({ className = "" }: EditorialDividerProps) {
+export function EditorialDivider({ className = "", fullWidth = false }: EditorialDividerProps) {
     return (
         <div
             className={`relative -mx-4 sm:-mx-6 md:-mx-8 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] md:w-[calc(100%+4rem)] h-[1px] pointer-events-none select-none ${className}`}
             aria-hidden="true"
         >
-            {/* Full-width 1px horizontal rule stretching across the entire viewport */}
-            <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen h-[1px] bg-[#E2E2E2]" />
+            {/* Horizontal rule: spans full viewport width when fullWidth is true, otherwise contained strictly to center */}
+            {fullWidth ? (
+                <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen h-[1px] bg-[#E2E2E2]" />
+            ) : (
+                <div className="absolute inset-x-0 top-0 h-[1px] bg-[#E2E2E2]" />
+            )}
 
             {/* Left Intersection Heart (aligns with left vertical guideline) */}
             <GridHeart className="left-0 top-[0.5px] hidden sm:flex" />

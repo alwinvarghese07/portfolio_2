@@ -40,7 +40,7 @@ export default function Home() {
                         <HeroNavbar />
                         {/* ── Editorial Divider 1: Anchors the top navigation from the hero statement ── */}
                         <div className="w-full pt-3 sm:pt-4">
-                            <EditorialDivider />
+                            <EditorialDivider fullWidth={true} />
                         </div>
                     </header>
 
@@ -51,7 +51,7 @@ export default function Home() {
 
                 {/* ── Editorial Divider 2: Structural boundary between Hero and Selected Works ── */}
                 <div className="w-full pt-6 sm:pt-8 md:pt-10 pb-6 sm:pb-8">
-                    <EditorialDivider />
+                    <EditorialDivider fullWidth={true} />
                 </div>
 
                 {/* ── Selected Works & Experience ── */}
@@ -61,7 +61,7 @@ export default function Home() {
 
                 {/* ── Editorial Divider 3: Demarcates Project Works from the About Section ── */}
                 <div className="w-full pt-16 sm:pt-20 md:pt-24 pb-10 sm:pb-12 md:pb-14">
-                    <EditorialDivider />
+                    <EditorialDivider fullWidth={true} />
                 </div>
 
                 {/* ── About Section (Bento Grid, Bio & Outside Design) ── */}
@@ -69,7 +69,7 @@ export default function Home() {
 
                 {/* ── Editorial Divider 4: Framing the Footer ── */}
                 <div className="w-full mt-16 md:mt-24">
-                    <EditorialDivider />
+                    <EditorialDivider fullWidth={true} />
                 </div>
 
                 {/* ── Footer ── */}

@@ -6,6 +6,7 @@ import StayTransitVideo from "../assets/videos/st_banner.mp4";
 import FooterLight from "../components/FooterLight";
 import CustomCursor from "../components/CustomCursor";
 import CaseStudyNavbar from "../components/CaseStudyNavbar";
+import CaseStudySidebarNav from "../components/CaseStudySidebarNav";
 const TumbledryContent = lazy(() => import("../components/case-studies/TumbledryContent"));
 const WanderContent = lazy(() => import("../components/case-studies/WanderContent"));
 const StayTransitContent = lazy(() => import("../components/case-studies/StayTransitContent"));
@@ -114,8 +115,19 @@ export default function CaseStudy() {
                 />
             </div>
 
-            {/* Main Content Container — 864px max-width matches the 800px card + 32px side padding */}
-            <main id="main-content" className="relative z-10 flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
+            {/* Outer 3-column layout keeps main 864px column centered while anchoring sticky sidebar in left gutter on xl+ */}
+            <div className="relative z-10 w-full xl:grid xl:grid-cols-[1fr_864px_1fr]">
+                {/* ── Persistent Left Sidebar Navigation (Desktop xl+) ── */}
+                <aside className="hidden xl:flex justify-end sticky top-32 self-start pr-8 pb-12">
+                    <CaseStudySidebarNav
+                        variant="sidebar"
+                        contentSelector="#case-study-content"
+                        caseStudyId={id}
+                    />
+                </aside>
+
+                {/* Main Content Container — 864px max-width matches the 800px card + 32px side padding */}
+                <main id="main-content" className="relative flex flex-col px-4 sm:px-6 md:px-8 max-w-[864px] mx-auto w-full">
                 {/* ── Architectural Column Guideline (Left) ── */}
                 <div
                     className="absolute -top-6 sm:-top-10 bottom-0 left-0 w-[1px] bg-[#E2E2E2] pointer-events-none select-none hidden sm:block"
@@ -191,24 +203,31 @@ export default function CaseStudy() {
 
                 {/* ── Case Study Detailed Content (Project Overview flows seamlessly from banner) ── */}
                 <div className="w-full max-w-[800px] mx-auto mt-8 sm:mt-10 md:mt-12">
-                    <Suspense fallback={<div className="w-full min-h-[400px] flex items-center justify-center py-16"><div className="w-8 h-8 rounded-full border-2 border-[#168BEB] border-t-transparent animate-spin" /></div>}>
-                        {id === "staytransit" ? (
-                            <StayTransitContent />
-                        ) : id === "medaram-jathara" || id === "medaram" ? (
-                            <MedaramJatharaContent />
-                        ) : id === "wander" ? (
-                            <WanderContent />
-                        ) : id === "tumbledry" ? (
-                            <TumbledryContent />
-                        ) : (
-                            <div className="mt-8 flex flex-col gap-6 w-full p-8 bg-[#FBFBFB] rounded-3xl border-0 shadow-none">
-                                <h2 className="type-card-heading text-2xl text-[#1A1A1A]">Overview</h2>
-                                <p className="type-body text-[#555] leading-relaxed">
-                                    {data.content}
-                                </p>
-                            </div>
-                        )}
-                    </Suspense>
+                    <CaseStudySidebarNav
+                        variant="mobile"
+                        contentSelector="#case-study-content"
+                        caseStudyId={id}
+                    />
+                    <div id="case-study-content">
+                        <Suspense fallback={<div className="w-full min-h-[400px] flex items-center justify-center py-16"><div className="w-8 h-8 rounded-full border-2 border-[#168BEB] border-t-transparent animate-spin" /></div>}>
+                            {id === "staytransit" ? (
+                                <StayTransitContent />
+                            ) : id === "medaram-jathara" || id === "medaram" ? (
+                                <MedaramJatharaContent />
+                            ) : id === "wander" ? (
+                                <WanderContent />
+                            ) : id === "tumbledry" ? (
+                                <TumbledryContent />
+                            ) : (
+                                <div className="mt-8 flex flex-col gap-6 w-full p-8 bg-[#FBFBFB] rounded-3xl border-0 shadow-none">
+                                    <h2 className="type-card-heading text-2xl text-[#1A1A1A]">Overview</h2>
+                                    <p className="type-body text-[#555] leading-relaxed">
+                                        {data.content}
+                                    </p>
+                                </div>
+                            )}
+                        </Suspense>
+                    </div>
                 </div>
 
                 {/* ── Editorial Divider 3: Framing the Footer ── */}
@@ -221,6 +240,10 @@ export default function CaseStudy() {
                     <FooterLight hideBorder={true} />
                 </div>
             </main>
+
+                {/* Right gutter spacer on xl+ to keep main column centered */}
+                <div className="hidden xl:block" aria-hidden="true" />
+            </div>
         </div>
     );
 }
