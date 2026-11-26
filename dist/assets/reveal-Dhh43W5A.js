@@ -1,1 +1,0 @@
-import{j as e,m as n}from"./index-Bb0cDBEw.js";import"./vendor-BWu_rCU9.js";function p({children:i,className:t="",delay:o=0}){return e.jsx(n.div,{initial:{opacity:0,y:28},whileInView:{opacity:1,y:0},viewport:{once:!0,margin:"-40px"},transition:{duration:.8,ease:[.16,1,.3,1],delay:o},className:t,children:i})}export{p as R};

@@ -34,9 +34,9 @@ const getCaseStudyData = (id: string | undefined) => {
         return {
             title: "Medaram Jathara 2026",
             navTitle: "Medaram Jathara 2026",
-            kicker: undefined,
-            subtitle: "A connected digital experience that helps visitors prepare for a large-scale tribal festival and access essential information and support while they are there.",
-            description: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana. The project contains two product surfaces: a Guest Web experience and a Guest App.",
+            kicker: "Product design · Case study · 2026",
+            subtitle: "Designing two connected digital experiences to help visitors prepare for a large-scale festival, find essential services and access support during their visit.",
+            description: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana across a Guest Web experience and a Guest App.",
             mediaUrl: undefined,
             content: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana across a Guest Web experience and a Guest App.",
             image: MedaramBanner,

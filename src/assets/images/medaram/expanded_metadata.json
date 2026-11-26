@@ -1,0 +1,80 @@
+[
+  {
+    "index": 1,
+    "filename": "exp_01_guest_app_home_screen.png",
+    "alt": "Guest App home screen",
+    "caption": "<b>Guest App home.</b> The primary entry point brings together key actions and access to the wider service experience."
+  },
+  {
+    "index": 2,
+    "filename": "exp_02_guest_app_service_directory.png",
+    "alt": "Guest App service directory",
+    "caption": "<b>Service directory.</b> Service categories give visitors a starting point before they move into specific facility details."
+  },
+  {
+    "index": 3,
+    "filename": "exp_03_safety_hub_in_guest_app.png",
+    "alt": "Safety hub in Guest App",
+    "caption": "<b>Safety area.</b> A dedicated destination groups safety-related actions rather than mixing them into the general service directory."
+  },
+  {
+    "index": 4,
+    "filename": "exp_04_service_directory_screen.png",
+    "alt": "Service directory screen",
+    "caption": "<b>Service categories.</b> A scannable directory gives visitors a clear starting point."
+  },
+  {
+    "index": 5,
+    "filename": "exp_05_medical_assistance_screen.png",
+    "alt": "Medical assistance screen",
+    "caption": "<b>Medical assistance.</b> A focused service view makes a specific type of support easier to identify."
+  },
+  {
+    "index": 6,
+    "filename": "exp_06_app_safety_screen.png",
+    "alt": "App safety screen",
+    "caption": "<b>Safety hub.</b> Emergency SOS is presented within the dedicated safety area."
+  },
+  {
+    "index": 7,
+    "filename": "exp_07_incident_report_form.png",
+    "alt": "Incident report form",
+    "caption": "<b>Incident report.</b> A form-based flow for submitting incident information."
+  },
+  {
+    "index": 8,
+    "filename": "exp_08_missing_person_report_form.png",
+    "alt": "Missing person report form",
+    "caption": "<b>Missing-person report.</b> Structured information intended to support staff handling a report."
+  },
+  {
+    "index": 9,
+    "filename": "exp_09_guest_web_festival_page.png",
+    "alt": "Guest Web festival page",
+    "caption": "<b>Festival information.</b> An entry point to the event and its supporting information."
+  },
+  {
+    "index": 10,
+    "filename": "exp_10_guest_web_routes_and_travel_information.png",
+    "alt": "Guest Web routes and travel information",
+    "caption": "<b>Routes and travel.</b> Travel guidance helps visitors understand how to reach the festival location."
+  },
+  {
+    "index": 11,
+    "filename": "exp_11_guest_web_service_directory.png",
+    "alt": "Guest Web service directory",
+    "caption": "<b>Service information.</b> A web directory extends service discovery to people planning their visit."
+  },
+  {
+    "index": 12,
+    "filename": "exp_12_guest_web_safety_information.png",
+    "alt": "Guest Web safety information",
+    "caption": "<b>Safety resources.</b> Safety information and support pathways are also accessible through the public website."
+  },
+  {
+    "index": 13,
+    "filename": "exp_13_darshan_booking_exploration.png",
+    "alt": "Darshan booking exploration",
+    "caption": "<b>Booking exploration.</b> Darshan and Prasadam booking concepts were part of the design work, but were not implemented in the launched product."
+  }
+]
