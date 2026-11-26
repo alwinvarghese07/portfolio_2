@@ -18,7 +18,7 @@ function formatSectionLabel(rawText: string): string {
     let trimmed = rawText.trim();
 
     // Strip leading numbers like "01 / ", "05.1 — ", "05.1 - ", "01. ", "01 "
-    trimmed = trimmed.replace(/^(\d+(\.\d+)?)\s*[\/—–\-:]*\s*/i, "").trim();
+    trimmed = trimmed.replace(/^(\d+(\.\d+)?)\s*[/—–\-:]*\s*/i, "").trim();
 
     if (/^project overview$/i.test(trimmed)) return "Overview";
 

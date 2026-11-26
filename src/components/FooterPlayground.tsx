@@ -53,18 +53,36 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
     const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
     const containerWidthRef = useRef<number>(800);
     const [isInteracting, setIsInteracting] = useState(false);
-    const [isReducedMotion, setIsReducedMotion] = useState(false);
+    const [isReducedMotion, setIsReducedMotion] = useState(() => {
+        if (typeof window === "undefined") return false;
+        return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    });
 
     // Mobile & Tablet Visibility Flag
-    const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+    const [isMobileOrTablet, setIsMobileOrTablet] = useState(() => {
+        if (typeof window === "undefined") return false;
+        const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth < 1024;
+        return isTouch || isSmallScreen;
+    });
 
     // Mobile Tilt Physics States
-    const [isMotionActive, setIsMotionActive] = useState(false);
+    const [isMotionActive, setIsMotionActive] = useState(() => {
+        if (typeof window === "undefined" || !("DeviceOrientationEvent" in window)) return false;
+        const doe = window.DeviceOrientationEvent as unknown as {
+            requestPermission?: () => Promise<"granted" | "denied">;
+        };
+        return typeof doe.requestPermission !== "function";
+    });
     const [statusFeedback, setStatusFeedback] = useState<string | null>(null);
 
     // Gravity tracking for smooth physics interpolation
     const targetGravityRef = useRef<{ x: number; y: number }>({ x: 0, y: 1.0 });
-    const isMotionActiveRef = useRef(false);
+    const isMotionActiveRef = useRef(
+        typeof window !== "undefined" &&
+        "DeviceOrientationEvent" in window &&
+        typeof (window.DeviceOrientationEvent as unknown as { requestPermission?: () => unknown }).requestPermission !== "function"
+    );
 
     // Physics references
     const engineRef = useRef<Matter.Engine | null>(null);
@@ -80,17 +98,20 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
     const dragPointerHistoryRef = useRef<{ x: number; y: number; time: number }[]>([]);
     const isDraggingRef = useRef(false);
 
-    // Check if on mobile or tablet
+    // Keep mobile/tablet flag up to date on resize
     useEffect(() => {
-        const isTouch = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
-        const isSmallScreen = typeof window !== "undefined" && window.innerWidth < 1024;
-        setIsMobileOrTablet(isTouch || isSmallScreen);
+        const handleResize = () => {
+            const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+            const isSmallScreen = window.innerWidth < 1024;
+            setIsMobileOrTablet(isTouch || isSmallScreen);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    // Check prefers-reduced-motion
+    // Listen for prefers-reduced-motion changes
     useEffect(() => {
         const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-        setIsReducedMotion(media.matches);
         const listener = (e: MediaQueryListEvent) => setIsReducedMotion(e.matches);
         media.addEventListener("change", listener);
         return () => media.removeEventListener("change", listener);
@@ -303,17 +324,13 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
 
     // Auto-activate motion for un-gated browsers (Android, Chrome, Firefox)
     useEffect(() => {
-        if (typeof window === "undefined" || !("DeviceOrientationEvent" in window)) return;
-
-        const doe = window.DeviceOrientationEvent as unknown as {
-            requestPermission?: () => Promise<"granted" | "denied">;
-        };
-
-        // If not gated by iOS requestPermission, automatically enable motion
-        if (typeof doe.requestPermission !== "function") {
-            enableMotion();
+        if (isMotionActiveRef.current) {
+            window.addEventListener("deviceorientation", handleOrientation, true);
+            return () => {
+                window.removeEventListener("deviceorientation", handleOrientation, true);
+            };
         }
-    }, [enableMotion]);
+    }, [handleOrientation]);
 
     // Toggle motion control with iOS permission flow & HTTPS check
     const toggleMotion = useCallback(async () => {
