@@ -36,7 +36,7 @@ const StickyNote = ({ text, color, rotation, position, constraintsRef }: StickyN
             }}
         >
             {/* Subtle Texture Layer */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/felt.png')]"></div>
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none bg-gradient-to-br from-white/20 via-transparent to-black/10"></div>
 
             <span className="text-[10px] md:text-xs font-bold text-black/60 tracking-tight leading-tight z-10 pointer-events-none">
                 {text}

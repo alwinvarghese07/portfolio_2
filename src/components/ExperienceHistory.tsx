@@ -25,12 +25,12 @@ export default function ExperienceHistory() {
                             <span className="type-card-heading text-[18px] md:text-[19px] font-regular text-[#1A1A1A] group-hover:text-black transition-colors">
                                 {exp.company}
                             </span>
-                            <span className="type-metadata text-[#888]">
+                            <span className="type-metadata text-[#596272]">
                                 {exp.role}
                             </span>
                         </div>
 
-                        <span className="text-[15px] sm:text-[17px] font-medium text-[#999]">
+                        <span className="text-[15px] sm:text-[16px] font-medium text-[#596272]">
                             {exp.period}
                         </span>
                     </div>

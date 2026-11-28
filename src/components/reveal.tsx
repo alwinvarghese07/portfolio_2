@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import React from "react";
 
 interface RevealProps {
@@ -7,20 +6,15 @@ interface RevealProps {
     delay?: number;
 }
 
-export default function Reveal({ children, className = "", delay = 0 }: RevealProps) {
+/**
+ * Reveal — Clean layout wrapper.
+ * Unnecessary scroll-triggered opacity fades removed per design audit (Pattern 19).
+ * Content renders immediately and smoothly without scroll jank or layout shift.
+ */
+export default function Reveal({ children, className = "" }: RevealProps) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
-                delay,
-            }}
-            className={className}
-        >
+        <div className={className}>
             {children}
-        </motion.div>
+        </div>
     );
 }

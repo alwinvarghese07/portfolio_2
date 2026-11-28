@@ -24,7 +24,7 @@ const getCaseStudyData = (id: string | undefined) => {
             title: "StayTransit",
             navTitle: "StayTransit",
             kicker: undefined,
-            subtitle: "Designing airport services around a traveller’s time. Making airport experiences easier to discover and book across lounges, stays, spas and transit services. airport experiences easier to discover and book.",
+            subtitle: "Designing airport services around a traveller’s time. Making airport experiences easier to discover and book across lounges, stays, spas and transit services.",
             description: "StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the marketplace.",
             mediaUrl: StayTransitVideo,
             content: "StayTransit is an airport-focused booking platform for services such as lounges, stays, spas, workspaces and meet-and-greet assistance. I designed the traveller journey from search to booking, along with the operational dashboards behind the marketplace.",
@@ -34,7 +34,7 @@ const getCaseStudyData = (id: string | undefined) => {
         return {
             title: "Medaram Jathara 2026",
             navTitle: "Medaram Jathara 2026",
-            kicker: "Product design · Case study · 2026",
+            kicker: "Product Design Case Study — 2026",
             subtitle: "Designing two connected digital experiences to help visitors prepare for a large-scale festival, find essential services and access support during their visit.",
             description: "Medaram Jathara 2026 is a digital experience built around the Sammakka–Saralamma Jathara in Medaram, Telangana across a Guest Web experience and a Guest App.",
             mediaUrl: undefined,
@@ -46,10 +46,10 @@ const getCaseStudyData = (id: string | undefined) => {
             title: "Tumbledry",
             navTitle: "Tumbledry",
             kicker: undefined,
-            subtitle: "Reimagining the laundry pickup experience.",
+            subtitle: "Redesigning the laundry pickup experience with upfront pricing, item specification and order clarity.",
             description: "Improving booking clarity, service selection, and the overall user experience.",
             mediaUrl: ShowreelVideo,
-            content: "This is the placeholder content for the TumbleDry case study. It will detail the process of redesigning the laundry service platform.",
+            content: "Redesigning the laundry pickup experience with upfront pricing, item specification and order clarity.",
             image: TumbleDry,
         };
     } else if (id === "wander") {
@@ -57,10 +57,10 @@ const getCaseStudyData = (id: string | undefined) => {
             title: "Wander",
             navTitle: "Wander",
             kicker: undefined,
-            subtitle: "Outdoor adventure planning platform",
+            subtitle: "A mobile adventure planning platform connecting hikers and campers with trails, route planning and group logistics.",
             description: "Built a platform to help people plan outdoor adventures with personalized suggestions and simple trip management.",
             mediaUrl: DribbbleShot,
-            content: "This is the placeholder content for the Wander case study. It describes the platform built to help people plan outdoor adventures.",
+            content: "A mobile adventure planning platform connecting hikers and campers with trails, route planning and group logistics.",
             image: Wander,
         };
     }
@@ -104,16 +104,6 @@ export default function CaseStudy() {
 
             {/* Global custom cursor */}
             <CustomCursor />
-
-            {/* Atmospheric soft aura backdrop */}
-            <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[340px] sm:w-[540px] h-[260px] pointer-events-none -z-0">
-                <div
-                    className="w-full h-full rounded-full opacity-35 blur-3xl"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(165,180,252,0.3) 0%, rgba(224,231,255,0.18) 45%, rgba(255,255,255,0) 70%)'
-                    }}
-                />
-            </div>
 
             {/* Outer 3-column layout keeps main 864px column centered while anchoring sticky sidebar in left gutter on xl+ */}
             <div className="relative z-10 w-full xl:grid xl:grid-cols-[1fr_864px_1fr]">

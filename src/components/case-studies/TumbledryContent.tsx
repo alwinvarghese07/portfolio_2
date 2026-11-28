@@ -22,18 +22,18 @@ export default function TumbledryContent() {
         <div className="w-full flex flex-col gap-10 sm:gap-14 md:gap-18 font-roobert text-[#171A22]">
             {/* ── 1. PRODUCT OVERVIEW ── */}
             <Reveal>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 sm:p-8 bg-[#FBFBFB] rounded-2xl md:rounded-3xl border-0 shadow-none text-left sm:text-center divide-y sm:divide-y-0 sm:divide-x divide-black/[0.06]">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-4 border-b border-black/[0.06] text-left divide-y sm:divide-y-0 sm:divide-x divide-black/[0.06]">
                     <div className="flex flex-col gap-1 pt-2 sm:pt-0">
                         <span className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Role</span>
                         <span className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">Product Designer</span>
                     </div>
-                    <div className="flex flex-col gap-1 pt-4 sm:pt-0 sm:pl-4">
+                    <div className="flex flex-col gap-1 pt-4 sm:pt-0 sm:pl-6">
                         <span className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Platform</span>
                         <span className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">iOS & Android App</span>
                     </div>
-                    <div className="flex flex-col gap-1 pt-4 sm:pt-0 sm:pl-4">
+                    <div className="flex flex-col gap-1 pt-4 sm:pt-0 sm:pl-6">
                         <span className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Focus</span>
-                        <span className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">UX Research, UX/UI Design, Prototyping</span>
+                        <span className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">UX Research, UI Design, Prototyping</span>
                     </div>
                 </div>
             </Reveal>
@@ -112,26 +112,26 @@ export default function TumbledryContent() {
                     <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">
                         Key Insights
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 pt-1">
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2.5">
-                            <span className="text-[11px] font-mono text-[#717680] block mb-1 font-medium">INSIGHT 01</span>
-                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22] mb-1">Price Clarity</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pt-4 border-t border-black/[0.06]">
+                        <div className="flex flex-col">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">01 — Price Clarity</span>
+                            <h3 className="text-[16px] font-semibold text-[#171A22] mb-1.5">Upfront cost transparency</h3>
                             <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
-                                Users need to understand the expected cost before scheduling a pickup. When pricing is hidden or difficult to find, it creates uncertainty during the booking decision.
+                                Users need to understand the expected cost before scheduling a pickup. Hidden or deferred pricing creates hesitation during the booking decision.
                             </p>
                         </div>
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2.5">
-                            <span className="text-[11px] font-mono text-[#717680] block mb-1 font-medium">INSIGHT 02</span>
-                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22] mb-1">Service Details</h3>
+                        <div className="flex flex-col">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">02 — Service Details</span>
+                            <h3 className="text-[16px] font-semibold text-[#171A22] mb-1.5">Item specification</h3>
                             <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
-                                The booking flow does not capture important details such as garment type or quantity. Without this information, users may not fully understand what they are requesting from the service.
+                                Capturing garment type and approximate load details upfront ensures users know what service tiers and treatments are being applied.
                             </p>
                         </div>
-                        <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-2.5">
-                            <span className="text-[11px] font-mono text-[#717680] block mb-1 font-medium">INSIGHT 03</span>
-                            <h3 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22] mb-1">Booking Confirmation</h3>
+                        <div className="flex flex-col">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">03 — Order Review</span>
+                            <h3 className="text-[16px] font-semibold text-[#171A22] mb-1.5">Confirmation step</h3>
                             <p className="text-[13.5px] sm:text-[14px] text-[#596272] leading-relaxed">
-                                After selecting a pickup slot, tapping “Schedule Pickup” immediately places the order. Users typically expect a confirmation or review step before committing to a service booking.
+                                Adding a dedicated summary step before scheduling prevents accidental requests and lets users verify pickup windows and estimated charges.
                             </p>
                         </div>
                     </div>

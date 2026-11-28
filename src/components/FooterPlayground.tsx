@@ -672,7 +672,7 @@ export default function FooterPlayground({ onShakeReady }: FooterPlaygroundProps
                                 statusFeedback
                                     ? "bg-amber-500"
                                     : isMotionActive
-                                    ? "bg-emerald-400 animate-pulse"
+                                    ? "bg-emerald-400"
                                     : "bg-[#888]"
                             }`}
                         />

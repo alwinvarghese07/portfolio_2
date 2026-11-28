@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import mailIcon from "../assets/images/mail.webp";
 import linkedinIcon from "../assets/images/linkedin.webp";
-import xIcon from "../assets/images/insta.webp";
+import instagramIcon from "../assets/images/insta.webp";
 const FooterPlayground = lazy(() => import("./FooterPlayground"));
 
 export default function Footer({ hideBorder = false }: { hideBorder?: boolean }) {
@@ -51,7 +51,7 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
                                 aria-label="Alwin's Instagram Profile"
                                 className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-black/[0.04] active:scale-95 transition-all duration-200"
                             >
-                                <img src={xIcon} alt="Instagram" className="w-6 h-6 object-contain" />
+                                <img src={instagramIcon} alt="Instagram" className="w-6 h-6 object-contain" />
                             </a>
                         </div>
                     </div>
@@ -59,7 +59,7 @@ export default function Footer({ hideBorder = false }: { hideBorder?: boolean })
 
                 {/* ── Copyright Line: directly below the footer content ── */}
                 <div className="w-full mt-5 sm:mt-6 mb-2 sm:mb-3 flex justify-center">
-                    <span className="type-caption text-[#999]">
+                    <span className="type-caption text-[#666]">
                         © Alwin Varghese Saji, 2026
                     </span>
                 </div>

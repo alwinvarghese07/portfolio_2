@@ -46,7 +46,7 @@ function CaseStudyNavbarContent({ title }: CaseStudyNavbarContentProps) {
             <div className="flex items-center gap-5 sm:gap-8 shrink-0">
                 <Link
                     to="/#home"
-                    className="type-nav text-[15px] sm:text-[16px] transition-colors duration-200 cursor-pointer text-[#888888] !font-normal hover:text-[#1A1A1A]"
+                    className="type-nav text-[15px] sm:text-[16px] transition-colors duration-200 cursor-pointer text-[#666666] !font-normal hover:text-[#1A1A1A]"
                 >
                     Home
                 </Link>
@@ -58,7 +58,7 @@ function CaseStudyNavbarContent({ title }: CaseStudyNavbarContentProps) {
                 </Link>
                 <Link
                     to="/#about"
-                    className="type-nav text-[15px] sm:text-[16px] transition-colors duration-200 cursor-pointer text-[#888888] !font-normal hover:text-[#1A1A1A]"
+                    className="type-nav text-[15px] sm:text-[16px] transition-colors duration-200 cursor-pointer text-[#666666] !font-normal hover:text-[#1A1A1A]"
                 >
                     About
                 </Link>

@@ -244,7 +244,7 @@ export default function CaseStudySidebarNav({
                                     } tracking-tight pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171A22]/40 focus-visible:rounded-sm transition-colors duration-200 ${
                                         isActive
                                             ? "text-[#171A22] font-medium"
-                                            : "text-[#9AA2B1] hover:text-[#171A22] font-normal"
+                                            : "text-[#596272] hover:text-[#171A22] font-normal"
                                     }`}
                                 >
                                     <span>{item.label}</span>
@@ -285,7 +285,7 @@ export default function CaseStudySidebarNav({
                                 } leading-snug tracking-tight pb-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#171A22]/40 focus-visible:rounded-sm transition-colors duration-200 ${
                                     isActive
                                         ? "text-[#171A22] font-medium"
-                                        : "text-[#9AA2B1] hover:text-[#171A22] font-normal"
+                                        : "text-[#596272] hover:text-[#171A22] font-normal"
                                 }`}
                             >
                                 <span>{item.label}</span>

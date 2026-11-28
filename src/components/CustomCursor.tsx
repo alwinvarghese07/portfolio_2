@@ -29,9 +29,10 @@ export default function CustomCursor() {
     const launchOffset = useRef({ x: 0, y: 0 });
     const isRecovering = useRef(false);
     const recoverStartTime = useRef(0);
-    const lastFrameTime = useRef(performance.now());
+    const lastFrameTime = useRef(0);
 
     useEffect(() => {
+        lastFrameTime.current = performance.now();
         const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
         if (isTouchOnly) {
             if (cursorRef.current) cursorRef.current.style.display = 'none';
@@ -68,8 +69,7 @@ export default function CustomCursor() {
                 target === document.documentElement ||
                 target.id === 'main-content' ||
                 target.id === 'home' ||
-                target.classList.contains('min-h-screen') ||
-                target.classList.contains('custom-grain-layer');
+                target.classList.contains('min-h-screen');
 
             if (!isPageRootCanvas) {
                 // If non-canvas target directly contains non-empty text
@@ -99,8 +99,7 @@ export default function CustomCursor() {
                 target === document.documentElement ||
                 target.id === 'main-content' ||
                 target.id === 'home' ||
-                target.classList.contains('min-h-screen') ||
-                target.classList.contains('custom-grain-layer');
+                target.classList.contains('min-h-screen');
 
             if (isCanvas) return true;
 

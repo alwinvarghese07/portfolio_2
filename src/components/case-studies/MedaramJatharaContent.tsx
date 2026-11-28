@@ -33,7 +33,7 @@ function ShowcaseFrame({
     return (
         <figure className={`w-full ${narrow ? "max-w-[420px] mx-auto" : ""} my-6 sm:my-8`}>
             {/* Clean Editorial Image Wrapper */}
-            <div className="w-full rounded-xl md:rounded-2xl overflow-hidden border border-black/[0.08] bg-[#F7F6F1]">
+            <div className="w-full rounded-xl md:rounded-2xl overflow-hidden border border-black/[0.08] bg-[#FBFBFB]">
                 <img
                     src={mediaUrl}
                     alt={title}
@@ -45,8 +45,7 @@ function ShowcaseFrame({
 
             {/* Editorial Caption Bar */}
             {caption && (
-                <figcaption className="mt-3 px-1 flex items-start gap-2.5 text-left">
-                    <span className="w-1 h-3.5 rounded-full bg-[#245CF5] shrink-0 mt-1" aria-hidden="true" />
+                <figcaption className="mt-3 px-1 text-left">
                     <p className="text-[13px] sm:text-[13.5px] text-[#596272] leading-relaxed">
                         <strong className="text-[#171A22] font-semibold">{title}: </strong>
                         {caption}
@@ -141,7 +140,7 @@ export default function MedaramJatharaContent() {
                                 </p>
                             </div>
                             <span className="text-[12px] font-medium text-[#717680] mt-4 pt-3 border-t border-black/[0.05] block">
-                                Primary context · Before arrival
+                                Primary context — Before arrival
                             </span>
                         </div>
 
@@ -153,7 +152,7 @@ export default function MedaramJatharaContent() {
                                 </p>
                             </div>
                             <span className="text-[12px] font-medium text-[#717680] mt-4 pt-3 border-t border-black/[0.05] block">
-                                Primary context · During the visit
+                                Primary context — During the visit
                             </span>
                         </div>
                     </div>
@@ -297,7 +296,7 @@ export default function MedaramJatharaContent() {
                     </div>
 
                     {/* How Might We Callout */}
-                    <blockquote className="border-l-2 border-[#245CF5] pl-5 sm:pl-6 py-2 my-2 text-[18px] sm:text-[20px] text-[#171A22] font-normal italic leading-relaxed max-w-[800px]">
+                    <blockquote className="border-y border-black/[0.08] py-4 my-4 text-[18px] sm:text-[20px] text-[#171A22] font-normal leading-relaxed max-w-[800px]">
                         &ldquo;How might we make essential festival information easy to discover before the visit, while giving on-ground visitors clear ways to find services and request assistance?&rdquo;
                     </blockquote>
 
@@ -478,7 +477,7 @@ export default function MedaramJatharaContent() {
                                 <FlowArrow />
                                 <span>Explore services</span>
                             </div>
-                            <span className="text-[12.5px] text-[#717680]">Guest Web · Before arrival</span>
+                            <span className="text-[12.5px] text-[#717680]">Guest Web — Before arrival</span>
                         </div>
 
                         <div className="flex flex-col gap-1.5 pt-4 border-t border-black/[0.06]">
@@ -493,7 +492,7 @@ export default function MedaramJatharaContent() {
                                 <span>Open directions</span>
                             </div>
                             <span className="text-[12.5px] text-[#717680]">
-                                Guest App · During the visit. Directions open in an external map application; the product does not provide in-app turn-by-turn navigation.
+                                Guest App — During the visit. Directions open in an external map application; the product does not provide in-app turn-by-turn navigation.
                             </span>
                         </div>
 
@@ -509,7 +508,7 @@ export default function MedaramJatharaContent() {
                                 <span>Submit / share</span>
                             </div>
                             <span className="text-[12.5px] text-[#717680]">
-                                Guest App · Assistance pathway. The exact action depends on whether the visitor is requesting emergency help, reporting an incident or reporting a missing person.
+                                Guest App — Assistance pathway. The exact action depends on whether the visitor is requesting emergency help, reporting an incident or reporting a missing person.
                             </span>
                         </div>
                     </div>
@@ -809,7 +808,7 @@ export default function MedaramJatharaContent() {
                         <div className="flex flex-col">
                             <span className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#171A22]">5,000+</span>
                             <span className="text-[13px] text-[#596272] mt-1">
-                                App downloads · Designer-provided figure; no independent analytics evidence supplied here.
+                                App downloads — designer-provided figure; no independent analytics evidence supplied here.
                             </span>
                         </div>
                         <div className="flex flex-col">
@@ -836,7 +835,7 @@ export default function MedaramJatharaContent() {
                         </ul>
                     </div>
 
-                    <blockquote className="border-l-2 border-[#245CF5] pl-5 sm:pl-6 py-2 my-2 text-[18px] sm:text-[20px] text-[#171A22] font-normal italic leading-relaxed max-w-[800px]">
+                    <blockquote className="border-y border-black/[0.08] py-4 my-4 text-[18px] sm:text-[20px] text-[#171A22] font-normal leading-relaxed max-w-[800px]">
                         &ldquo;The biggest learning was that designing for a large public event means designing for a network of information, services and people—not just a collection of screens.&rdquo;
                     </blockquote>
 
@@ -851,7 +850,7 @@ export default function MedaramJatharaContent() {
                                     rel="noreferrer"
                                     className="text-[#245CF5] font-medium underline underline-offset-2 hover:text-[#1746C7]"
                                 >
-                                    The New Indian Express · 25 February 2024
+                                    The New Indian Express, 25 February 2024
                                 </a>{" "}
                                 — reports the minister-attributed attendance and missing-child figures from the 2024 event.
                             </p>
@@ -862,7 +861,7 @@ export default function MedaramJatharaContent() {
                                     rel="noreferrer"
                                     className="text-[#245CF5] font-medium underline underline-offset-2 hover:text-[#1746C7]"
                                 >
-                                    Press Information Bureau · Ministry of Tribal Affairs · 23 February 2024
+                                    Press Information Bureau, Ministry of Tribal Affairs, 23 February 2024
                                 </a>{" "}
                                 — background on the festival and its 2024 dates.
                             </p>

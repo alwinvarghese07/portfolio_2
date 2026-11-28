@@ -30,8 +30,8 @@ export default function WanderContent() {
                     </div>
 
                     <div className="flex flex-col gap-6 md:gap-8">
-                        {/* Role, Responsibilities, Tools Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-7 sm:p-10 bg-[#FBFBFB] rounded-3xl md:rounded-4xl border-0 shadow-none divide-y md:divide-y-0 md:divide-x divide-black/[0.06]">
+                        {/* Role, Responsibilities, Tools */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-5 border-b border-black/[0.06] divide-y md:divide-y-0 md:divide-x divide-black/[0.06]">
                             <div className="flex flex-col gap-1 pt-2 md:pt-0">
                                 <h4 className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Role</h4>
                                 <p className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">UI/UX Designer</p>
@@ -40,9 +40,9 @@ export default function WanderContent() {
                                 <h4 className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Responsibilities</h4>
                                 <ul className="flex flex-col gap-2 text-[14px] text-[#424B59] leading-relaxed">
                                     <li>UX Research</li>
-                                    <li>Sketching</li>
-                                    <li>UI/UX Design</li>
-                                    <li>Prototyping</li>
+                                    <li>User Flows & Sketching</li>
+                                    <li>UI Design</li>
+                                    <li>Interactive Prototyping</li>
                                 </ul>
                             </div>
                             <div className="flex flex-col gap-1 pt-5 md:pt-0 md:pl-8">
@@ -60,33 +60,33 @@ export default function WanderContent() {
                             </div>
                         </div>
 
-                        {/* Project Description & Goal Card */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 bg-[#FBFBFB] p-7 sm:p-10 rounded-3xl md:rounded-4xl border-0 shadow-none">
-                            <div className="flex flex-col gap-3">
-                                <h4 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22]">Project Description</h4>
-                                <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
-                                    Many outdoor enthusiasts struggle to find reliable adventure spots, plan trips efficiently, and connect with like-minded explorers. I designed Wander to simplify this process, offering seamless discovery, trip management, and social connectivity in one intuitive app.
+                        {/* Project Background & Goal */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 py-2">
+                            <div className="flex flex-col gap-2">
+                                <h4 className="text-[16px] font-semibold text-[#171A22]">Project Background</h4>
+                                <p className="text-[15px] text-[#596272] leading-relaxed">
+                                    Outdoor enthusiasts frequently face disjointed planning: fragmented trail information, uncertain route conditions, and difficulty coordinating group trips across multiple tools. Wander was conceived to bring trail discovery, route planning, and trip coordination into a unified interface.
                                 </p>
                             </div>
-                            <div className="flex flex-col gap-3">
-                                <h4 className="text-[17px] sm:text-[18px] font-semibold text-[#171A22]">Goal</h4>
-                                <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed">
-                                    The goal of Wander is to make outdoor adventure planning effortless by offering personalized recommendations and intuitive trip management. It connects adventurers, helping them explore, plan, and share experiences seamlessly.
+                            <div className="flex flex-col gap-2">
+                                <h4 className="text-[16px] font-semibold text-[#171A22]">Design Objective</h4>
+                                <p className="text-[15px] text-[#596272] leading-relaxed">
+                                    Design an end-to-end mobile experience that makes route discovery straightforward, simplifies itinerary organization, and helps adventurers share verified trail insights with their groups.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* What is Wander editorial callout */}
-                    <div className="flex flex-col items-center gap-4 p-8 sm:p-10 rounded-3xl md:rounded-4xl bg-[#FBFBFB] border-0 shadow-none text-center max-w-[760px] mx-auto w-full">
+                    {/* What is Wander */}
+                    <div className="flex flex-col items-center gap-3 py-6 max-w-[720px] mx-auto w-full text-center">
                         <div className="flex justify-center items-center gap-3 flex-wrap">
-                            <h2 className="text-2xl sm:text-3xl font-semibold text-[#171A22] tracking-tight">What is </h2>
+                            <h2 className="text-2xl sm:text-3xl font-semibold text-[#171A22] tracking-tight">What is</h2>
                             <div className="w-36 sm:w-40">
                                 <img src={wanderLogo} alt="Wander Logo" className="w-full h-full object-contain" />
                             </div>
                         </div>
                         <p className="text-[15px] sm:text-[16px] text-[#596272] text-center leading-relaxed">
-                            Wander is your go-to app for discovering and planning outdoor adventures effortlessly. Whether it's hiking, camping, or exploring hidden trails, Wander helps you find the best spots with personalized recommendations. Connect with fellow adventurers, organize trips, and make every journey unforgettable.
+                            Wander is a concept mobile application designed to simplify trail discovery, route navigation, and trip coordination for outdoor hikers and campers.
                         </p>
                     </div>
                 </div>
@@ -213,7 +213,7 @@ export default function WanderContent() {
                     <div className="flex flex-col gap-3">
                         <h4 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-[#171A22] tracking-tight leading-tight">User Persona</h4>
                         <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
-                            To better understand our ideal user, I created user personas based on insights from user research, surveys, competitor analysis, and key pain points. These personas help represent the needs, behaviors, and frustrations of real users, ensuring that every design decision aligns with their expectations and enhances their outdoor adventure experience.
+                            To ground design decisions in user workflows, I synthesized research findings into two core archetypes reflecting distinct experience levels, planning habits, and on-trail requirements.
                         </p>
                     </div>
 
@@ -413,21 +413,18 @@ export default function WanderContent() {
                         <div className="h-px bg-black/[0.08] grow"></div>
                     </div>
 
-                    <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start bg-[#FBFBFB] p-8 sm:p-12 md:p-14 rounded-3xl md:rounded-4xl border-0 shadow-none">
-                        <div className="md:w-1/2 flex flex-col gap-3">
-                            <h4 className="text-xl sm:text-2xl font-semibold text-[#171A22]">Wrapping It Up</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 py-4">
+                        <div className="flex flex-col gap-2.5">
+                            <h4 className="text-xl sm:text-2xl font-semibold text-[#171A22]">Key Reflection</h4>
                             <p className="text-[14px] sm:text-[15px] text-[#596272] leading-relaxed">
-                                Building this app wasn't just about making trip planning easier; it was about understanding what really gets people excited about adventure. Through research, testing, and plenty of trial and error, I saw that planning a trip isn't just about finding the best route; it's about the thrill of discovery and the people you share it with.
+                                Designing Wander highlighted the importance of balancing rich trail data with clarity on the go. When people are navigating unfamiliar outdoor environments, interfaces must prioritize rapid orientation, offline accessibility, and uncluttered wayfinding over unnecessary feature density.
                             </p>
                         </div>
 
-                        <div className="md:w-1/2 flex flex-col gap-3 md:pl-10 md:border-l border-black/[0.08]">
-                            <h4 className="text-xl sm:text-2xl font-semibold text-[#171A22]">One big takeaway?</h4>
+                        <div className="flex flex-col gap-2.5">
+                            <h4 className="text-xl sm:text-2xl font-semibold text-[#171A22]">Future Directions</h4>
                             <p className="text-[14px] sm:text-[15px] text-[#596272] leading-relaxed">
-                                Great design isn't just about solving problems; it's about creating moments of ease and excitement. By simplifying the planning process, this app ensures that users spend less time figuring things out and more time exploring the outdoors.
-                            </p>
-                            <p className="text-[13.5px] sm:text-[14px] text-[#717680] leading-relaxed italic pt-1">
-                                Moving forward, adding more personalization and community-driven features could take this even further.
+                                Further iterations would focus on rigorous field testing in low-connectivity areas, optimizing emergency trail beaconing, and refining community verification systems for real-time trail hazards.
                             </p>
                         </div>
                     </div>

@@ -165,14 +165,14 @@ export default function ProjectCard({
                     <h3 className="type-card-heading text-[#1A1A1A] group-hover:text-black transition-colors">
                         {title}
                     </h3>
-                    <span className="text-[#999] group-hover:text-[#1A1A1A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-[18px]" aria-hidden="true">
+                    <span className="text-[#717680] group-hover:text-[#1A1A1A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-[18px]" aria-hidden="true">
                         ↗
                     </span>
                 </div>
 
                 {/* 2. Category / Year — Metadata */}
                 {category && (
-                    <span className="type-metadata text-[#888]">
+                    <span className="type-metadata text-[#596272]">
                         {category}
                     </span>
                 )}

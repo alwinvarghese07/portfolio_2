@@ -9,7 +9,7 @@ const PROJECTS = [
     {
         id: "staytransit",
         title: "StayTransit",
-        category: "Product Design · Marketplace & Web / Mobile Apps",
+        category: "Product Design — Marketplace & Web / Mobile Apps",
         description: "Designing airport services around a traveller’s time. Making airport experiences easier to discover and book across lounges, stays, spas and transit services.",
         mediaUrl: StayTransitVideo,
         isVideo: true,
@@ -17,7 +17,7 @@ const PROJECTS = [
     {
         id: "medaram-jathara",
         title: "Medaram Jathara 2026",
-        category: "Product Design · Guest App + Guest Web",
+        category: "Product Design — Guest App & Guest Web",
         description: "A connected digital experience helping visitors prepare for a large-scale tribal festival and access essential information, services and emergency safety support on the ground.",
         mediaUrl: MedaramBanner,
         isVideo: false,
@@ -25,7 +25,7 @@ const PROJECTS = [
     {
         id: "tumbledry",
         title: "Tumbledry",
-        category: "Product Design · Mobile App",
+        category: "Product Design — Mobile App",
         description: "Redesigning the laundry pickup experience with transparent service selection, upfront pricing and order tracking.",
         mediaUrl: ShowreelVideo,
         isVideo: true,
@@ -33,7 +33,7 @@ const PROJECTS = [
     {
         id: "wander",
         title: "Wander",
-        category: "Product Design · Mobile App",
+        category: "Product Design — Mobile App",
         description: "An outdoor adventure app helping enthusiasts discover trails, plan custom itineraries and coordinate trips.",
         mediaUrl: DribbbleShot,
         isVideo: true,

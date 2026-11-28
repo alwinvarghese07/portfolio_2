@@ -95,8 +95,7 @@ function ShowcaseFrame({
 
             {/* Editorial Caption Bar */}
             {caption && (
-                <figcaption className="mt-3.5 px-2 flex items-start gap-3 text-left">
-                    <span className="w-1 h-3.5 rounded-full bg-[#245CF5] shrink-0 mt-1" aria-hidden="true" />
+                <figcaption className="mt-3.5 px-1 text-left">
                     <p className="text-[13px] sm:text-[13.5px] text-[#596272] leading-relaxed">
                         <strong className="text-[#171A22] font-semibold">{title}: </strong>
                         {caption}
@@ -145,8 +144,7 @@ export default function StayTransitContent() {
                             </div>
                             <div>
                                 <dt className="text-[11.5px] uppercase tracking-wider text-[#717680] font-semibold mb-1">Status</dt>
-                                <dd className="inline-flex items-center gap-2 text-[15px] sm:text-[16px] font-semibold text-[#171A22]">
-                                    <span className="w-2.5 h-2.5 rounded-full bg-[#1E8B68] animate-pulse" />
+                                <dd className="text-[15px] sm:text-[16px] font-semibold text-[#171A22]">
                                     Launched
                                 </dd>
                             </div>
@@ -178,36 +176,30 @@ export default function StayTransitContent() {
                         Some travellers arrive early to avoid security queues and look for a quiet workspace or lounge before boarding. Others arrive exhausted after long-haul flights needing a shower or day-room before heading into the city. Many are caught in transit with tight layovers, needing rapid rest without risking missed boarding calls.
                     </p>
 
-                    {/* 3-column Journey Situations Card Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 my-2">
-                        <div className="p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[160px]">
-                            <div>
-                                <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">SITUATION 01</span>
-                                <h3 className="text-[17px] font-semibold text-[#171A22] mb-1.5">Before departure</h3>
-                                <p className="text-[13.5px] text-[#596272] leading-relaxed">
-                                    Travellers who have cleared security early or face unexpected delays, seeking dedicated workspaces or quiet lounge rest before boarding.
-                                </p>
-                            </div>
+                    {/* 3-column Journey Situations Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 my-4 pt-6 border-t border-black/[0.06]">
+                        <div className="flex flex-col">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">01 — Before departure</span>
+                            <h3 className="text-[16px] font-semibold text-[#171A22] mb-1.5">Early check-in & delays</h3>
+                            <p className="text-[13.5px] text-[#596272] leading-relaxed">
+                                Travellers who have cleared security early or face unexpected delays, seeking dedicated workspaces or quiet lounge rest before boarding.
+                            </p>
                         </div>
 
-                        <div className="p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[160px]">
-                            <div>
-                                <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">SITUATION 02</span>
-                                <h3 className="text-[17px] font-semibold text-[#171A22] mb-1.5">After arrival</h3>
-                                <p className="text-[13.5px] text-[#596272] leading-relaxed">
-                                    Long-haul or red-eye arrivals needing immediate recovery, private showers or short-stay rooms before continuing into the city.
-                                </p>
-                            </div>
+                        <div className="flex flex-col">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">02 — After arrival</span>
+                            <h3 className="text-[16px] font-semibold text-[#171A22] mb-1.5">Red-eye recovery</h3>
+                            <p className="text-[13.5px] text-[#596272] leading-relaxed">
+                                Long-haul or red-eye arrivals needing immediate recovery, private showers or short-stay rooms before continuing into the city.
+                            </p>
                         </div>
 
-                        <div className="p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col justify-between min-h-[160px]">
-                            <div>
-                                <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">SITUATION 03</span>
-                                <h3 className="text-[17px] font-semibold text-[#171A22] mb-1.5">During transit</h3>
-                                <p className="text-[13.5px] text-[#596272] leading-relaxed">
-                                    Transit passengers with defined connection windows who need services strictly matched to their schedule without leaving the terminal zone.
-                                </p>
-                            </div>
+                        <div className="flex flex-col">
+                            <span className="text-[11px] font-mono text-[#717680] block mb-2 font-medium">03 — During transit</span>
+                            <h3 className="text-[16px] font-semibold text-[#171A22] mb-1.5">Connection windows</h3>
+                            <p className="text-[13.5px] text-[#596272] leading-relaxed">
+                                Transit passengers with defined connection windows who need services strictly matched to their schedule without leaving the terminal zone.
+                            </p>
                         </div>
                     </div>
 
@@ -246,14 +238,11 @@ export default function StayTransitContent() {
                     </p>
 
                     {/* Concluding Statement with subtle visual emphasis */}
-                    <div className="p-6 sm:p-7 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none my-2">
-                        <div className="flex items-start gap-3.5">
-                            <span className="w-1.5 h-5 rounded-full bg-[#245CF5] shrink-0 mt-1" aria-hidden="true" />
-                            <p className="text-[16px] sm:text-[17px] text-[#171A22] font-medium leading-relaxed">
-                                <strong className="text-[#245CF5] font-semibold">The key question: </strong>
-                                How might we make airport services easier to discover, compare and book around a traveller&apos;s available time?
-                            </p>
-                        </div>
+                    <div className="py-4 my-2 border-y border-black/[0.08]">
+                        <p className="text-[16px] sm:text-[18px] text-[#171A22] font-medium leading-relaxed">
+                            <strong className="text-[#171A22] font-semibold">The core question: </strong>
+                            How might we make airport services easier to discover, compare and book around a traveller&apos;s available time?
+                        </p>
                     </div>
                 </section>
             </Reveal>
@@ -284,10 +273,7 @@ export default function StayTransitContent() {
                     {/* Two-Column Scope Split Card */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-2">
                         <div className="p-6 sm:p-7 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-4">
-                            <div className="flex items-center gap-2.5">
-                                <span className="w-1.5 h-4 rounded-full bg-[#245CF5]" />
-                                <h3 className="text-[18px] font-semibold text-[#171A22]">Traveller-facing product</h3>
-                            </div>
+                            <h3 className="text-[18px] font-semibold text-[#171A22]">Traveller-facing product</h3>
                             <ul className="flex flex-col gap-3 text-[14px] text-[#424B59]">
                                 <li className="flex items-start gap-2.5">
                                     <span className="text-[#245CF5] font-bold text-xs mt-1">✓</span>
@@ -313,10 +299,7 @@ export default function StayTransitContent() {
                         </div>
 
                         <div className="p-6 sm:p-7 rounded-2xl bg-[#FBFBFB] border-0 shadow-none flex flex-col gap-4">
-                            <div className="flex items-center gap-2.5">
-                                <span className="w-1.5 h-4 rounded-full bg-[#1E8B68]" />
-                                <h3 className="text-[18px] font-semibold text-[#171A22]">Operational product</h3>
-                            </div>
+                            <h3 className="text-[18px] font-semibold text-[#171A22]">Operational product</h3>
                             <ul className="flex flex-col gap-3 text-[14px] text-[#424B59]">
                                 <li className="flex items-start gap-2.5">
                                     <span className="text-[#1E8B68] font-bold text-xs mt-1">✓</span>
@@ -372,16 +355,16 @@ export default function StayTransitContent() {
                     </p>
 
                     {/* Editorial Exploration Matrix */}
-                    <div className="flex flex-col gap-3 my-2">
+                    <div className="divide-y divide-black/[0.06] border-y border-black/[0.06] my-4">
                         {/* Exploration 01 */}
-                        <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        <div className="py-4 sm:py-5 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-6 items-baseline">
                             <div className="md:col-span-3">
-                                <span className="inline-block px-2.5 py-0.5 rounded-full bg-black/5 text-[#717680] text-[11px] font-bold uppercase tracking-wider">
+                                <span className="text-[11px] font-mono font-medium text-[#717680] uppercase tracking-wider">
                                     Exploration 01
                                 </span>
                             </div>
                             <div className="md:col-span-9">
-                                <h3 className="text-[16px] font-semibold text-[#171A22] mb-1">Airport first, then browse packages</h3>
+                                <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#171A22] mb-1">Airport first, then browse packages</h3>
                                 <p className="text-[14px] text-[#596272] leading-relaxed">
                                     Travellers selected an airport and browsed inventory directly. However, this forced travellers to evaluate package lengths before knowing if any matched their flight window, shifting the burden of filtering onto the user.
                                 </p>
@@ -389,14 +372,14 @@ export default function StayTransitContent() {
                         </div>
 
                         {/* Exploration 02 */}
-                        <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        <div className="py-4 sm:py-5 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-6 items-baseline">
                             <div className="md:col-span-3">
-                                <span className="inline-block px-2.5 py-0.5 rounded-full bg-black/5 text-[#717680] text-[11px] font-bold uppercase tracking-wider">
+                                <span className="text-[11px] font-mono font-medium text-[#717680] uppercase tracking-wider">
                                     Exploration 02
                                 </span>
                             </div>
                             <div className="md:col-span-9">
-                                <h3 className="text-[16px] font-semibold text-[#171A22] mb-1">Ask for the number of hours</h3>
+                                <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#171A22] mb-1">Ask for the number of hours</h3>
                                 <p className="text-[14px] text-[#596272] leading-relaxed">
                                     Asking travellers to specify duration (e.g., &quot;3 hours&quot;) moved closer to the matching logic, but still required travellers to do mental math on arrival and boarding times before initiating a search.
                                 </p>
@@ -404,14 +387,14 @@ export default function StayTransitContent() {
                         </div>
 
                         {/* Final Direction (Highlighted Solution) */}
-                        <div className="p-5 sm:p-6 rounded-2xl bg-[#FBFBFB] border-0 shadow-none grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 items-start">
+                        <div className="py-4 sm:py-5 grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-6 items-baseline">
                             <div className="md:col-span-3">
-                                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#245CF5] text-white text-[11px] font-bold uppercase tracking-wider">
+                                <span className="text-[11px] font-mono font-semibold text-[#245CF5] uppercase tracking-wider">
                                     Final direction
                                 </span>
                             </div>
                             <div className="md:col-span-9">
-                                <h3 className="text-[16px] font-semibold text-[#171A22] mb-1">Ask for actual check-in and check-out times</h3>
+                                <h3 className="text-[15px] sm:text-[16px] font-semibold text-[#171A22] mb-1">Ask for actual check-in and check-out times</h3>
                                 <p className="text-[14px] text-[#3F4856] leading-relaxed">
                                     Travellers enter the exact times they know—such as landing at 2:00 PM and departing at 6:00 PM. The platform automatically calculates the duration and surfaces properties with packages that comfortably fit within that window.
                                 </p>
@@ -419,14 +402,12 @@ export default function StayTransitContent() {
                         </div>
                     </div>
 
-                    {/* Editorial Takeaway Banner (The Shift) */}
-                    <div className="p-6 sm:p-8 rounded-2xl md:rounded-3xl bg-[#FBFBFB] border-0 shadow-none my-2">
-                        <div className="flex items-start gap-4">
-                            <span className="text-2xl leading-none text-[#245CF5]" aria-hidden="true">“</span>
-                            <p className="text-[16px] sm:text-[18px] text-[#283B6E] font-medium leading-relaxed">
-                                <strong>The shift:</strong> Instead of asking travellers to think in package durations, the experience starts with the time they know they have. StayTransit takes care of calculating duration and matching eligible packages.
-                            </p>
-                        </div>
+                    {/* Editorial Takeaway (The Shift) */}
+                    <div className="py-4 my-2 border-b border-black/[0.06]">
+                        <p className="text-[15px] sm:text-[17px] text-[#171A22] font-normal leading-relaxed">
+                            <strong className="font-semibold text-[#171A22]">The shift: </strong>
+                            Instead of asking travellers to think in package durations, the experience starts with the time they already know. StayTransit takes care of calculating duration and matching eligible packages.
+                        </p>
                     </div>
 
                     <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
@@ -520,12 +501,9 @@ export default function StayTransitContent() {
 
                         {/* Subsection: Packages */}
                         <div className="mt-3">
-                            <div className="flex items-center gap-2.5 mb-2">
-                                <span className="w-1.5 h-4 rounded-full bg-[#245CF5]" />
-                                <h4 className="text-[15px] sm:text-[16px] md:text-[17px] font-semibold text-[#171A22]">
-                                    Surfacing package conditions alongside price and duration.
-                                </h4>
-                            </div>
+                            <h4 className="text-[15px] sm:text-[16px] md:text-[17px] font-semibold text-[#171A22] mb-2">
+                                Surfacing package conditions alongside price and duration.
+                            </h4>
                             <p className="text-[15px] sm:text-[16px] text-[#596272] leading-relaxed max-w-[800px]">
                                 In an airport environment, packages of identical duration can carry fundamentally different constraints. One four-hour lounge pass might be adults-only, another might include private nap pods, and a third might have specific non-refundable policies.
                             </p>
@@ -540,8 +518,7 @@ export default function StayTransitContent() {
                                 alt="Available packages comparison"
                                 className="w-full h-auto block rounded-2xl md:rounded-3xl"
                             />
-                            <figcaption className="mt-3.5 px-2 flex items-start gap-3 text-left">
-                                <span className="w-1 h-3.5 rounded-full bg-[#245CF5] shrink-0 mt-1" aria-hidden="true" />
+                            <figcaption className="mt-3.5 px-1 text-left">
                                 <p className="text-[13px] sm:text-[13.5px] text-[#596272] leading-relaxed">
                                     <strong className="text-[#171A22] font-semibold">Available packages: </strong>
                                     Package cards surface duration, checkout deadlines, guest count, refundability, included amenities and total price for direct side-by-side comparison.
@@ -577,8 +554,7 @@ export default function StayTransitContent() {
                                     className="w-full h-auto block select-none"
                                 />
                             </div>
-                            <figcaption className="mt-4 px-2 flex items-start gap-3 text-left w-full max-w-[800px]">
-                                <span className="w-1 h-3.5 rounded-full bg-[#245CF5] shrink-0 mt-1" aria-hidden="true" />
+                            <figcaption className="mt-4 px-1 text-left w-full max-w-[800px]">
                                 <p className="text-[13px] sm:text-[13.5px] text-[#596272] leading-relaxed">
                                     <strong className="text-[#171A22] font-semibold">Persistent booking action: </strong>
                                     The selected package, duration and running total remain accessible across the property page, keeping the booking path frictionless.
@@ -634,12 +610,9 @@ export default function StayTransitContent() {
                     {/* Roles */}
                     <div className="mt-4 flex flex-col gap-2">
                         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-2">
-                            <div className="flex items-center gap-2.5">
-                                <span className="w-1.5 h-4 rounded-full bg-[#245CF5]" />
-                                <h3 className="text-lg sm:text-xl md:text-[20px] font-semibold text-[#171A22]">
-                                    Four interfaces, distinct responsibilities.
-                                </h3>
-                            </div>
+                            <h3 className="text-lg sm:text-xl md:text-[20px] font-semibold text-[#171A22]">
+                                Four interfaces, distinct responsibilities.
+                            </h3>
                             <span className="text-[11px] font-semibold tracking-wider text-[#777] uppercase">
                                 Operational dashboards
                             </span>
@@ -688,14 +661,11 @@ export default function StayTransitContent() {
 
                     {/* Confidentiality Note */}
                     <aside
-                        className="my-3 pl-4 sm:pl-5 border-l-2 border-[#245CF5]/30 max-w-[780px]"
+                        className="my-3 py-3 border-y border-black/[0.06] max-w-[780px]"
                         aria-label="Confidentiality note"
                     >
-                        <p
-                            className="text-[16px] sm:text-[18px] text-[#3F4856] italic leading-relaxed"
-                            style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
-                        >
-                            The internal dashboards are not shown here due to confidentiality constraints. Reach out to me directly if you&apos;d like to learn more.
+                        <p className="text-[14px] sm:text-[15px] text-[#717680] leading-relaxed">
+                            Note: Internal dashboards and operational workflows are not reproduced in full here due to confidentiality constraints. Further details available upon request.
                         </p>
                     </aside>
                 </section>

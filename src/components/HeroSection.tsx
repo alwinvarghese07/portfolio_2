@@ -5,16 +5,6 @@ export default function HeroSection() {
     return (
         <div className="relative w-full flex flex-col items-center justify-center text-center py-6 md:py-8">
 
-            {/* ── Soft Atmospheric Aura Backdrop (Dilroop style) ── */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[440px] md:w-[540px] h-[200px] sm:h-[260px] md:h-[300px] pointer-events-none -z-0">
-                <div
-                    className="w-full h-full rounded-full opacity-45 blur-3xl"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(165,180,252,0.32) 0%, rgba(224,231,255,0.2) 45%, rgba(255,255,255,0) 70%)'
-                    }}
-                />
-            </div>
-
             <div className="relative z-10 flex flex-col items-center max-w-[800px] mx-auto px-4">
 
                 {/* ── Display / Hero Headline ── */}

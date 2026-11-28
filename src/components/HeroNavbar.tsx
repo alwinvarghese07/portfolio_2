@@ -62,7 +62,7 @@ function NavbarContent({ activeSection, scrollToSection }: NavbarContentProps) {
                     onClick={(e) => scrollToSection(e, "home")}
                     className={`type-nav text-[15px] sm:text-[16px] transition-colors duration-200 cursor-pointer ${activeSection === "home"
                         ? "text-[#1A1A1A] !font-medium"
-                        : "text-[#888888] !font-normal hover:text-[#1A1A1A]"
+                        : "text-[#666666] !font-normal hover:text-[#1A1A1A]"
                         }`}
                 >
                     Home
@@ -72,7 +72,7 @@ function NavbarContent({ activeSection, scrollToSection }: NavbarContentProps) {
                     onClick={(e) => scrollToSection(e, "works")}
                     className={`type-nav text-[15px] sm:text-[16px] transition-colors duration-200 cursor-pointer ${activeSection === "works"
                         ? "text-[#1A1A1A] !font-medium"
-                        : "text-[#888888] !font-normal hover:text-[#1A1A1A]"
+                        : "text-[#666666] !font-normal hover:text-[#1A1A1A]"
                         }`}
                 >
                     Works
@@ -82,7 +82,7 @@ function NavbarContent({ activeSection, scrollToSection }: NavbarContentProps) {
                     onClick={(e) => scrollToSection(e, "about")}
                     className={`type-nav text-[15px] sm:text-[16px] transition-colors duration-200 cursor-pointer ${activeSection === "about"
                         ? "text-[#1A1A1A] !font-medium"
-                        : "text-[#888888] !font-normal hover:text-[#1A1A1A]"
+                        : "text-[#666666] !font-normal hover:text-[#1A1A1A]"
                         }`}
                 >
                     About

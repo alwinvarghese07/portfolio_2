@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { motion } from "motion/react";
 import BentoGrid from "./BentoGrid";
 import FigmaHighlight from "./FigmaHighlight";
 import ExperienceHistory from "./ExperienceHistory";
@@ -34,52 +33,30 @@ export default function AboutSection({ className = "" }: { className?: string })
 
             {/* ── Editorial Bio: A bit about me ── */}
             <div className="mt-14 md:mt-18 flex flex-col gap-5">
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                >
+                <div>
                     <h3 className="type-card-heading text-[#1A1A1A]">
                         A bit about me
                     </h3>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                    className="flex flex-col gap-4 type-body text-[#333333] leading-[1.7]"
-                >
+                <div className="flex flex-col gap-4 type-body text-[#333333] leading-[1.7]">
                     {BIO_PARAGRAPHS.map((text, i) => (
                         <p key={i}>
                             {text}
                         </p>
                     ))}
-                </motion.div>
+                </div>
             </div>
 
             {/* ── Outside of design: Music & Media ── */}
             <div className="mt-14 md:mt-18 flex flex-col gap-5">
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                >
+                <div>
                     <h3 className="type-card-heading text-[#1A1A1A]">
                         Outside of design
                     </h3>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                    className="flex flex-col sm:flex-row gap-4 sm:gap-5 w-full items-stretch"
-                >
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 w-full items-stretch">
                     <div className="w-full flex-1">
                         <Suspense fallback={<div className="h-[200px] w-full rounded-2xl bg-black/5" />}>
                             <SpotifyCard />
@@ -91,7 +68,7 @@ export default function AboutSection({ className = "" }: { className?: string })
                             <YTCard />
                         </Suspense>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );
